@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen pt-32 pb-20 px-6 bg-[#f8fafc] flex flex-col items-center justify-center">
+    <div class="max-w-6xl w-full text-center space-y-12">
+
+        <!-- Lottie Animation Placeholder -->
+        <div class="w-64 h-64 mx-auto relative">
+             <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <!-- Suggestion: 404-astronaut.json -->
+            <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_suhe7qtm.json"  background="transparent"  speed="1"  style="width: 100%; height: 100%;"  loop  autoplay></lottie-player>
+            <!-- <p class="text-xs text-gray-400 mt-2">Animation: 404 Astronaut</p> -->
+        </div>
+
+        <div class="space-y-4">
+            <h1 class="text-4xl md:text-6xl font-bold text-[#064060]">Oups ! Page Introuvable</h1>
+            <p class="text-xl text-gray-600">Il semble que vous ayez atteint les limites de notre galaxie numérique.</p>
+        </div>
+
+        <!-- The 3 Pillars of Retention -->
+        <div class="grid md:grid-cols-3 gap-8 mt-12 text-left">
+
+            <!-- Pillar 1: The Guide -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100 group flex flex-col h-full">
+                <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#064060] transition-colors">
+                    <span class="material-symbols-outlined text-[#064060] group-hover:text-white text-2xl">explore</span>
+                </div>
+                <h3 class="text-xl font-bold text-[#064060] mb-4">Perdu ?</h3>
+                <p class="text-gray-500 mb-8 text-sm flex-grow">Ne repartez pas les mains vides. Découvrez nos projets innovants et nos solutions technologiques.</p>
+                <a href="{{ url_for('main.portfolio') }}" class="inline-flex justify-center items-center w-full py-3 px-6 bg-gray-100 hover:bg-gray-200 text-[#064060] font-semibold rounded-lg transition-colors">
+                    Voir le Portfolio
+                </a>
+            </div>
+
+            <!-- Pillar 2: The Concierge -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100 group relative overflow-hidden flex flex-col h-full">
+                <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#25D366] transition-colors">
+                    <span class="material-symbols-outlined text-[#25D366] group-hover:text-white text-2xl">chat</span>
+                </div>
+                <h3 class="text-xl font-bold text-[#064060] mb-4">Besoin d'aide ?</h3>
+                <p class="text-gray-500 mb-8 text-sm flex-grow">Une question urgente ? Notre équipe est disponible immédiatement sur WhatsApp pour vous guider.</p>
+                <a href="https://wa.me/{{ whatsapp_number }}" target="_blank" class="inline-flex justify-center items-center w-full py-3 px-6 bg-[#25D366] hover:bg-[#128C7E] text-white font-semibold rounded-lg transition-colors gap-2">
+                    <span class="material-symbols-outlined text-lg">call</span>
+                    Discuter maintenant
+                </a>
+            </div>
+
+            <!-- Pillar 3: The Lead Magnet -->
+            <div class="bg-gradient-to-br from-[#064060] to-[#076D6D] p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all text-white transform hover:-translate-y-1 flex flex-col h-full relative overflow-hidden">
+                <!-- Decoration -->
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6 backdrop-blur-sm border border-white/20">
+                    <span class="material-symbols-outlined text-white text-2xl">card_giftcard</span>
+                </div>
+                <h3 class="text-xl font-bold mb-4">Pour nous faire pardonner</h3>
+                <p class="text-blue-100 mb-8 text-sm flex-grow">Profitez d'une consultation de 30 minutes offerte pour discuter de votre stratégie digitale.</p>
+                <a href="{{ consultation_url }}" target="_blank" class="inline-flex justify-center items-center w-full py-3 px-6 bg-white text-[#076D6D] font-bold rounded-lg hover:bg-gray-50 transition-colors shadow-sm">
+                    Réclamer mon cadeau
+                </a>
+            </div>
+
+        </div>
+
+        <div class="pt-8">
+            <a href="{{ url_for('main.index') }}" class="text-[#076D6D] hover:text-[#064060] font-medium flex items-center justify-center gap-2 transition-colors group">
+                <span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                Retour à la base
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
