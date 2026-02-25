@@ -1,16 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<main class="pt-32 pb-20 overflow-hidden bg-white">
-    <!-- Header Section -->
-    <div class="container mx-auto px-6 mb-24 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-[#064060] mb-6 reveal">5. MISSIONS OPÉRATIONNELLES & SERVICES</h1>
-        <p class="text-xl text-gray-600 max-w-4xl mx-auto reveal delay-100 leading-relaxed">
+
+<!-- Hero Section -->
+<section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 to-slate-100 pt-32 pb-20">
+    <div class="absolute inset-0 z-0">
+        <!-- Subtle geometric animation -->
+        <div class="absolute top-20 left-10 w-64 h-64 bg-[#30a192]/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-[#1d5865]/10 rounded-full blur-3xl animate-pulse" style="animation-duration: 4s;"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10 text-center reveal">
+        <h1 class="text-4xl md:text-6xl font-bold text-[#1d5865] mb-6 tracking-tight uppercase">
+            Missions Opérationnelles & Services
+        </h1>
+        <div class="w-24 h-1 bg-[#30a192] mx-auto mb-8"></div>
+        <p class="text-xl md:text-2xl text-gray-600 font-light max-w-4xl mx-auto leading-relaxed">
             L'offre de Shabaka InnovLab s'articule autour de cinq piliers fondamentaux pour sécuriser le parcours de l'entrepreneur et offrir des services technologiques de haut niveau.
         </p>
     </div>
+</section>
 
-    <!-- Z-Pattern Layout -->
+<!-- Z-Pattern Layout -->
+<div class="py-24 bg-white overflow-hidden">
     <div class="container mx-auto px-6 space-y-32">
 
         <!-- Pillar A: Incubation & Accompagnement (Left Block, Right Text) -->
@@ -281,7 +293,7 @@
         </a>
     </div>
 
-</main>
+</div>
 
 <style>
 @keyframes growUp { from { transform: scaleY(0); } to { transform: scaleY(1); } }

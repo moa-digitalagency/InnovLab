@@ -22,7 +22,9 @@ class TestServicesRoute(unittest.TestCase):
     def test_services_page_loads(self):
         response = self.client.get('/services')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'5. MISSIONS OP\xc3\x89RATIONNELLES & SERVICES', response.data)
+        # Check for the new title (Missions Opérationnelles & Services)
+        # Note: UTF-8 encoding for accents
+        self.assertIn('Missions Opérationnelles & Services'.encode('utf-8'), response.data)
         self.assertIn(b'Accompagnement & Incubation', response.data)
         self.assertIn(b'Shabaka Academy', response.data)
 
