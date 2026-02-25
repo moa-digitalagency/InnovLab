@@ -28,6 +28,8 @@ def founder():
         email = request.form.get('email')
         projet_name = request.form.get('projet_name')
         description = request.form.get('description')
+        project_stage = request.form.get('project_stage')
+        primary_need = request.form.get('primary_need')
 
         filename = None
         file_pitch = request.files.get('file_pitch')
@@ -43,6 +45,8 @@ def founder():
             email=email,
             projet_name=projet_name,
             description=description,
+            project_stage=project_stage,
+            primary_need=primary_need,
             file_pitch=filename
         )
         db.session.add(new_founder)
@@ -57,8 +61,10 @@ def startup():
         nom_startup = request.form.get('nom_startup')
         email = request.form.get('email')
         secteur = request.form.get('secteur')
-        besoins = request.form.get('besoins')
+        besoins = ', '.join(request.form.getlist('besoins'))
         website_url = request.form.get('website_url')
+        annual_revenue = request.form.get('annual_revenue')
+        team_size = request.form.get('team_size')
         stage = request.form.get('stage')
 
         filename = None
@@ -76,6 +82,8 @@ def startup():
             secteur=secteur,
             besoins=besoins,
             website_url=website_url,
+            annual_revenue=annual_revenue,
+            team_size=team_size,
             stage=stage,
             file_pitch=filename
         )
@@ -92,7 +100,7 @@ def investor():
         email = request.form.get('email')
         type_investisseur = request.form.get('type_investisseur')
         ticket_moyen = request.form.get('ticket_moyen')
-        sectors_interest = request.form.get('sectors_interest')
+        sectors_interest = ', '.join(request.form.getlist('sectors_interest'))
         linkedin_profile = request.form.get('linkedin_profile')
 
         filename = None

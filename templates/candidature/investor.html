@@ -1,56 +1,130 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#f8fafc]">
-    <div class="absolute inset-0 hero-pattern pointer-events-none"></div>
-    <div class="container mx-auto px-6 relative z-10">
-        <div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-            <h1 class="text-3xl font-bold text-[#064060] mb-6 text-center">Espace Investisseur</h1>
-            <p class="text-gray-500 mb-8 text-center">Investissez dans la souveraineté technologique africaine.</p>
+<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-slate-50 min-h-screen">
+    <!-- Background Decor -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-gradient-to-br from-[#064060]/10 to-transparent blur-3xl"></div>
+        <div class="absolute top-[40%] -right-[10%] w-[50%] h-[50%] rounded-full bg-gradient-to-tr from-[#076D6D]/10 to-transparent blur-3xl"></div>
+    </div>
 
-            <form action="{{ url_for('main.investor') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-                <div>
-                    <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">Nom (ou Entité)</label>
-                    <input type="text" name="nom" id="nom" required class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <!-- Glassmorphism Card -->
+            <div class="bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl rounded-3xl p-8 md:p-12">
+                <div class="text-center mb-10">
+                    <span class="inline-block py-1 px-3 rounded-full bg-[#064060]/10 text-[#064060] text-sm font-semibold mb-4">Réseau Investisseurs</span>
+                    <h1 class="text-3xl md:text-4xl font-bold text-[#064060] mb-4">Investissez dans le Futur</h1>
+                    <p class="text-gray-600 text-lg">Découvrez des opportunités exclusives et à fort impact.</p>
                 </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email professionnel</label>
-                    <input type="email" name="email" id="email" required class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
-                </div>
-                <div>
-                    <label for="type_investisseur" class="block text-sm font-medium text-gray-700 mb-1">Type d'investisseur</label>
-                    <select name="type_investisseur" id="type_investisseur" class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
-                        <option value="BA">Business Angel</option>
-                        <option value="VC">Venture Capital</option>
-                        <option value="Corporate">Corporate / CVC</option>
-                        <option value="Institutional">Institutionnel</option>
-                        <option value="Other">Autre</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="ticket_moyen" class="block text-sm font-medium text-gray-700 mb-1">Ticket moyen</label>
-                    <select name="ticket_moyen" id="ticket_moyen" class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
-                        <option value="<50k">&lt; 50k €</option>
-                        <option value="50k-200k">50k - 200k €</option>
-                        <option value="200k-500k">200k - 500k €</option>
-                        <option value="500k-1M">500k - 1M €</option>
-                        <option value=">1M">&gt; 1M €</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="sectors_interest" class="block text-sm font-medium text-gray-700 mb-1">Secteurs d'intérêt</label>
-                    <input type="text" name="sectors_interest" id="sectors_interest" class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
-                </div>
-                <div>
-                    <label for="linkedin_profile" class="block text-sm font-medium text-gray-700 mb-1">Profil LinkedIn</label>
-                    <input type="url" name="linkedin_profile" id="linkedin_profile" class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
-                </div>
-                <div>
-                    <label for="file_intent" class="block text-sm font-medium text-gray-700 mb-1">Lettre d'intention (Optionnelle)</label>
-                    <input type="file" name="file_intent" id="file_intent" accept=".pdf,.doc,.docx" class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
-                </div>
-                <button type="submit" class="w-full bg-[#076D6D] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#055050] transition-colors">Rejoindre le réseau</button>
-            </form>
+
+                <form action="{{ url_for('main.investor') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
+
+                    <!-- Section 1: Identité -->
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-bold text-[#064060] border-b border-gray-200 pb-2">Votre Profil</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="nom" class="block text-sm font-semibold text-gray-700">Nom complet / Organisation</label>
+                                <input type="text" name="nom" id="nom" required
+                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="email" class="block text-sm font-semibold text-gray-700">Email professionnel</label>
+                                <input type="email" name="email" id="email" required
+                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400">
+                            </div>
+
+                            <div class="space-y-2 md:col-span-2">
+                                <label for="linkedin_profile" class="block text-sm font-semibold text-gray-700">Profil LinkedIn / Site Web</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <span class="material-symbols-outlined text-gray-400 text-lg">link</span>
+                                    </div>
+                                    <input type="url" name="linkedin_profile" id="linkedin_profile" required
+                                        class="w-full pl-10 bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400"
+                                        placeholder="https://linkedin.com/in/...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Stratégie -->
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-bold text-[#064060] border-b border-gray-200 pb-2">Thèse d'Investissement</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label for="type_investisseur" class="block text-sm font-semibold text-gray-700">Type d'investisseur</label>
+                                <select name="type_investisseur" id="type_investisseur" required
+                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all appearance-none cursor-pointer">
+                                    <option value="" disabled selected>Choisir...</option>
+                                    <option value="BA">Business Angel</option>
+                                    <option value="VC">Venture Capital</option>
+                                    <option value="Corporate">Corporate</option>
+                                    <option value="Institutional">Institutionnel</option>
+                                </select>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="ticket_moyen" class="block text-sm font-semibold text-gray-700">Ticket Moyen</label>
+                                <select name="ticket_moyen" id="ticket_moyen" required
+                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all appearance-none cursor-pointer">
+                                    <option value="" disabled selected>Plage d'investissement...</option>
+                                    <option value="<50k">< 50k €</option>
+                                    <option value="50k-200k">50k € - 200k €</option>
+                                    <option value="200k-1M">200k € - 1M €</option>
+                                    <option value=">1M">> 1M €</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Secteurs d'intérêt (Checkboxes) -->
+                        <div class="space-y-3">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Secteurs de prédilection</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
+                                    <input type="checkbox" name="sectors_interest" value="FinTech" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
+                                    <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-[#064060]">FinTech</span>
+                                </label>
+                                <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
+                                    <input type="checkbox" name="sectors_interest" value="AgriTech" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
+                                    <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-[#064060]">AgriTech</span>
+                                </label>
+                                <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
+                                    <input type="checkbox" name="sectors_interest" value="HealthTech" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
+                                    <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-[#064060]">HealthTech</span>
+                                </label>
+                                <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
+                                    <input type="checkbox" name="sectors_interest" value="GovTech" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
+                                    <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-[#064060]">GovTech</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upload (Optional) -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-semibold text-gray-700">Lettre d'intérêt / Thèse (Optionnel)</label>
+                        <div class="relative group">
+                            <input type="file" name="file_intent" id="file_intent" accept=".pdf"
+                                class="w-full text-sm text-gray-500 bg-white/50 border border-slate-200 rounded-xl file:mr-4 file:py-3 file:px-6 file:rounded-l-xl file:border-0 file:text-sm file:font-semibold file:bg-[#064060]/10 file:text-[#064060] hover:file:bg-[#064060]/20 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#076D6D]">
+                            <p class="mt-2 text-xs text-gray-500">Pour mieux comprendre vos attentes.</p>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-6">
+                        <button type="submit"
+                            class="w-full bg-[#076D6D] hover:bg-[#064060] text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2">
+                            <span>Rejoindre le réseau</span>
+                            <span class="material-symbols-outlined text-sm">handshake</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </section>

@@ -7,6 +7,8 @@ class FounderRequest(db.Model):
     email = db.Column(db.String(120))
     projet_name = db.Column(db.String(128))
     description = db.Column(db.Text)
+    project_stage = db.Column(db.String(64))
+    primary_need = db.Column(db.String(64))
     file_pitch = db.Column(db.String(256))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -20,6 +22,8 @@ class StartupRequest(db.Model):
     secteur = db.Column(db.String(128))
     besoins = db.Column(db.Text)
     website_url = db.Column(db.String(256))
+    annual_revenue = db.Column(db.String(64))
+    team_size = db.Column(db.String(64))
     stage = db.Column(db.String(64))
     file_pitch = db.Column(db.String(256))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
