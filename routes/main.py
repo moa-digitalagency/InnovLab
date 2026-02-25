@@ -19,6 +19,22 @@ def about():
 def services():
     return render_template('services.html')
 
+@main_bp.route('/portfolio', methods=['GET'])
+def portfolio():
+    projects = [
+        {"category": "PropTech", "title": "Shabaka Syndic", "description": "Gestion copro digitale."},
+        {"category": "PropTech", "title": "Shabaka Alu+", "description": "Devis menuiserie 30s."},
+        {"category": "PropTech", "title": "Shabaka IMMO", "description": "Rapports de visite IA."},
+        {"category": "GovTech", "title": "SGI-GP (GoPass)", "description": "Recettes aéroportuaires, Zero Trust."},
+        {"category": "GovTech", "title": "Intel ATM-RDC", "description": "Surveillance aérienne IA."},
+        {"category": "GovTech", "title": "GEC", "description": "Gestion Électronique Courriels."},
+        {"category": "HealthTech", "title": "Algorithme AAPCMLU", "description": "Diagnostic lithiases urinaires."},
+        {"category": "HealthTech", "title": "Urgence Gabon", "description": "Logistique secours."},
+        {"category": "Retail/Daily", "title": "Hannout AI", "description": "Reconnaissance produits."},
+        {"category": "Retail/Daily", "title": "LexIA", "description": "Juridique IA."},
+    ]
+    return render_template('portfolio.html', projects=projects)
+
 @main_bp.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'GET':
