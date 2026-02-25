@@ -1,36 +1,104 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#f8fafc]">
-    <div class="absolute inset-0 hero-pattern pointer-events-none"></div>
-    <div class="container mx-auto px-6 relative z-10">
-        <div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-            <h1 class="text-3xl font-bold text-[#064060] mb-6 text-center">Candidature Fondateur</h1>
-            <p class="text-gray-500 mb-8 text-center">Présentez-nous votre projet et rejoignez l'écosystème.</p>
+<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-slate-50 min-h-screen">
+    <!-- Background Decor -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-[#076D6D]/10 to-transparent blur-3xl"></div>
+        <div class="absolute top-[20%] -left-[10%] w-[40%] h-[40%] rounded-full bg-gradient-to-tr from-[#064060]/10 to-transparent blur-3xl"></div>
+    </div>
 
-            <form action="{{ url_for('main.founder') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-                <div>
-                    <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
-                    <input type="text" name="nom" id="nom" required class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-3xl mx-auto">
+            <!-- Glassmorphism Card -->
+            <div class="bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl rounded-3xl p-8 md:p-12">
+                <div class="text-center mb-10">
+                    <span class="inline-block py-1 px-3 rounded-full bg-[#076D6D]/10 text-[#076D6D] text-sm font-semibold mb-4">Programme Fondateurs</span>
+                    <h1 class="text-3xl md:text-4xl font-bold text-[#064060] mb-4">Concrétisez votre Vision</h1>
+                    <p class="text-gray-600 text-lg">Rejoignez l'écosystème et transformez votre idée en startup viable.</p>
                 </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" name="email" id="email" required class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
-                </div>
-                <div>
-                    <label for="projet_name" class="block text-sm font-medium text-gray-700 mb-1">Nom du projet</label>
-                    <input type="text" name="projet_name" id="projet_name" required class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
-                </div>
-                <div>
-                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                    <textarea name="description" id="description" rows="4" class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]"></textarea>
-                </div>
-                <div>
-                    <label for="file_pitch" class="block text-sm font-medium text-gray-700 mb-1">Pitch Deck (PDF)</label>
-                    <input type="file" name="file_pitch" id="file_pitch" accept=".pdf" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-[#076D6D] hover:file:bg-teal-100">
-                </div>
-                <button type="submit" class="w-full bg-[#076D6D] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#055050] transition-colors">Envoyer ma candidature</button>
-            </form>
+
+                <form action="{{ url_for('main.founder') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Nom complet -->
+                        <div class="space-y-2">
+                            <label for="nom" class="block text-sm font-semibold text-gray-700">Nom complet</label>
+                            <input type="text" name="nom" id="nom" required
+                                class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400"
+                                placeholder="Votre nom">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="space-y-2">
+                            <label for="email" class="block text-sm font-semibold text-gray-700">Email professionnel</label>
+                            <input type="email" name="email" id="email" required
+                                class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400"
+                                placeholder="vous@exemple.com">
+                        </div>
+                    </div>
+
+                    <!-- Nom du projet -->
+                    <div class="space-y-2">
+                        <label for="projet_name" class="block text-sm font-semibold text-gray-700">Nom du projet</label>
+                        <input type="text" name="projet_name" id="projet_name" required
+                            class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400"
+                            placeholder="Nom de votre startup ou projet">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Stade du projet -->
+                        <div class="space-y-2">
+                            <label for="project_stage" class="block text-sm font-semibold text-gray-700">Stade du projet</label>
+                            <select name="project_stage" id="project_stage" required
+                                class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all appearance-none cursor-pointer">
+                                <option value="" disabled selected>Sélectionnez une étape</option>
+                                <option value="Ideation">Idéation</option>
+                                <option value="Prototype">Prototype</option>
+                                <option value="MVP">MVP</option>
+                            </select>
+                        </div>
+
+                        <!-- Besoin principal -->
+                        <div class="space-y-2">
+                            <label for="primary_need" class="block text-sm font-semibold text-gray-700">Besoin principal</label>
+                            <select name="primary_need" id="primary_need" required
+                                class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all appearance-none cursor-pointer">
+                                <option value="" disabled selected>Quel est votre besoin ?</option>
+                                <option value="Tech">Tech</option>
+                                <option value="Financement">Financement</option>
+                                <option value="Mentoring">Mentoring</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="space-y-2">
+                        <label for="description" class="block text-sm font-semibold text-gray-700">Description du projet</label>
+                        <textarea name="description" id="description" rows="4" required
+                            class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400"
+                            placeholder="Décrivez votre vision, votre marché cible et votre proposition de valeur..."></textarea>
+                    </div>
+
+                    <!-- Upload Pitch Deck -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-semibold text-gray-700">Pitch Deck / Présentation</label>
+                        <div class="relative group">
+                            <input type="file" name="file_pitch" id="file_pitch" accept=".pdf,.pptx,.ppt"
+                                class="w-full text-sm text-gray-500 bg-white/50 border border-slate-200 rounded-xl file:mr-4 file:py-3 file:px-6 file:rounded-l-xl file:border-0 file:text-sm file:font-semibold file:bg-[#076D6D]/10 file:text-[#076D6D] hover:file:bg-[#076D6D]/20 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#076D6D]">
+                            <p class="mt-2 text-xs text-gray-500">Formats acceptés : PDF, PPTX (Max 16Mo)</p>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-4">
+                        <button type="submit"
+                            class="w-full bg-[#064060] hover:bg-[#076D6D] text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2">
+                            <span>Soumettre ma candidature</span>
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </section>
