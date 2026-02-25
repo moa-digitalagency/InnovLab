@@ -16,10 +16,11 @@ class TestAdmin(unittest.TestCase):
         self.app = app.test_client()
         with app.app_context():
             db.create_all()
-            user = User(username='admin')
-            user.set_password('password')
-            db.session.add(user)
-            db.session.commit()
+            if not User.query.filter_by(username='admin').first():
+                user = User(username='admin')
+                user.set_password('password')
+                db.session.add(user)
+                db.session.commit()
 
     def tearDown(self):
         with app.app_context():

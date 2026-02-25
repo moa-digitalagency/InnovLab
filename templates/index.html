@@ -1,615 +1,1076 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Animation - Shabaka InnovLab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* --- STYLES DU HERO --- */
+        .hero-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #30a19210 50%, #E2E8F0 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
-{% block content %}
-<style>
-    /* Styles pour le conteneur principal */
-    .hero-container {
-        position: relative;
-        width: 100%;
-        min-height: 100vh;
-        overflow: hidden;
-        /* Fond ultra-clair avec une très subtile touche de la couleur du logo */
-        background: radial-gradient(circle at 50% 50%, #ffffff 0%, #F0FDFA 50%, #E2E8F0 100%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding-top: 140px;
-        padding-bottom: 60px;
-    }
+        .svg-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-    .svg-background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        pointer-events: none;
-    }
+        .content-overlay {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
 
-    .content-overlay {
-        position: relative;
-        z-index: 10;
-        text-align: center;
-        max-width: 900px;
-        padding: 2rem;
-        margin-top: 2rem;
-    }
+        /* --- ANIMATIONS SVG DU HERO --- */
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+        }
+        @keyframes pulse-tech-node {
+            0%, 100% { r: 4; fill: #1d5865; filter: drop-shadow(0 0 4px rgba(29, 88, 101, 0.6)); }
+            50% { r: 6.5; fill: #30a192; filter: drop-shadow(0 0 12px rgba(48, 161, 146, 1)); }
+        }
+        @keyframes heartbeat-ring {
+            0% { r: 0; opacity: 1; stroke-width: 4; }
+            100% { r: 150; opacity: 0; stroke-width: 0; }
+        }
+        @keyframes data-stream {
+            to { stroke-dashoffset: -200; }
+        }
+        @keyframes spin-watermark {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-    /* --- ANIMATIONS "ALIVE" ET DYNAMIQUES --- */
+        .halo-breathe { animation: breathe 8s ease-in-out infinite; transform-origin: center; }
+        .halo-breathe-alt { animation: breathe 12s ease-in-out infinite reverse; transform-origin: center; }
+        .node { animation: pulse-tech-node 3s ease-in-out infinite; }
+        .node:nth-child(even) { animation-delay: 1.5s; }
+        .node:nth-child(3n) { animation-delay: 0.7s; }
+        .pulse-ring {
+            fill: none;
+            stroke: #30a192;
+            transform-origin: 700px 480px;
+            animation: heartbeat-ring 4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        .pulse-ring:nth-child(2) { animation-delay: 2s; }
+        .data-flow-line { stroke-dasharray: 6 24; animation: data-stream 10s linear infinite; }
+        .data-flow-line-fast { stroke-dasharray: 4 30; animation: data-stream 6s linear infinite reverse; }
+        .watermark { transform-origin: 700px 450px; animation: spin-watermark 60s linear infinite; }
 
-    /* Respiration de l'écosystème (Halos) */
-    @keyframes breathe {
-        0%, 100% { transform: scale(1); opacity: 0.3; }
-        50% { transform: scale(1.1); opacity: 0.5; }
-    }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
 
-    /* Pulsation des nœuds technologiques africains */
-    @keyframes pulse-tech-node {
-        0%, 100% { r: 4; fill: #1E5B61; filter: drop-shadow(0 0 4px rgba(30, 91, 97, 0.6)); }
-        50% { r: 6.5; fill: #3CA892; filter: drop-shadow(0 0 12px rgba(60, 168, 146, 1)); }
-    }
+        /* --- CLASSES D'ANIMATION AU SCROLL (POUR LA SECTION JOURNEY) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
 
-    /* Battement de cœur central (Émanant du centre de l'Afrique) */
-    @keyframes heartbeat-ring {
-        0% { r: 0; opacity: 1; stroke-width: 4; }
-        100% { r: 150; opacity: 0; stroke-width: 0; }
-    }
+        /* Animation pour les barres de progression de la nouvelle section */
+        .bar-fill {
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active .bar-fill {
+            width: var(--target-width);
+        }
 
-    /* Flux de données voyageant sur les lignes du continent */
-    @keyframes data-stream {
-        to { stroke-dashoffset: -200; }
-    }
+    </style>
+</head>
+<body class="font-sans antialiased bg-[#ffffff]">
 
-    /* Rotation lente du filigrane logo en arrière-plan */
-    @keyframes spin-watermark {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
+    <!-- ========================================== -->
+    <!-- SECTION 1 : HERO ANIMÉ                     -->
+    <!-- ========================================== -->
+    <section class="hero-container">
 
-    /* Classes d'animation */
-    .halo-breathe { animation: breathe 8s ease-in-out infinite; transform-origin: center; }
-    .halo-breathe-alt { animation: breathe 12s ease-in-out infinite reverse; transform-origin: center; }
+        <!-- Le SVG Animé : Carte de l'Afrique en Réseau Technologique -->
+        <svg class="svg-background" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="glow-strong" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="6" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+                <filter id="glow-soft" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="15" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+                <filter id="blur-bg" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="80" />
+                </filter>
+                <linearGradient id="africa-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#30a192" stop-opacity="0.8" />
+                    <stop offset="50%" stop-color="#1d5865" stop-opacity="0.9" />
+                    <stop offset="100%" stop-color="#30a192" stop-opacity="0.8" />
+                </linearGradient>
+            </defs>
 
-    .node { animation: pulse-tech-node 3s ease-in-out infinite; }
-    .node:nth-child(even) { animation-delay: 1.5s; }
-    .node:nth-child(3n) { animation-delay: 0.7s; }
-
-    .pulse-ring {
-        fill: none;
-        stroke: #3CA892;
-        transform-origin: 700px 480px; /* Centré sur l'Afrique centrale */
-        animation: heartbeat-ring 4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-    }
-    .pulse-ring:nth-child(2) { animation-delay: 2s; }
-
-    .data-flow-line {
-        stroke-dasharray: 6 24;
-        animation: data-stream 10s linear infinite;
-    }
-    .data-flow-line-fast {
-        stroke-dasharray: 4 30;
-        animation: data-stream 6s linear infinite reverse;
-    }
-
-    .watermark {
-        transform-origin: 700px 450px;
-        animation: spin-watermark 60s linear infinite;
-    }
-
-</style>
-
-<section class="hero-container">
-
-    <!-- Le SVG Animé : Carte de l'Afrique en Réseau Technologique -->
-    <svg class="svg-background" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <filter id="glow-strong" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="6" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-            <filter id="glow-soft" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="15" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
-            <filter id="blur-bg" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="80" />
-            </filter>
-
-            <!-- Dégradés Shabaka -->
-            <linearGradient id="africa-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#3CA892" stop-opacity="0.8" />
-                <stop offset="50%" stop-color="#1E5B61" stop-opacity="0.9" />
-                <stop offset="100%" stop-color="#3CA892" stop-opacity="0.8" />
-            </linearGradient>
-        </defs>
-
-        <!-- 1. Halos lumineux d'arrière-plan -->
-        <g opacity="0.6">
-            <!-- Halo Vert Menthe (#3CA892) -->
-            <circle cx="500" cy="300" r="250" fill="#3CA892" opacity="0.15" filter="url(#blur-bg)" class="halo-breathe" />
-            <!-- Halo Teal Foncé (#1E5B61) -->
-            <circle cx="900" cy="600" r="300" fill="#1E5B61" opacity="0.1" filter="url(#blur-bg)" class="halo-breathe-alt" />
-        </g>
-
-        <!-- 2. Filigrane Logo (Hexagone rotatif en fond) -->
-        <g class="watermark" opacity="0.04" stroke="#1E5B61" stroke-width="2" fill="none">
-            <polygon points="700,150 960,300 960,600 700,750 440,600 440,300" />
-            <polygon points="700,200 916,325 916,575 700,700 484,575 484,325" />
-            <path d="M 440,300 L 960,600 M 440,600 L 960,300 M 700,150 L 700,750" />
-        </g>
-
-        <!-- 3. BATTEMENT DE CŒUR (Ondes rayonnant de l'Afrique) -->
-        <circle cx="700" cy="480" class="pulse-ring" />
-        <circle cx="700" cy="480" class="pulse-ring" />
-
-        <!-- 4. CARTE DE L'AFRIQUE (Réseau de lignes) -->
-        <g transform="translate(-10, -20)"> <!-- Ajustement fin du centrage -->
-            <!-- Lignes de base (Structure de l'Afrique) -->
-            <g stroke="#1E5B61" stroke-width="1.5" stroke-opacity="0.3" fill="none">
-                <!-- Contour / Silhouette -->
-                <path d="M 580,200 L 660,210 L 840,240 L 960,400 L 880,480 L 740,740 L 660,600 L 600,440 L 450,370 Z" />
-                <!-- Madagascar -->
-                <polygon points="920,600 950,580 930,680" />
-
-                <!-- Connexions internes (Réseau) -->
-                <path d="M 580,200 L 600,440 L 700,520 L 880,480" />
-                <path d="M 840,240 L 700,520 L 740,740" />
-                <path d="M 660,210 L 700,520" />
-                <path d="M 450,370 L 700,520" />
-                <path d="M 600,440 L 660,600" />
-                <path d="M 840,240 L 960,400" />
-
-                <!-- Lignes s'étendant vers le monde (Connexions externes) -->
-                <path d="M 580,200 L 300,100" stroke-dasharray="4 8" />
-                <path d="M 840,240 L 1100,150" stroke-dasharray="4 8" />
-                <path d="M 960,400 L 1250,450" stroke-dasharray="4 8" />
-                <path d="M 450,370 L 200,450" stroke-dasharray="4 8" />
+            <!-- Arrière-plan & Filigrane -->
+            <g opacity="0.6">
+                <circle cx="500" cy="300" r="250" fill="#30a192" opacity="0.15" filter="url(#blur-bg)" class="halo-breathe" />
+                <circle cx="900" cy="600" r="300" fill="#1d5865" opacity="0.1" filter="url(#blur-bg)" class="halo-breathe-alt" />
+            </g>
+            <g class="watermark" opacity="0.04" stroke="#1d5865" stroke-width="2" fill="none">
+                <polygon points="700,150 960,300 960,600 700,750 440,600 440,300" />
+                <polygon points="700,200 916,325 916,575 700,700 484,575 484,325" />
+                <path d="M 440,300 L 960,600 M 440,600 L 960,300 M 700,150 L 700,750" />
             </g>
 
-            <!-- Lignes de flux de données animées (Vivant) -->
-            <g stroke="url(#africa-grad)" stroke-width="2.5" fill="none" filter="url(#glow-soft)">
-                <path class="data-flow-line" d="M 580,200 L 660,210 L 840,240 L 960,400 L 880,480 L 740,740 L 660,600 L 600,440 L 450,370 Z" />
-                <path class="data-flow-line-fast" d="M 450,370 L 700,520 L 880,480 L 960,400" />
-                <path class="data-flow-line" d="M 580,200 L 600,440 L 700,520 L 740,740" />
-            </g>
+            <!-- Battement de coeur -->
+            <circle cx="700" cy="480" class="pulse-ring" />
+            <circle cx="700" cy="480" class="pulse-ring" />
 
-            <!-- 5. NŒUDS DE L'ÉCOSYSTÈME (Villes/Hubs Tech d'Afrique) -->
-            <!-- Contour lumineux derrière les nœuds -->
-            <g fill="#3CA892" opacity="0.3" filter="url(#glow-strong)">
-                <circle cx="580" cy="200" r="12" /> <!-- Maroc -->
-                <circle cx="840" cy="240" r="12" /> <!-- Egypte -->
-                <circle cx="960" cy="400" r="12" /> <!-- Corne/Somalie -->
-                <circle cx="880" cy="480" r="12" /> <!-- Kenya -->
-                <circle cx="740" cy="740" r="12" /> <!-- Af. du Sud -->
-                <circle cx="600" cy="440" r="12" /> <!-- Nigeria -->
-                <circle cx="450" cy="370" r="12" /> <!-- Sénégal -->
-                <circle cx="700" cy="520" r="16" /> <!-- Centre (Cœur) -->
+            <!-- CARTE DE L'AFRIQUE -->
+            <g transform="translate(-10, -20)">
+                <g stroke="#1d5865" stroke-width="1.5" stroke-opacity="0.3" fill="none">
+                    <path d="M 580,200 L 660,210 L 840,240 L 960,400 L 880,480 L 740,740 L 660,600 L 600,440 L 450,370 Z" />
+                    <polygon points="920,600 950,580 930,680" />
+                    <path d="M 580,200 L 600,440 L 700,520 L 880,480" />
+                    <path d="M 840,240 L 700,520 L 740,740" />
+                    <path d="M 660,210 L 700,520" />
+                    <path d="M 450,370 L 700,520" />
+                    <path d="M 600,440 L 660,600" />
+                    <path d="M 840,240 L 960,400" />
+                    <path d="M 580,200 L 300,100" stroke-dasharray="4 8" />
+                    <path d="M 840,240 L 1100,150" stroke-dasharray="4 8" />
+                    <path d="M 960,400 L 1250,450" stroke-dasharray="4 8" />
+                    <path d="M 450,370 L 200,450" stroke-dasharray="4 8" />
+                </g>
+                <g stroke="url(#africa-grad)" stroke-width="2.5" fill="none" filter="url(#glow-soft)">
+                    <path class="data-flow-line" d="M 580,200 L 660,210 L 840,240 L 960,400 L 880,480 L 740,740 L 660,600 L 600,440 L 450,370 Z" />
+                    <path class="data-flow-line-fast" d="M 450,370 L 700,520 L 880,480 L 960,400" />
+                    <path class="data-flow-line" d="M 580,200 L 600,440 L 700,520 L 740,740" />
+                </g>
+                <g fill="#30a192" opacity="0.3" filter="url(#glow-strong)">
+                    <circle cx="580" cy="200" r="12" />
+                    <circle cx="840" cy="240" r="12" />
+                    <circle cx="960" cy="400" r="12" />
+                    <circle cx="880" cy="480" r="12" />
+                    <circle cx="740" cy="740" r="12" />
+                    <circle cx="600" cy="440" r="12" />
+                    <circle cx="450" cy="370" r="12" />
+                    <circle cx="700" cy="520" r="16" />
+                </g>
+                <g>
+                    <circle cx="580" cy="200" class="node" />
+                    <circle cx="660" cy="210" class="node" />
+                    <circle cx="840" cy="240" class="node" />
+                    <circle cx="960" cy="400" class="node" />
+                    <circle cx="880" cy="480" class="node" />
+                    <circle cx="740" cy="740" class="node" />
+                    <circle cx="660" cy="600" class="node" />
+                    <circle cx="600" cy="440" class="node" />
+                    <circle cx="450" cy="370" class="node" />
+                    <circle cx="700" cy="520" r="8" fill="#1d5865" stroke="#30a192" stroke-width="3" filter="url(#glow-strong)" class="node" style="animation-duration: 2s;" />
+                    <circle cx="920" cy="600" class="node" />
+                    <circle cx="950" cy="580" class="node" />
+                    <circle cx="930" cy="680" class="node" />
+                </g>
             </g>
+        </svg>
 
-            <!-- Points nodaux centraux -->
-            <g>
-                <circle cx="580" cy="200" class="node" />
-                <circle cx="660" cy="210" class="node" />
-                <circle cx="840" cy="240" class="node" />
-                <circle cx="960" cy="400" class="node" />
-                <circle cx="880" cy="480" class="node" />
-                <circle cx="740" cy="740" class="node" />
-                <circle cx="660" cy="600" class="node" />
-                <circle cx="600" cy="440" class="node" />
-                <circle cx="450" cy="370" class="node" />
-                <!-- Nœud Central Majeur -->
-                <circle cx="700" cy="520" r="8" fill="#1E5B61" stroke="#3CA892" stroke-width="3" filter="url(#glow-strong)" class="node" style="animation-duration: 2s;" />
-                <!-- Nœuds Madagascar -->
-                <circle cx="920" cy="600" class="node" />
-                <circle cx="950" cy="580" class="node" />
-                <circle cx="930" cy="680" class="node" />
-            </g>
-        </g>
-    </svg>
+        <div class="content-overlay">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div class="mb-6 max-w-md mx-auto">
+                  {% for category, message in messages %}
+                    <div class="p-4 rounded-xl border backdrop-blur-md shadow-lg text-sm font-semibold
+                                {% if category == 'success' %}bg-[#30a192]/20 border-[#30a192]/40 text-[#1d5865]{% else %}bg-red-500/20 border-red-500/40 text-red-700{% endif %}">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+            <div class="inline-block mb-6 px-5 py-2 rounded-full bg-white/70 border border-[#30a192]/40 backdrop-blur-md shadow-lg shadow-[#30a192]/10">
+                <span class="text-[#1d5865] font-bold tracking-widest text-xs uppercase flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#30a192] animate-pulse"></span>
+                    Innovation par la collaboration
+                </span>
+            </div>
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#1d5865] leading-[1.1] mb-6">
+                Co-construisez le <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#1d5865] via-[#30a192] to-[#1d5865] bg-[length:200%_auto] animate-[gradient_4s_linear_infinite]">
+                    Futur Technologique
+                </span> <br/>
+                de l'Afrique.
+            </h1>
+            <p class="text-[#15344b] text-lg md:text-xl max-w-3xl mx-auto mb-14 leading-relaxed font-medium backdrop-blur-sm bg-[#ffffff]/30 p-4 rounded-2xl border border-[#ffffff]/40">
+                Déployez des solutions d'avant-garde à travers un partenariat intégré. Nous fusionnons notre expertise R&D avec vos ambitions pour transformer durablement votre avantage compétitif.
+            </p>
 
-    <!-- Contenu superposé (Textes mis à jour) -->
-    <div class="content-overlay">
-        <!-- Sur-titre exact du logo -->
-        <div class="inline-block mb-6 px-5 py-2 rounded-full bg-white/70 border border-[#3CA892]/40 backdrop-blur-md shadow-lg shadow-[#3CA892]/10">
-            <span class="text-[#1E5B61] font-bold tracking-widest text-xs uppercase flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-[#3CA892] animate-pulse"></span>
-                Innovation par la collaboration
-            </span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <a href="{{ url_for('main.founder') }}" class="bg-[#ffffff] py-10 px-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:shadow-[#30a192]/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center group">
+                    <div class="text-[#1d5865] mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+                            <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+                            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+                            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-xl text-[#15344b] mb-2">Je suis Fondateur</h3>
+                    <p class="text-[#8f8e8e] text-sm">Accélérez votre vision</p>
+                </a>
+                <a href="{{ url_for('main.startup') }}" class="bg-[#ffffff] py-10 px-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:shadow-[#30a192]/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center group">
+                    <div class="text-[#1d5865] mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                            <path d="M9 22v-4h6v4"></path>
+                            <path d="M8 6h.01"></path>
+                            <path d="M16 6h.01"></path>
+                            <path d="M12 6h.01"></path>
+                            <path d="M12 10h.01"></path>
+                            <path d="M12 14h.01"></path>
+                            <path d="M16 10h.01"></path>
+                            <path d="M16 14h.01"></path>
+                            <path d="M8 10h.01"></path>
+                            <path d="M8 14h.01"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-xl text-[#15344b] mb-2">Je suis Startup</h3>
+                    <p class="text-[#8f8e8e] text-sm">Changez l'échelle</p>
+                </a>
+                <a href="{{ url_for('main.investor') }}" class="bg-[#ffffff] py-10 px-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:shadow-[#30a192]/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center group">
+                    <div class="text-[#1d5865] mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-xl text-[#15344b] mb-2">Je suis Investisseur</h3>
+                    <p class="text-[#8f8e8e] text-sm">Financez l'impact</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 2 : JOURNEY ENTREPRENEURIALE       -->
+    <!-- ========================================== -->
+    <section class="py-24 bg-[#FAFAFA] relative overflow-hidden" id="journey">
+
+        <!-- En-tête de la section -->
+        <div class="text-center max-w-3xl mx-auto px-4 mb-20 reveal">
+            <p class="text-[#30a192] font-bold text-[11px] tracking-widest uppercase mb-4">La route vers le sommet</p>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-[#1d5865] mb-6">Votre Journey Entrepreneuriale</h2>
+            <p class="text-[#8f8e8e] text-lg">Un parcours clair, séquencé et soutenu pour passer de l'idée à l'impact mondial.</p>
         </div>
 
-        <!-- Titre mis à jour -->
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#1E5B61] leading-[1.1] mb-6">
-            Co-construisez le <br/>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#1E5B61] via-[#3CA892] to-[#1E5B61] bg-[length:200%_auto] animate-[gradient_4s_linear_infinite]">
-                Futur Technologique
-            </span> <br/>
-            de l'Afrique.
-        </h1>
+        <!-- Conteneur de la Timeline -->
+        <div class="max-w-7xl mx-auto px-4 relative">
 
-        <style>
-            @keyframes gradient {
-                0% { background-position: 0% 50%; }
-                100% { background-position: 200% 50%; }
-            }
-        </style>
+            <!-- Ligne de fond (Horizontale sur Desktop, Verticale sur Mobile) -->
+            <!-- Desktop Ligne -->
+            <div class="hidden md:block absolute top-[110px] left-10 right-10 h-[2px] bg-gradient-to-r from-transparent via-[#1d5865]/20 to-transparent z-0"></div>
+            <!-- Mobile Ligne -->
+            <div class="md:hidden absolute left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#1d5865]/20 to-transparent -translate-x-1/2 z-0"></div>
 
-        <!-- Sous-titre mis à jour -->
-        <p class="text-slate-600/90 text-lg md:text-xl max-w-3xl mx-auto mb-14 leading-relaxed font-medium backdrop-blur-sm bg-white/30 p-4 rounded-2xl border border-white/40">
-            Déployez des solutions d'avant-garde à travers un partenariat intégré. Nous fusionnons notre expertise R&D avec vos ambitions pour transformer durablement votre avantage compétitif.
-        </p>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-4 relative z-10">
 
-        <!-- Cartes (Mises à jour selon la maquette) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-
-            <!-- Carte Fondateur -->
-            <a href="{{ url_for('main.founder') }}" class="bg-white py-10 px-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:shadow-[#3CA892]/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center group">
-                <div class="text-[#1E5B61] mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
-                        <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
-                        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
-                        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
-                    </svg>
+                <!-- Étape 01 -->
+                <div class="flex flex-col items-center text-center group reveal delay-100">
+                    <div class="w-[84px] h-[84px] bg-[#ffffff] rounded-[20px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex items-center justify-center text-[#1d5865] mb-6 group-hover:-translate-y-2 transition-transform duration-300 border border-slate-50 relative">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.2 1.5 1.5 2.5"></path>
+                            <path d="M9 18h6"></path><path d="M10 22h4"></path>
+                        </svg>
+                    </div>
+                    <span class="bg-[#1d5865] text-[#ffffff] text-[10px] font-bold tracking-widest px-4 py-1.5 rounded-full border-[3px] border-[#FAFAFA] mb-4 group-hover:bg-[#30a192] transition-colors duration-300 shadow-sm relative z-10">
+                        ÉTAPE 01
+                    </span>
+                    <h4 class="text-[#1d5865] font-bold text-lg mb-3">L'Étincelle</h4>
+                    <p class="text-sm text-[#8f8e8e] leading-relaxed px-2">Notre Studio Dev transforme votre concept en un MVP robuste et évolutif.</p>
                 </div>
-                <h3 class="font-bold text-xl text-[#1a383d] mb-2">Je suis Fondateur</h3>
-                <p class="text-slate-400 text-sm">Accélérez votre vision</p>
-            </a>
 
-            <!-- Carte Startup -->
-            <a href="{{ url_for('main.startup') }}" class="bg-white py-10 px-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:shadow-[#3CA892]/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center group">
-                <div class="text-[#1E5B61] mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
-                        <path d="M9 22v-4h6v4"></path>
-                        <path d="M8 6h.01"></path>
-                        <path d="M16 6h.01"></path>
-                        <path d="M12 6h.01"></path>
-                        <path d="M12 10h.01"></path>
-                        <path d="M12 14h.01"></path>
-                        <path d="M16 10h.01"></path>
-                        <path d="M16 14h.01"></path>
-                        <path d="M8 10h.01"></path>
-                        <path d="M8 14h.01"></path>
-                    </svg>
+                <!-- Étape 02 -->
+                <div class="flex flex-col items-center text-center group reveal delay-200">
+                    <div class="w-[84px] h-[84px] bg-[#ffffff] rounded-[20px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex items-center justify-center text-[#1d5865] mb-6 group-hover:-translate-y-2 transition-transform duration-300 border border-slate-50 relative">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <path d="m9 12 2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    <span class="bg-[#1d5865] text-[#ffffff] text-[10px] font-bold tracking-widest px-4 py-1.5 rounded-full border-[3px] border-[#FAFAFA] mb-4 group-hover:bg-[#30a192] transition-colors duration-300 shadow-sm relative z-10">
+                        ÉTAPE 02
+                    </span>
+                    <h4 class="text-[#1d5865] font-bold text-lg mb-3">L'Armure</h4>
+                    <p class="text-sm text-[#8f8e8e] leading-relaxed px-2">Intégration native de l'IA et cybersécurité pour une confiance totale du marché.</p>
                 </div>
-                <h3 class="font-bold text-xl text-[#1a383d] mb-2">Je suis Startup</h3>
-                <p class="text-slate-400 text-sm">Changez l'échelle</p>
-            </a>
 
-            <!-- Carte Investisseur -->
-            <a href="{{ url_for('main.investor') }}" class="bg-white py-10 px-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:shadow-[#3CA892]/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center group">
-                <div class="text-[#1E5B61] mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                        <polyline points="17 6 23 6 23 12"></polyline>
-                    </svg>
+                <!-- Étape 03 -->
+                <div class="flex flex-col items-center text-center group reveal delay-300">
+                    <div class="w-[84px] h-[84px] bg-[#ffffff] rounded-[20px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex items-center justify-center text-[#1d5865] mb-6 group-hover:-translate-y-2 transition-transform duration-300 border border-slate-50 relative">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+                            <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+                            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+                            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+                        </svg>
+                    </div>
+                    <span class="bg-[#1d5865] text-[#ffffff] text-[10px] font-bold tracking-widest px-4 py-1.5 rounded-full border-[3px] border-[#FAFAFA] mb-4 group-hover:bg-[#30a192] transition-colors duration-300 shadow-sm relative z-10">
+                        ÉTAPE 03
+                    </span>
+                    <h4 class="text-[#1d5865] font-bold text-lg mb-3">Le Décollage</h4>
+                    <p class="text-sm text-[#8f8e8e] leading-relaxed px-2">Programme intensif de 3-6 mois pour dominer votre Go-to-Market.</p>
                 </div>
-                <h3 class="font-bold text-xl text-[#1a383d] mb-2">Je suis Investisseur</h3>
-                <p class="text-slate-400 text-sm">Financez l'impact</p>
-            </a>
 
+                <!-- Étape 04 -->
+                <div class="flex flex-col items-center text-center group reveal delay-400">
+                    <div class="w-[84px] h-[84px] bg-[#ffffff] rounded-[20px] shadow-[0_8px_30px_rgb(0,0,0,0.06)] flex items-center justify-center text-[#1d5865] mb-6 group-hover:-translate-y-2 transition-transform duration-300 border border-slate-50 relative">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m14 13-3.4 3.4c-1.2 1.2-3.1 1.2-4.2 0-1.2-1.2-1.2-3.1 0-4.2L9.8 8.8"></path>
+                            <path d="m8.2 12.4 1.4-1.4"></path>
+                            <path d="m11.6 9 1.4-1.4"></path>
+                            <path d="m15 5.6 1.4-1.4"></path>
+                            <path d="m15 14 5-5c1.2-1.2 1.2-3.1 0-4.2-1.2-1.2-3.1-1.2-4.2 0l-5 5"></path>
+                            <path d="m12.4 8.2 1.4-1.4"></path>
+                            <path d="M2 22h20"></path>
+                        </svg>
+                    </div>
+                    <span class="bg-[#1d5865] text-[#ffffff] text-[10px] font-bold tracking-widest px-4 py-1.5 rounded-full border-[3px] border-[#FAFAFA] mb-4 group-hover:bg-[#30a192] transition-colors duration-300 shadow-sm relative z-10">
+                        ÉTAPE 04
+                    </span>
+                    <h4 class="text-[#1d5865] font-bold text-lg mb-3">La Sérénité</h4>
+                    <p class="text-sm text-[#8f8e8e] leading-relaxed px-2">Ingénierie légale et fiscale proactive pour protéger votre croissance.</p>
+                </div>
+
+                <!-- Étape 05 (Highlight) -->
+                <div class="flex flex-col items-center text-center group reveal delay-500">
+                    <div class="w-[84px] h-[84px] bg-[#1d5865] rounded-[20px] shadow-[0_8px_30px_rgb(29,88,101,0.3)] flex items-center justify-center text-[#ffffff] mb-6 group-hover:-translate-y-2 transition-transform duration-300 relative">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                            <path d="M3 3v5h5"></path>
+                            <path d="M12 8v4l3 3"></path>
+                        </svg>
+                    </div>
+                    <span class="bg-[#1d5865] text-[#ffffff] text-[10px] font-bold tracking-widest px-4 py-1.5 rounded-full border-[3px] border-[#FAFAFA] mb-4 group-hover:bg-[#30a192] transition-colors duration-300 shadow-sm relative z-10">
+                        ÉTAPE 05
+                    </span>
+                    <h4 class="text-[#1d5865] font-bold text-lg mb-3">L'Expansion</h4>
+                    <p class="text-sm text-[#8f8e8e] leading-relaxed px-2">Accès direct au capital de Shabaka Invest et à notre réseau mondial de VCs.</p>
+                </div>
+
+            </div>
         </div>
-    </div>
-</section>
-<section class="py-24 bg-white overflow-hidden" id="parcours">
-<div class="container mx-auto px-6">
-<div class="text-center mb-20">
-<h2 class="text-sm font-black text-[#076D6D] uppercase tracking-widest mb-4">Pour les visionnaires</h2>
-<h3 class="text-3xl md:text-5xl font-bold text-[#064060]">Votre Journey Entrepreneuriale</h3>
-<p class="mt-6 text-gray-500 max-w-2xl mx-auto text-lg font-light">De l'étincelle initiale à l'expansion internationale, nous balisons chaque étape.</p>
-</div>
-<div class="relative">
-<div class="hidden lg:block absolute top-24 left-0 w-full h-1 roadmap-line z-0"></div>
-<div class="grid grid-cols-1 lg:grid-cols-5 gap-8 relative z-10">
-<div class="flex flex-col items-center text-center">
-<div class="w-20 h-20 rounded-2xl bg-white shadow-xl flex items-center justify-center mb-6 border-2 border-teal-50 group hover:border-[#076D6D] transition-all duration-300">
-<span class="material-symbols-outlined text-4xl text-[#076D6D]">lightbulb_circle</span>
-</div>
-<div class="bg-[#076D6D] text-white text-[10px] font-black px-3 py-1 rounded-full mb-4 uppercase tracking-tighter">Étape 01</div>
-<h4 class="text-lg font-bold text-[#064060] mb-2">L'Étincelle</h4>
-<p class="text-sm text-gray-500 leading-relaxed px-2">Idéation &amp; Prototypage rapide par notre Studio Dev.</p>
-</div>
-<div class="flex flex-col items-center text-center">
-<div class="w-20 h-20 rounded-2xl bg-white shadow-xl flex items-center justify-center mb-6 border-2 border-teal-50 group hover:border-[#076D6D] transition-all duration-300">
-<span class="material-symbols-outlined text-4xl text-[#076D6D]">verified_user</span>
-</div>
-<div class="bg-[#076D6D] text-white text-[10px] font-black px-3 py-1 rounded-full mb-4 uppercase tracking-tighter">Étape 02</div>
-<h4 class="text-lg font-bold text-[#064060] mb-2">L'Armure</h4>
-<p class="text-sm text-gray-500 leading-relaxed px-2">Structuration Legal &amp; Sécurisation Cyber.</p>
-</div>
-<div class="flex flex-col items-center text-center">
-<div class="w-20 h-20 rounded-2xl bg-white shadow-xl flex items-center justify-center mb-6 border-2 border-teal-50 group hover:border-[#076D6D] transition-all duration-300">
-<span class="material-symbols-outlined text-4xl text-[#076D6D]">rocket_launch</span>
-</div>
-<div class="bg-[#076D6D] text-white text-[10px] font-black px-3 py-1 rounded-full mb-4 uppercase tracking-tighter">Étape 03</div>
-<h4 class="text-lg font-bold text-[#064060] mb-2">Le Décollage</h4>
-<p class="text-sm text-gray-500 leading-relaxed px-2">Go-to-Market agressif &amp; Premiers clients.</p>
-</div>
-<div class="flex flex-col items-center text-center">
-<div class="w-20 h-20 rounded-2xl bg-white shadow-xl flex items-center justify-center mb-6 border-2 border-teal-50 group hover:border-[#076D6D] transition-all duration-300">
-<span class="material-symbols-outlined text-4xl text-[#076D6D]">monitoring</span>
-</div>
-<div class="bg-[#076D6D] text-white text-[10px] font-black px-3 py-1 rounded-full mb-4 uppercase tracking-tighter">Étape 04</div>
-<h4 class="text-lg font-bold text-[#064060] mb-2">La Traction</h4>
-<p class="text-sm text-gray-500 leading-relaxed px-2">Croissance métrique &amp; Optimisation.</p>
-</div>
-<div class="flex flex-col items-center text-center">
-<div class="w-20 h-20 rounded-2xl bg-[#064060] shadow-xl flex items-center justify-center mb-6 group transition-all duration-300">
-<span class="material-symbols-outlined text-4xl text-white">currency_exchange</span>
-</div>
-<div class="bg-[#076D6D] text-white text-[10px] font-black px-3 py-1 rounded-full mb-4 uppercase tracking-tighter">Étape 05</div>
-<h4 class="text-lg font-bold text-[#064060] mb-2">L'Expansion</h4>
-<p class="text-sm text-gray-500 leading-relaxed px-2">Levée de fonds via Shabaka Invest &amp; Scale-up.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-24 bg-[#f8fafc]" id="solutions-startups">
-<div class="container mx-auto px-6">
-<div class="flex flex-col lg:flex-row items-center gap-16">
-<div class="lg:w-1/2">
-<h2 class="text-sm font-black text-[#076D6D] uppercase tracking-widest mb-4">Pour les Startups</h2>
-<h3 class="text-3xl md:text-4xl font-bold text-[#064060] mb-6">Accélérez votre Croissance</h3>
-<p class="text-lg text-gray-600 mb-8 font-light">
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 3 : POUR LES STARTUPS              -->
+    <!-- ========================================== -->
+    <section class="py-24 bg-[#ffffff] relative overflow-hidden" id="startups">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            <!-- Colonne de Gauche : Contenu -->
+            <div class="reveal">
+                <p class="text-[#1d5865] font-bold text-[11px] tracking-widest uppercase mb-4">Pour les Startups</p>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-[#1d5865] mb-6">Accélérez votre Croissance</h2>
+                <p class="text-[#8f8e8e] text-lg mb-10 leading-relaxed">
                     Transformez votre potentiel en leadership. Nous connectons votre agilité à notre puissance réseau pour multiplier vos opportunités de marché.
                 </p>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-<div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-<span class="material-symbols-outlined text-[#076D6D] text-3xl mb-3">hub</span>
-<h4 class="font-bold text-[#064060] mb-2">Accès Marché</h4>
-<p class="text-sm text-gray-500">Connexions stratégiques avec les grands comptes et partenaires clés.</p>
-</div>
-<div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-<span class="material-symbols-outlined text-[#076D6D] text-3xl mb-3">security</span>
-<h4 class="font-bold text-[#064060] mb-2">Support Technique</h4>
-<p class="text-sm text-gray-500">Accès à nos infrastructures et experts pour sécuriser votre scale-up.</p>
-</div>
-</div>
-</div>
-<div class="lg:w-1/2 relative">
-<div class="relative bg-gradient-to-br from-[#064060] to-[#0a2e42] rounded-3xl p-8 lg:p-12 text-white overflow-hidden shadow-2xl">
-<div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[#076D6D] rounded-full blur-3xl opacity-30"></div>
-<div class="relative z-10">
-<div class="flex justify-between items-start mb-12">
-<div>
-<h4 class="text-2xl font-bold mb-2">Scale-up Ready</h4>
-<p class="text-teal-200 text-sm">Indice de potentiel de croissance</p>
-</div>
-<span class="bg-[#076D6D]/30 border border-[#076D6D] px-3 py-1 rounded-full text-xs font-bold uppercase">A+ Rating</span>
-</div>
-<div class="space-y-4 mb-8">
-<div class="h-2 bg-white/10 rounded-full overflow-hidden">
-<div class="h-full w-3/4 bg-[#076D6D]"></div>
-</div>
-<div class="flex justify-between text-xs text-gray-300">
-<span>Maturité Produit</span>
-<span>75%</span>
-</div>
-<div class="h-2 bg-white/10 rounded-full overflow-hidden">
-<div class="h-full w-11/12 bg-white"></div>
-</div>
-<div class="flex justify-between text-xs text-gray-300">
-<span>Traction Marché</span>
-<span>92%</span>
-</div>
-</div>
-<div class="flex items-center gap-4 pt-8 border-t border-white/10">
-<div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-<span class="material-symbols-outlined text-sm">auto_awesome</span>
-</div>
-<p class="text-sm font-light italic">"Nous transformons les startups prometteuses en champions continentaux."</p>
-</div>
-</div>
-</div>
-<div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg border border-gray-100 hidden md:block">
-<div class="flex items-center gap-3">
-<div class="w-2 h-2 rounded-full bg-green-500"></div>
-<span class="text-sm font-bold text-[#064060]">Systèmes Opérationnels</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-24 bg-[#064060] text-white relative overflow-hidden" id="investisseurs">
-<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
-<div class="container mx-auto px-6 relative z-10">
-<div class="flex flex-col lg:flex-row items-end justify-between gap-12 mb-16">
-<div class="max-w-2xl">
-<h2 class="text-sm font-black text-[#076D6D] uppercase tracking-widest mb-4">Vision Stratégique</h2>
-<h3 class="text-3xl md:text-5xl font-bold mb-6">L'Approche Galilée</h3>
-<p class="text-xl font-light text-blue-100 leading-relaxed">
-                    Nous ne cherchons pas seulement la rentabilité, mais la souveraineté. Notre thèse d'investissement repose sur la création d'infrastructures technologiques critiques pour l'Afrique.
+
+                <!-- Grille des petites cartes -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Carte 1 -->
+                    <div class="bg-[#ffffff] p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-1">
+                        <div class="text-[#1d5865] mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="18" cy="5" r="3"></circle>
+                                <circle cx="6" cy="12" r="3"></circle>
+                                <circle cx="18" cy="19" r="3"></circle>
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-[#1d5865] mb-2">Accès Marché</h4>
+                        <p class="text-sm text-[#8f8e8e] leading-relaxed">Connexions stratégiques avec les grands comptes et partenaires clés.</p>
+                    </div>
+
+                    <!-- Carte 2 -->
+                    <div class="bg-[#ffffff] p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-1">
+                        <div class="text-[#1d5865] mb-4 group-hover:scale-110 transition-transform duration-300">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-[#1d5865] mb-2">Support Technique</h4>
+                        <p class="text-sm text-[#8f8e8e] leading-relaxed">Accès à nos infrastructures et experts pour sécuriser votre scale-up.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne de Droite : Dashboard Visuel -->
+            <div class="relative reveal delay-200 mt-10 lg:mt-0">
+                <!-- Carte sombre principale -->
+                <div class="bg-gradient-to-br from-[#1d5865] to-[#15344b] rounded-3xl p-8 md:p-10 shadow-2xl relative z-0">
+
+                    <!-- Header Carte -->
+                    <div class="flex justify-between items-start mb-10">
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#ffffff] mb-1">Scale-up Ready</h3>
+                            <p class="text-[#30a192] text-sm font-medium">Indice de potentiel de croissance</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full border border-[#30a192]/40 text-xs font-bold text-[#30a192] tracking-wider bg-[#30a192]/10">
+                            A+ RATING
+                        </span>
+                    </div>
+
+                    <!-- Barres de progression -->
+                    <div class="mb-8 relative z-10">
+                        <div class="flex justify-between text-sm mb-3">
+                            <span class="text-[#ffffff]/70 font-medium">Maturité Produit</span>
+                            <span class="text-[#ffffff] font-bold">75%</span>
+                        </div>
+                        <div class="h-2 w-full bg-[#ffffff]/10 rounded-full overflow-hidden">
+                            <div class="h-full bg-[#30a192] rounded-full bar-fill" style="--target-width: 75%; transition-delay: 300ms;"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-10 relative z-10">
+                        <div class="flex justify-between text-sm mb-3">
+                            <span class="text-[#ffffff]/70 font-medium">Traction Marché</span>
+                            <span class="text-[#ffffff] font-bold">92%</span>
+                        </div>
+                        <div class="h-2 w-full bg-[#ffffff]/10 rounded-full overflow-hidden">
+                            <div class="h-full bg-[#ffffff] rounded-full bar-fill" style="--target-width: 92%; transition-delay: 500ms;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Citation footer -->
+                    <div class="pt-6 border-t border-[#ffffff]/10 flex gap-4 items-start relative z-10">
+                        <div class="mt-1 text-[#ffffff]/50">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2.99 11.99l9-9 9 9-9 9-9-9z"></path>
+                                <path d="M12 22V2"></path>
+                                <path d="M22 12H2"></path>
+                            </svg>
+                        </div>
+                        <p class="text-[#ffffff]/80 italic text-sm leading-relaxed">
+                            "Nous transformons les startups prometteuses en champions continentaux."
+                        </p>
+                    </div>
+
+                    <!-- Forme géométrique de fond pour décorer la carte sombre (Optionnel, ajoute de la profondeur) -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-[#ffffff]/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/4 pointer-events-none z-0"></div>
+                </div>
+
+                <!-- Badge Flottant -->
+                <div class="absolute -bottom-6 -left-2 sm:-left-8 bg-[#ffffff] rounded-xl shadow-xl px-5 py-3.5 flex items-center gap-3 border border-slate-100 reveal delay-500 z-10">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#30a192] animate-pulse"></span>
+                    <span class="text-[#1d5865] font-bold text-sm">Systèmes Opérationnels</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 4 : APPROCHE ZÉRO FRICTION         -->
+    <!-- ========================================== -->
+    <section class="py-24 bg-[#FAFAFA] relative overflow-hidden" id="pourquoi-nous">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            <!-- Colonne de Gauche : Carte Sombre -->
+            <div class="reveal h-full">
+                <div class="bg-gradient-to-br from-[#1d5865] to-[#15344b] rounded-[32px] p-10 md:p-14 shadow-2xl relative overflow-hidden h-full flex flex-col justify-between group">
+                    <!-- Décoration de fond (bulles superposées en bas à droite) -->
+                    <div class="absolute -bottom-6 -right-6 flex gap-3 opacity-[0.06] group-hover:opacity-[0.1] transition-opacity duration-500 pointer-events-none">
+                        <div class="w-24 h-24 rounded-full bg-[#ffffff]"></div>
+                        <div class="w-32 h-32 rounded-full bg-[#ffffff] mt-12 -ml-8"></div>
+                        <div class="w-16 h-16 rounded-full bg-[#ffffff] absolute -top-12 right-12"></div>
+                    </div>
+
+                    <div class="relative z-10 mb-16">
+                        <h3 class="text-3xl md:text-4xl font-extrabold text-[#ffffff] mb-8 leading-tight">L'Approche<br/>"Zéro Friction"</h3>
+                        <p class="text-[#ffffff]/80 text-lg md:text-xl font-light italic mb-8 leading-relaxed">
+                            "Le succès d'une idée dépend de l'absence de résistance à son mouvement."
+                        </p>
+                        <p class="text-[#ffffff]/70 leading-relaxed text-base md:text-lg">
+                            Notre mission est simple : nous gérons la complexité (technique, juridique, financière) pour que vous puissiez vous concentrer exclusivement sur votre vision.
+                        </p>
+                    </div>
+
+                    <div class="relative z-10 mt-auto">
+                        <a href="https://www.shabakainvestgroup.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-4 border border-[#ffffff]/20 rounded-full py-2.5 px-6 bg-[#ffffff]/5 backdrop-blur-sm hover:bg-[#ffffff]/10 transition-colors cursor-pointer w-fit">
+                            <div class="w-8 h-8 rounded-full border border-[#ffffff]/30 flex items-center justify-center text-[#ffffff] bg-[#ffffff]/10 shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <span class="text-[#ffffff] text-xs font-bold tracking-widest uppercase text-left leading-tight">Propulsé par<br/>Shabaka Invest Group</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne de Droite : Liste -->
+            <div class="reveal delay-200 lg:pl-8 mt-10 lg:mt-0">
+                <p class="text-[#30a192] font-bold text-[11px] tracking-widest uppercase mb-4">Pourquoi nous ?</p>
+                <h2 class="text-4xl md:text-5xl font-extrabold text-[#1d5865] mb-12">Une Communauté<br/>de Bâtisseurs</h2>
+
+                <div class="space-y-10">
+                    <!-- Item 1 -->
+                    <div class="flex gap-6 group">
+                        <div class="w-12 h-12 rounded-full bg-[#30a192]/10 flex items-center justify-center text-[#30a192] flex-shrink-0 group-hover:scale-110 group-hover:bg-[#30a192] group-hover:text-[#ffffff] transition-all duration-300 shadow-sm border border-[#30a192]/20">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-[#1d5865] font-bold text-xl mb-2">Expertise Partagée</h4>
+                            <p class="text-[#8f8e8e] text-base leading-relaxed">Bénéficiez des leçons apprises par nos fondateurs seniors.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="flex gap-6 group">
+                        <div class="w-12 h-12 rounded-full bg-[#30a192]/10 flex items-center justify-center text-[#30a192] flex-shrink-0 group-hover:scale-110 group-hover:bg-[#30a192] group-hover:text-[#ffffff] transition-all duration-300 shadow-sm border border-[#30a192]/20">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-[#1d5865] font-bold text-xl mb-2">Vitesse d'Exécution</h4>
+                            <p class="text-[#8f8e8e] text-base leading-relaxed">Passez du prototype au marché en un temps record.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="flex gap-6 group">
+                        <div class="w-12 h-12 rounded-full bg-[#30a192]/10 flex items-center justify-center text-[#30a192] flex-shrink-0 group-hover:scale-110 group-hover:bg-[#30a192] group-hover:text-[#ffffff] transition-all duration-300 shadow-sm border border-[#30a192]/20">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-[#1d5865] font-bold text-xl mb-2">Réseau Panafricain</h4>
+                            <p class="text-[#8f8e8e] text-base leading-relaxed">Un tremplin vers les marchés stratégiques du continent.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 5 : SOLUTIONS AVANCÉES             -->
+    <!-- ========================================== -->
+    <section class="py-24 bg-[#ffffff] relative overflow-hidden" id="solutions-avancees">
+
+        <!-- En-tête de la section -->
+        <div class="max-w-7xl mx-auto px-4 mb-16 reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
+                <div>
+                    <p class="text-[#30a192] font-bold text-[11px] tracking-widest uppercase mb-4">Solutions Avancées</p>
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-[#1d5865] leading-tight">Nos Pôles d'Excellence<br/>Corporate</h2>
+                </div>
+                <div class="lg:pb-2">
+                    <p class="text-[#8f8e8e] text-base md:text-lg lg:max-w-md lg:ml-auto leading-relaxed">
+                        Des infrastructures logicielles robustes et modulables, prêtes à être déployées au sein de vos architectures existantes.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grille des 4 Pôles d'Excellence -->
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Carte 1 : Intelligence Synthétique -->
+            <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col h-full reveal delay-100">
+                <div class="w-12 h-12 rounded-2xl bg-[#30a192]/10 flex items-center justify-center text-[#1d5865] mb-8 group-hover:scale-110 group-hover:bg-[#30a192] group-hover:text-[#ffffff] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <line x1="19" y1="8" x2="19" y2="14"></line>
+                        <line x1="22" y1="11" x2="16" y2="11"></line>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-[#1d5865] mb-4">Intelligence<br/>Synthétique</h3>
+                <p class="text-[#8f8e8e] text-sm leading-relaxed mb-8 flex-grow">
+                    Moteurs d'IA générative et prédictive adaptés aux spécificités de votre secteur métier.
                 </p>
-</div>
-<div class="flex gap-8 md:gap-16">
-<div class="flex flex-col">
-<span class="text-4xl md:text-5xl font-black text-white">24/7</span>
-<span class="text-xs text-[#076D6D] uppercase font-bold tracking-widest mt-2">Mentorat Actif</span>
-</div>
-<div class="flex flex-col">
-<span class="text-4xl md:text-5xl font-black text-white">3x</span>
-<span class="text-xs text-[#076D6D] uppercase font-bold tracking-widest mt-2">Croissance Annuelle</span>
-</div>
-<div class="flex flex-col">
-<span class="text-4xl md:text-5xl font-black text-white">100%</span>
-<span class="text-xs text-[#076D6D] uppercase font-bold tracking-widest mt-2">Souveraineté</span>
-</div>
-</div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="border-t border-white/20 pt-6">
-<h4 class="text-lg font-bold mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-[#076D6D]">verified</span> Deal-Flow Qualifié</h4>
-<p class="text-sm text-blue-200 leading-relaxed">Accès exclusif aux startups les plus prometteuses, pré-validées par notre studio technique.</p>
-</div>
-<div class="border-t border-white/20 pt-6">
-<h4 class="text-lg font-bold mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-[#076D6D]">shield</span> De-Risking</h4>
-<p class="text-sm text-blue-200 leading-relaxed">Notre accompagnement opérationnel réduit drastiquement le taux d'échec des startups en portefeuille.</p>
-</div>
-<div class="border-t border-white/20 pt-6">
-<h4 class="text-lg font-bold mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-[#076D6D]">public</span> Impact Pan-Africain</h4>
-<p class="text-sm text-blue-200 leading-relaxed">Investissez dans des solutions qui résolvent des problèmes structurels à l'échelle du continent.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="py-24 bg-white" id="fortresses">
-<div class="container mx-auto px-6">
-<div class="text-center mb-16">
-<h2 class="text-sm font-black text-[#076D6D] uppercase tracking-widest mb-4">Nos fers de lance</h2>
-<h3 class="text-3xl md:text-4xl font-bold text-[#064060]">Forteresses Sectorielles</h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-auto md:h-[600px]">
-<div class="md:col-span-2 md:row-span-2 bg-[#f1f5f9] rounded-3xl p-8 relative overflow-hidden group hover:shadow-lg transition-all">
-<div class="absolute top-0 right-0 w-64 h-64 bg-[#076D6D]/10 rounded-bl-full transition-transform group-hover:scale-110 origin-top-right"></div>
-<div class="relative z-10 flex flex-col h-full justify-between">
-<div>
-<div class="flex items-center gap-3 mb-4">
-<span class="p-2 bg-white rounded-lg shadow-sm material-symbols-outlined text-[#076D6D]">apartment</span>
-<span class="font-bold text-[#064060] uppercase tracking-wide text-xs">PropTech</span>
-</div>
-<h4 class="text-2xl font-bold text-[#064060] mb-2">Shabaka Syndic</h4>
-<p class="text-gray-500 text-sm max-w-sm">La plateforme de référence pour la gestion de copropriété digitale, automatisant 90% des tâches administratives.</p>
-</div>
-<div class="mt-8">
-<div class="text-3xl font-bold text-[#076D6D] mb-1">+150%</div>
-<div class="text-xs text-gray-400 font-bold uppercase">Croissance Utilisateurs / An</div>
-</div>
-<img alt="PropTech UI" class="absolute -bottom-10 -right-10 w-2/3 rounded-tl-2xl shadow-xl border border-gray-200 group-hover:-translate-y-2 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0UkxTbK_x4Wd2o5fCpxdlzcoHtSrVU-JcW77BRxtmCDCSnTPnStjEmTpHIFw9lkWqNwQ0zwLaBMFBjSh_UonUaU2bKQwU6UWHeszP77wN-HIpG6BR6cK9dQU_eE48xOnbny5yFHsnaes01I6noKjowR5ZICZgSurIki-XgZl3aVA7af2ZQIfcN5PIGZ9OV9sGL1-NUFdsDnNFZlJCBZq9F9Qj_tTCrSNrNalAbCimsGxFwTNrmENh2q336tqIkgce8xzjayt0e_8v"/>
-</div>
-</div>
-<div class="md:col-span-2 bg-[#064060] rounded-3xl p-8 text-white relative overflow-hidden group">
-<div class="relative z-10">
-<div class="flex justify-between items-start mb-4">
-<div class="flex items-center gap-3">
-<span class="p-2 bg-white/10 rounded-lg material-symbols-outlined text-white">balance</span>
-<span class="font-bold text-white/70 uppercase tracking-wide text-xs">LegalTech</span>
-</div>
-</div>
-<h4 class="text-xl font-bold mb-2">LexIA</h4>
-<p class="text-blue-200 text-sm">L'intelligence artificielle au service de la démocratisation juridique.</p>
-</div>
-<span class="absolute bottom-4 right-6 text-6xl font-black text-white/5 group-hover:text-white/10 transition-colors">LEGAL</span>
-</div>
-<div class="bg-teal-50 rounded-3xl p-8 border border-teal-100 group hover:border-[#076D6D] transition-colors">
-<div class="flex items-center gap-3 mb-4">
-<span class="p-2 bg-white rounded-lg shadow-sm material-symbols-outlined text-[#076D6D]">vital_signs</span>
-</div>
-<h4 class="text-lg font-bold text-[#064060] mb-2">Urgence Gabon</h4>
-<p class="text-xs text-gray-500 mb-4">Optimisation logistique des secours.</p>
-<span class="text-lg font-bold text-[#076D6D]">24/7 Ops</span>
-</div>
-<div class="bg-white rounded-3xl p-8 border border-gray-100 group hover:shadow-lg transition-all">
-<div class="flex items-center gap-3 mb-4">
-<span class="p-2 bg-gray-50 rounded-lg material-symbols-outlined text-[#064060]">campaign</span>
-</div>
-<h4 class="text-lg font-bold text-[#064060] mb-2">AI Manager</h4>
-<p class="text-xs text-gray-500 mb-4">Le futur des newsrooms automatisées.</p>
-<div class="w-full bg-gray-100 rounded-full h-1.5 mb-2">
-<div class="bg-[#076D6D] h-1.5 rounded-full w-[85%]"></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-24 bg-[#f8fafc]">
-<div class="container mx-auto px-6">
-<div class="text-center mb-16">
-<h2 class="text-sm font-black text-[#076D6D] uppercase tracking-widest mb-4">Notre Architecture</h2>
-<h3 class="text-3xl md:text-4xl font-bold text-[#064060]">Les 5 Piliers de l'Excellence</h3>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-<div class="bg-white p-6 rounded-2xl border border-gray-100 hover:border-[#076D6D] hover:shadow-lg transition-all group">
-<div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-[#064060] mb-4 group-hover:bg-[#064060] group-hover:text-white transition-colors">
-<span class="material-symbols-outlined">code</span>
-</div>
-<h4 class="font-bold text-[#064060] mb-2">Studio Dev</h4>
-<p class="text-xs text-gray-500 leading-relaxed">Développement agile, architecture scalable et MVP factory.</p>
-</div>
-<div class="bg-white p-6 rounded-2xl border border-gray-100 hover:border-[#076D6D] hover:shadow-lg transition-all group">
-<div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center text-[#076D6D] mb-4 group-hover:bg-[#076D6D] group-hover:text-white transition-colors">
-<span class="material-symbols-outlined">psychology</span>
-</div>
-<h4 class="font-bold text-[#064060] mb-2">Expertise IA/Cyber</h4>
-<p class="text-xs text-gray-500 leading-relaxed">Intégration d'IA de pointe et bouclier de cybersécurité.</p>
-</div>
-<div class="bg-white p-6 rounded-2xl border border-gray-100 hover:border-[#076D6D] hover:shadow-lg transition-all group">
-<div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-orange-600 mb-4 group-hover:bg-orange-600 group-hover:text-white transition-colors">
-<span class="material-symbols-outlined">bolt</span>
-</div>
-<h4 class="font-bold text-[#064060] mb-2">Accélération</h4>
-<p class="text-xs text-gray-500 leading-relaxed">Programme intensif de croissance et Go-to-Market.</p>
-</div>
-<div class="bg-white p-6 rounded-2xl border border-gray-100 hover:border-[#076D6D] hover:shadow-lg transition-all group">
-<div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 mb-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">
-<span class="material-symbols-outlined">gavel</span>
-</div>
-<h4 class="font-bold text-[#064060] mb-2">Légal</h4>
-<p class="text-xs text-gray-500 leading-relaxed">Ingénierie juridique, conformité et propriété intellectuelle.</p>
-</div>
-<div class="bg-white p-6 rounded-2xl border border-gray-100 hover:border-[#076D6D] hover:shadow-lg transition-all group">
-<div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-4 group-hover:bg-green-600 group-hover:text-white transition-colors">
-<span class="material-symbols-outlined">payments</span>
-</div>
-<h4 class="font-bold text-[#064060] mb-2">Finance</h4>
-<p class="text-xs text-gray-500 leading-relaxed">Structuration financière, levée de fonds et gestion trésorerie.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="py-24 bg-white overflow-hidden">
-<div class="container mx-auto px-6">
-<div class="max-w-3xl mx-auto text-center mb-16">
-<h2 class="text-3xl md:text-4xl font-bold text-[#064060]">Échos de l'Écosystème</h2>
-<p class="mt-4 text-gray-500">Ils bâtissent l'Afrique de demain avec Shabaka InnovLab.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<div class="bg-[#f8fafc] p-10 rounded-3xl border border-gray-100 flex flex-col group hover:shadow-xl transition-all relative">
-<span class="material-symbols-outlined absolute top-8 right-8 text-4xl text-gray-200">format_quote</span>
-<div class="mb-6">
-<span class="bg-teal-100 text-[#076D6D] text-[10px] font-bold px-2 py-1 rounded uppercase">Founder</span>
-</div>
-<p class="text-gray-600 mb-8 italic flex-grow text-sm leading-relaxed">"L'infrastructure de Shabaka nous a permis de passer de l'idée au produit en 4 mois. C'est l'accélérateur ultime pour tout fondateur tech en Afrique."</p>
-<div class="flex items-center gap-4 border-t border-gray-200 pt-6">
-<div class="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center font-bold text-white text-xs">DK</div>
-<div>
-<p class="font-bold text-[#064060] text-sm">Dr. Kalonji</p>
-<p class="text-xs text-gray-400 font-medium">Founder, AAPCMLU AI</p>
-</div>
-</div>
-</div>
-<div class="bg-[#064060] p-10 rounded-3xl border border-gray-100 flex flex-col group hover:shadow-xl transition-all relative text-white">
-<span class="material-symbols-outlined absolute top-8 right-8 text-4xl text-white/10">format_quote</span>
-<div class="mb-6">
-<span class="bg-white/20 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Scale-up</span>
-</div>
-<p class="text-blue-100 mb-8 italic flex-grow text-sm leading-relaxed">"Le programme d'accélération nous a ouvert les portes des grands comptes. Nous avons doublé notre CA en 6 mois."</p>
-<div class="flex items-center gap-4 border-t border-white/20 pt-6">
-<div class="w-10 h-10 bg-white text-[#064060] rounded-full flex items-center justify-center font-bold text-xs">AM</div>
-<div>
-<p class="font-bold text-white text-sm">Amine M.</p>
-<p class="text-xs text-blue-300 font-medium">CEO, FinTech Africa</p>
-</div>
-</div>
-</div>
-<div class="bg-[#f8fafc] p-10 rounded-3xl border border-gray-100 flex flex-col group hover:shadow-xl transition-all relative">
-<span class="material-symbols-outlined absolute top-8 right-8 text-4xl text-gray-200">format_quote</span>
-<div class="mb-6">
-<span class="bg-teal-100 text-[#076D6D] text-[10px] font-bold px-2 py-1 rounded uppercase">Startup CEO</span>
-</div>
-<p class="text-gray-600 mb-8 italic flex-grow text-sm leading-relaxed">"Le plus précieux ? La communauté. Être entouré de fondateurs qui font face aux mêmes défis change tout. On grandit ensemble."</p>
-<div class="flex items-center gap-4 border-t border-gray-200 pt-6">
-<div class="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center font-bold text-white text-xs">SL</div>
-<div>
-<p class="font-bold text-[#064060] text-sm">Sarah L.</p>
-<p class="text-xs text-gray-400 font-medium">CEO, LexIA Solutions</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-{% endblock %}
+                <div class="mt-auto w-full">
+                    <hr class="border-slate-100 mb-5">
+                    <p class="text-[10px] font-bold text-[#8f8e8e] uppercase tracking-widest mb-1">Expertise</p>
+                    <p class="text-sm font-bold text-[#1d5865]">Custom LLM Deployment</p>
+                </div>
+            </div>
+
+            <!-- Carte 2 : Forteresse Cyber -->
+            <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col h-full reveal delay-200">
+                <div class="w-12 h-12 rounded-2xl bg-[#30a192]/10 flex items-center justify-center text-[#1d5865] mb-8 group-hover:scale-110 group-hover:bg-[#30a192] group-hover:text-[#ffffff] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-[#1d5865] mb-4">Forteresse<br/>Cyber</h3>
+                <p class="text-[#8f8e8e] text-sm leading-relaxed mb-8 flex-grow">
+                    Architectures Zero-Trust et protection proactive des données stratégiques africaines.
+                </p>
+                <div class="mt-auto w-full">
+                    <hr class="border-slate-100 mb-5">
+                    <p class="text-[10px] font-bold text-[#8f8e8e] uppercase tracking-widest mb-1">Expertise</p>
+                    <p class="text-sm font-bold text-[#1d5865]">Souveraineté Numérique</p>
+                </div>
+            </div>
+
+            <!-- Carte 3 : Réseaux Connectés -->
+            <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col h-full reveal delay-300">
+                <div class="w-12 h-12 rounded-2xl bg-[#30a192]/10 flex items-center justify-center text-[#1d5865] mb-8 group-hover:scale-110 group-hover:bg-[#30a192] group-hover:text-[#ffffff] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="14" y="14" width="6" height="6" rx="1"></rect>
+                        <rect x="4" y="14" width="6" height="6" rx="1"></rect>
+                        <rect x="9" y="4" width="6" height="6" rx="1"></rect>
+                        <path d="M12 10v4"></path>
+                        <path d="M7 14v-1.5a1.5 1.5 0 0 1 1.5-1.5h7a1.5 1.5 0 0 1 1.5 1.5V14"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-[#1d5865] mb-4">Réseaux<br/>Connectés</h3>
+                <p class="text-[#8f8e8e] text-sm leading-relaxed mb-8 flex-grow">
+                    Écosystèmes IoT et API unifiées pour une interopérabilité totale de vos services.
+                </p>
+                <div class="mt-auto w-full">
+                    <hr class="border-slate-100 mb-5">
+                    <p class="text-[10px] font-bold text-[#8f8e8e] uppercase tracking-widest mb-1">Expertise</p>
+                    <p class="text-sm font-bold text-[#1d5865]">Intégration Systémique</p>
+                </div>
+            </div>
+
+            <!-- Carte 4 : Tailored Tech -->
+            <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col h-full reveal delay-400">
+                <div class="w-12 h-12 rounded-2xl bg-[#30a192]/10 flex items-center justify-center text-[#1d5865] mb-8 group-hover:scale-110 group-hover:bg-[#30a192] group-hover:text-[#ffffff] transition-all duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-[#1d5865] mb-4">Tailored<br/>Tech</h3>
+                <p class="text-[#8f8e8e] text-sm leading-relaxed mb-8 flex-grow">
+                    Développement sur mesure de briques logicielles critiques pour vos métiers.
+                </p>
+                <div class="mt-auto w-full">
+                    <hr class="border-slate-100 mb-5">
+                    <p class="text-[10px] font-bold text-[#8f8e8e] uppercase tracking-widest mb-1">Expertise</p>
+                    <p class="text-sm font-bold text-[#1d5865]">Agilité Sectorielle</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 6 : PORTFOLIO STRATÉGIQUE          -->
+    <!-- ========================================== -->
+    <section class="py-24 bg-[#FAFAFA] relative overflow-hidden" id="portfolio">
+
+        <!-- En-tête de la section -->
+        <div class="text-center max-w-3xl mx-auto px-4 mb-20 reveal">
+            <p class="text-[#30a192] font-bold text-[11px] tracking-widest uppercase mb-4">Portfolio Stratégique</p>
+            <h2 class="text-4xl md:text-5xl font-extrabold text-[#1d5865] mb-6">Nos Forteresses Sectorielles</h2>
+            <p class="text-[#8f8e8e] text-lg">Des solutions verticales propriétaires conçues pour dominer des marchés spécifiques.</p>
+        </div>
+
+        <!-- Grille du Portfolio -->
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Carte 1 : PropTech -->
+            <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col h-full relative overflow-hidden reveal delay-100">
+                <!-- Watermark en arrière-plan -->
+                <div class="absolute top-6 right-6 text-slate-200 opacity-30 group-hover:scale-110 group-hover:opacity-40 transition-all duration-500 pointer-events-none">
+                    <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 2H9c-1.1 0-2 .9-2 2v2H5c-1.1 0-2 .9-2 2v14h20V4c0-1.1-.9-2-2-2zm-8 2h8v16h-8V4zM5 8h2v12H5V8zm4 4h2v2H9v-2zm0 4h2v2H9v-2zm4-8h2v2h-2V8zm0 4h2v2h-2v-2zm0 4h2v2h-2v-2z"></path>
+                    </svg>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="w-10 h-10 rounded-xl bg-[#30a192]/10 flex items-center justify-center text-[#30a192] mb-6 border border-[#30a192]/20 group-hover:bg-[#30a192] group-hover:text-[#ffffff] transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 21h18"></path><path d="M9 8h1"></path><path d="M9 12h1"></path><path d="M9 16h1"></path><path d="M14 8h1"></path><path d="M14 12h1"></path><path d="M14 16h1"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1d5865] mb-3">PropTech</h3>
+                    <p class="text-[#8f8e8e] text-sm leading-relaxed mb-8">
+                        Révolutionner la gestion immobilière et le BTP.
+                    </p>
+                </div>
+
+                <div class="mt-auto w-full relative z-10">
+                    <hr class="border-slate-100 mb-5">
+                    <p class="text-[10px] font-bold text-[#30a192] uppercase tracking-widest mb-1">Flagship Product</p>
+                    <p class="text-base font-bold text-[#1d5865]">Shabaka Syndic</p>
+                </div>
+            </div>
+
+            <!-- Carte 2 : LegalTech -->
+            <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col h-full relative overflow-hidden reveal delay-200">
+                <!-- Watermark en arrière-plan (Marteau de juge) -->
+                <div class="absolute top-6 right-6 text-slate-200 opacity-30 group-hover:scale-110 group-hover:opacity-40 transition-all duration-500 pointer-events-none -rotate-12">
+                    <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14 10l-4-4-2 2 4 4 2-2zm-8.83 5.83l-1.41-1.41c-.39-.39-.39-1.02 0-1.41l5.66-5.66c.39-.39 1.02-.39 1.41 0l1.41 1.41c.39.39.39 1.02 0 1.41l-5.66 5.66c-.39.39-1.02.39-1.41 0zM22 19h-8v2h8v-2z"></path>
+                        <path d="M15.41 8.59L14 7.17 16.83 4.34c.39-.39 1.02-.39 1.41 0l1.41 1.41c.39.39.39 1.02 0 1.41L16.82 10zM5.17 19.83L3.76 18.42c-.39-.39-.39-1.02 0-1.41l5.66-5.66c.39-.39 1.02-.39 1.41 0l1.41 1.41c.39.39.39 1.02 0 1.41l-5.66 5.66c-.39.39-1.02.39-1.41 0z"></path>
+                    </svg>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="w-10 h-10 rounded-xl bg-[#30a192]/10 flex items-center justify-center text-[#30a192] mb-6 border border-[#30a192]/20 group-hover:bg-[#30a192] group-hover:text-[#ffffff] transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20"></path><path d="M12 6h-7a5 5 0 0 0-0 10h14a5 5 0 0 0 0-10h-7z"></path>
+                            <circle cx="5" cy="11" r="2"></circle><circle cx="19" cy="11" r="2"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1d5865] mb-3">LegalTech</h3>
+                    <p class="text-[#8f8e8e] text-sm leading-relaxed mb-8">
+                        Sécuriser les arguments juridiques par l'IA.
+                    </p>
+                </div>
+
+                <div class="mt-auto w-full relative z-10">
+                    <hr class="border-slate-100 mb-5">
+                    <p class="text-[10px] font-bold text-[#30a192] uppercase tracking-widest mb-1">Flagship Product</p>
+                    <p class="text-base font-bold text-[#1d5865]">LexIA</p>
+                </div>
+            </div>
+
+            <!-- Carte 3 : HealthTech -->
+            <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col h-full relative overflow-hidden reveal delay-300">
+                <!-- Watermark en arrière-plan (Coeur avec pouls) -->
+                <div class="absolute top-6 right-6 text-slate-200 opacity-30 group-hover:scale-110 group-hover:opacity-40 transition-all duration-500 pointer-events-none">
+                    <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                        <!-- Pouls simulé par une ligne blanche par dessus pour effet stencil -->
+                        <path d="M3 11 h3 l2.5 -5 l3 10 l2.5 -5 h7" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="w-10 h-10 rounded-xl bg-[#30a192]/10 flex items-center justify-center text-[#30a192] mb-6 border border-[#30a192]/20 group-hover:bg-[#30a192] group-hover:text-[#ffffff] transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1d5865] mb-3">HealthTech</h3>
+                    <p class="text-[#8f8e8e] text-sm leading-relaxed mb-8">
+                        Optimisation logistique et aide au diagnostic.
+                    </p>
+                </div>
+
+                <div class="mt-auto w-full relative z-10">
+                    <hr class="border-slate-100 mb-5">
+                    <p class="text-[10px] font-bold text-[#30a192] uppercase tracking-widest mb-1">Flagship Product</p>
+                    <p class="text-base font-bold text-[#1d5865]">Urgence Gabon</p>
+                </div>
+            </div>
+
+            <!-- Carte 4 : Média & Retail -->
+            <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col h-full relative overflow-hidden reveal delay-400">
+                <!-- Watermark en arrière-plan (Journal/Interface) -->
+                <div class="absolute top-6 right-6 text-slate-200 opacity-30 group-hover:scale-110 group-hover:opacity-40 transition-all duration-500 pointer-events-none">
+                    <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M3 3h18v18H3V3zm16 16V5H5v14h14zM7 7h10v2H7V7zm0 4h10v2H7v-2zm0 4h6v2H7v-2z"></path>
+                    </svg>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="w-10 h-10 rounded-xl bg-[#30a192]/10 flex items-center justify-center text-[#30a192] mb-6 border border-[#30a192]/20 group-hover:bg-[#30a192] group-hover:text-[#ffffff] transition-colors duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-[#1d5865] mb-3">Média & Retail</h3>
+                    <p class="text-[#8f8e8e] text-sm leading-relaxed mb-8">
+                        Agilité digitale et veille stratégique IA.
+                    </p>
+                </div>
+
+                <div class="mt-auto w-full relative z-10">
+                    <hr class="border-slate-100 mb-5">
+                    <p class="text-[10px] font-bold text-[#30a192] uppercase tracking-widest mb-1">Flagship Product</p>
+                    <p class="text-base font-bold text-[#1d5865]">AI Journalist Manager</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 7 : TÉMOIGNAGES (ÉCHOS)            -->
+    <!-- ========================================== -->
+    <section class="py-24 bg-[#ffffff] relative overflow-hidden" id="temoignages">
+
+        <!-- En-tête de la section -->
+        <div class="text-center max-w-3xl mx-auto px-4 mb-16 reveal">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-[#1d5865] mb-6">Échos de l'Écosystème</h2>
+            <p class="text-[#8f8e8e] text-lg">Ils bâtissent l'Afrique de demain avec Shabaka InnovLab.</p>
+        </div>
+
+        <!-- Grille des Témoignages -->
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <!-- Témoignage 1 : Founder (Clair) -->
+            <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col relative reveal delay-100">
+                <!-- Guillemets Filigrane -->
+                <div class="absolute top-6 right-8 text-slate-100 font-serif text-8xl leading-none opacity-50 select-none group-hover:scale-110 group-hover:text-[#30a192]/10 transition-all duration-500">
+                    "
+                </div>
+
+                <div class="relative z-10 mb-8 flex-grow">
+                    <span class="inline-block px-3 py-1 rounded-full bg-[#30a192]/10 text-[#30a192] text-[10px] font-bold tracking-widest uppercase mb-6 border border-[#30a192]/20">
+                        Founder
+                    </span>
+                    <p class="text-[#8f8e8e] italic leading-relaxed md:text-lg">
+                        "L'infrastructure de Shabaka nous a permis de passer de l'idée au produit en 4 mois. C'est l'accélérateur ultime pour tout fondateur tech en Afrique."
+                    </p>
+                </div>
+
+                <div class="mt-auto pt-6 border-t border-slate-100 flex items-center gap-4 relative z-10">
+                    <div class="w-12 h-12 rounded-full bg-[#1d5865] text-[#ffffff] flex items-center justify-center font-bold text-sm shrink-0 shadow-md">
+                        DK
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-[#1d5865]">Dr. Kalonji</h4>
+                        <p class="text-xs text-[#8f8e8e]">Founder, AAPCMLU AI</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Témoignage 2 : Corporate (Sombre / Highlight) -->
+            <div class="bg-gradient-to-br from-[#1d5865] to-[#15344b] rounded-[24px] p-8 shadow-2xl hover:shadow-[#1d5865]/30 transition-all duration-300 group hover:-translate-y-2 flex flex-col relative md:-mt-4 md:mb-4 reveal delay-200">
+                <!-- Guillemets Filigrane -->
+                <div class="absolute top-6 right-8 text-[#ffffff]/5 font-serif text-8xl leading-none select-none group-hover:scale-110 group-hover:text-[#ffffff]/10 transition-all duration-500">
+                    "
+                </div>
+
+                <div class="relative z-10 mb-8 flex-grow">
+                    <span class="inline-block px-3 py-1 rounded-full bg-[#ffffff]/10 text-[#ffffff] text-[10px] font-bold tracking-widest uppercase mb-6 border border-[#ffffff]/20 backdrop-blur-sm">
+                        Corporate
+                    </span>
+                    <p class="text-[#ffffff]/90 italic leading-relaxed md:text-lg font-light">
+                        "Une collaboration fluide. Shabaka nous a connectés aux technologies de rupture dont nous avions besoin pour moderniser nos processus internes."
+                    </p>
+                </div>
+
+                <div class="mt-auto pt-6 border-t border-[#ffffff]/10 flex items-center gap-4 relative z-10">
+                    <div class="w-12 h-12 rounded-full bg-[#ffffff] text-[#1d5865] flex items-center justify-center font-bold text-sm shrink-0 shadow-lg">
+                        CT
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-[#ffffff]">Directeur CTO</h4>
+                        <p class="text-xs text-[#ffffff]/60">Grand Groupe Industriel</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Témoignage 3 : Startup CEO (Clair) -->
+            <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col relative reveal delay-300">
+                <!-- Guillemets Filigrane -->
+                <div class="absolute top-6 right-8 text-slate-100 font-serif text-8xl leading-none opacity-50 select-none group-hover:scale-110 group-hover:text-[#30a192]/10 transition-all duration-500">
+                    "
+                </div>
+
+                <div class="relative z-10 mb-8 flex-grow">
+                    <span class="inline-block px-3 py-1 rounded-full bg-[#30a192]/10 text-[#30a192] text-[10px] font-bold tracking-widest uppercase mb-6 border border-[#30a192]/20">
+                        Startup CEO
+                    </span>
+                    <p class="text-[#8f8e8e] italic leading-relaxed md:text-lg">
+                        "Le plus précieux ? La communauté. Être entouré de fondateurs qui font face aux mêmes défis change tout. On grandit ensemble."
+                    </p>
+                </div>
+
+                <div class="mt-auto pt-6 border-t border-slate-100 flex items-center gap-4 relative z-10">
+                    <div class="w-12 h-12 rounded-full bg-[#30a192] text-[#ffffff] flex items-center justify-center font-bold text-sm shrink-0 shadow-md">
+                        SL
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-[#1d5865]">Sarah L.</h4>
+                        <p class="text-xs text-[#8f8e8e]">CEO, LexIA Solutions</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECTION 8 : FOOTER                         -->
+    <!-- ========================================== -->
+    <footer class="bg-[#15344b] pt-20 pb-8 relative overflow-hidden" id="footer">
+        <!-- Grille Principale du Footer -->
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+
+            <!-- Colonne 1 : Marque & Newsletter -->
+            <div class="reveal delay-100">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-12 shrink-0">
+                        <!-- Représentation Vectorielle "Light" du Logo Shabaka InnovLab -->
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-md">
+                            <!-- Bouclier Haut (Forme en S) -->
+                            <path d="M 10 30 L 50 7 L 90 30 L 90 50 L 50 27 L 30 38.5 L 30 60 L 10 48.5 Z" fill="#ffffff" opacity="0.95"/>
+                            <!-- Bouclier Bas (Forme en S) -->
+                            <path d="M 90 70 L 50 93 L 10 70 L 10 50 L 50 73 L 70 61.5 L 70 40 L 90 51.5 Z" fill="#ffffff" opacity="0.6"/>
+                            <!-- Nœuds de Connexion Réseau (Diagonale centrale) -->
+                            <g stroke="#30a192" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="30" y1="65" x2="60" y2="35" />
+                                <line x1="40" y1="75" x2="70" y2="45" />
+                                <line x1="45" y1="50" x2="55" y2="60" />
+                                <circle cx="30" cy="65" r="6.5" fill="#30a192" stroke="none"/>
+                                <circle cx="60" cy="35" r="6.5" fill="#30a192" stroke="none"/>
+                                <circle cx="40" cy="75" r="6.5" fill="#30a192" stroke="none"/>
+                                <circle cx="70" cy="45" r="6.5" fill="#30a192" stroke="none"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-2xl text-[#ffffff] leading-none mb-1">Shabaka</h3>
+                        <p class="text-[#30a192] text-sm font-bold tracking-widest uppercase leading-none">InnovLab</p>
+                    </div>
+                </div>
+                <p class="text-[#8f8e8e] text-sm leading-relaxed mb-6 pr-4">
+                    Le point de convergence de l'innovation, du capital et de l'industrie pour une Afrique souveraine.
+                </p>
+                <form action="{{ url_for('main.contact') }}" method="POST" class="flex gap-2">
+                    <input type="email" name="email" placeholder="Votre email" class="bg-[#1d5865]/30 border border-[#1d5865]/50 rounded-lg px-4 py-2.5 text-sm w-full focus:outline-none focus:border-[#30a192] text-[#ffffff] placeholder-[#8f8e8e] transition-colors" required>
+                    <button type="submit" class="bg-[#30a192] hover:bg-[#258073] text-[#ffffff] rounded-lg px-4 py-2.5 transition-colors flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Colonne 2 : Contact -->
+            <div class="reveal delay-200">
+                <h4 class="font-bold text-lg text-[#ffffff] mb-6 pb-2 border-b border-[#30a192]/50 inline-block">Contact Direct</h4>
+                <ul class="space-y-4">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-[#30a192] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <span class="text-[#8f8e8e] text-sm leading-relaxed">Centre d'affaires Gueliz, Bd My Rachid, Étage 1, Bureau 8, 40000 Marrakech</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-[#30a192] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        <span class="text-[#8f8e8e] text-sm">+212 699 14 00 01</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-[#30a192] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <span class="text-[#8f8e8e] text-sm">nticshabaka@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Colonne 3 : Navigation -->
+            <div class="reveal delay-300">
+                <h4 class="font-bold text-lg text-[#ffffff] mb-6 pb-2 border-b border-[#30a192]/50 inline-block">Navigation</h4>
+                <ul class="space-y-3">
+                    <li><a href="#journey" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Parcours Fondateur</a></li>
+                    <li><a href="#solutions-avancees" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Solutions Corporate</a></li>
+                    <li><a href="#portfolio" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Investisseurs</a></li>
+                    <li><a href="#startups" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Nos Produits</a></li>
+                </ul>
+            </div>
+
+            <!-- Colonne 4 : Mentions Légales -->
+            <div class="reveal delay-400">
+                <h4 class="font-bold text-lg text-[#ffffff] mb-6 pb-2 border-b border-[#30a192]/50 inline-block">Mentions Légales</h4>
+                <ul class="space-y-3 mb-6">
+                    <li class="text-[#8f8e8e] text-sm"><span class="font-bold text-[#ffffff]">RC :</span> 163795</li>
+                    <li class="text-[#8f8e8e] text-sm"><span class="font-bold text-[#ffffff]">ICE :</span> 003694652000069</li>
+                </ul>
+                <a href="https://www.shabakainvestgroup.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-[#ffffff]/5 border border-[#ffffff]/10 hover:bg-[#ffffff]/10 transition-colors text-[#8f8e8e] hover:text-[#ffffff] text-sm py-2 px-4 rounded-lg w-fit">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    Site Corporate
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Bas de page (Copyright et Liens) -->
+        <div class="max-w-7xl mx-auto px-4 mt-16 reveal delay-500">
+            <div class="border-t border-[#ffffff]/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[#8f8e8e] text-xs text-center md:text-left">
+                    © 2024 Shabaka InnovLab. Tous droits réservés.
+                </p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a href="#" class="text-[#8f8e8e] hover:text-[#ffffff] text-xs transition-colors">Politique de Confidentialité</a>
+                    <a href="#" class="text-[#8f8e8e] hover:text-[#ffffff] text-xs transition-colors">Conditions Générales</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script pour déclencher l'animation au Scroll (Intersection Observer) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 // Se déclenche quand 15% de l'élément est visible à l'écran
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // L'animation ne se joue qu'une seule fois
+                    }
+                });
+            }, observerOptions);
+
+            // Observer tous les éléments avec la classe 'reveal'
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+
+</body>
+</html>
