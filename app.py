@@ -14,7 +14,7 @@ def create_app():
     db.init_app(app)
 
     login_manager = LoginManager()
-    login_manager.login_view = 'main.login'
+    login_manager.login_view = 'admin.login'
     login_manager.init_app(app)
 
     @login_manager.user_loader
@@ -24,6 +24,9 @@ def create_app():
     # Import and register blueprints/routes
     from routes.main import main_bp
     app.register_blueprint(main_bp)
+
+    from routes.admin_routes import admin_bp
+    app.register_blueprint(admin_bp)
 
     return app
 
