@@ -11,6 +11,10 @@ main_bp = Blueprint('main', __name__)
 def index():
     return render_template('index.html')
 
+@main_bp.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html')
+
 @main_bp.route('/contact', methods=['POST'])
 def contact():
     email = request.form.get('email')
