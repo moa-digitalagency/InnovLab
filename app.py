@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_login import LoginManager
 from config.config import Config
 from models import db, User
@@ -35,7 +35,28 @@ def create_app():
         site_settings = SiteSettings.query.first()
         seo_settings_list = SeoSettings.query.all()
         seo_settings = {s.page_name: s for s in seo_settings_list}
-        return dict(site_settings=site_settings, seo_settings=seo_settings)
+        return dict(
+            site_settings=site_settings,
+            seo_settings=seo_settings,
+            whatsapp_number=app.config['WHATSAPP_NUMBER'],
+            consultation_url=app.config['CONSULTATION_URL']
+        )
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('errors/404.html'), 404
+
+    @app.errorhandler(451)
+    def unavailable_for_legal_reasons(e):
+        return render_template('errors/451.html'), 451
+
+    @app.errorhandler(400)
+    def bad_request(e):
+        return render_template('errors/400.html'), 400
+
+    @app.errorhandler(403)
+    def forbidden(e):
+        return render_template('errors/403.html'), 403
 
     return app
 
