@@ -1,0 +1,61 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="mb-8 flex items-center justify-between">
+    <div>
+        <h2 class="text-3xl font-bold text-white">Candidatures Fondateurs</h2>
+        <p class="text-gray-400 mt-1">Gérez les demandes des fondateurs.</p>
+    </div>
+</div>
+
+<div class="bg-gray-800 rounded-xl border border-gray-700 shadow-lg overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-gray-400">
+            <thead class="bg-gray-700/50 text-gray-200 uppercase text-xs font-semibold tracking-wider">
+                <tr>
+                    <th class="px-6 py-4">Nom</th>
+                    <th class="px-6 py-4">Email</th>
+                    <th class="px-6 py-4">Projet</th>
+                    <th class="px-6 py-4">Date</th>
+                    <th class="px-6 py-4">Pitch</th>
+                    <th class="px-6 py-4 text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-700">
+                {% for founder in founders %}
+                <tr class="hover:bg-gray-700/30 transition-colors">
+                    <td class="px-6 py-4 font-medium text-white">{{ founder.nom }}</td>
+                    <td class="px-6 py-4">{{ founder.email }}</td>
+                    <td class="px-6 py-4">
+                        <div class="font-medium text-teal-400">{{ founder.projet_name }}</div>
+                        <div class="text-xs text-gray-500 truncate max-w-xs" title="{{ founder.description }}">{{ founder.description }}</div>
+                    </td>
+                    <td class="px-6 py-4 text-sm">{{ founder.created_at.strftime('%d/%m/%Y') }}</td>
+                    <td class="px-6 py-4">
+                        {% if founder.file_pitch %}
+                        <a href="{{ url_for('static', filename='uploads/' + founder.file_pitch) }}" target="_blank" class="flex items-center gap-1 text-blue-400 hover:text-blue-300 transition-colors">
+                            <span class="material-symbols-outlined text-lg">attach_file</span>
+                            <span class="text-sm">Voir</span>
+                        </a>
+                        {% else %}
+                        <span class="text-gray-600 text-sm">Aucun</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <form action="{{ url_for('admin.delete_founder', id=founder.id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette demande ?');" class="inline-block">
+                            <button type="submit" class="p-2 text-red-400 hover:bg-red-900/30 rounded-lg transition-colors" title="Supprimer">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="px-6 py-8 text-center text-gray-500">Aucune demande trouvée.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
