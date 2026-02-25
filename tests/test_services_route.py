@@ -26,5 +26,16 @@ class TestServicesRoute(unittest.TestCase):
         self.assertIn(b'Accompagnement & Incubation', response.data)
         self.assertIn(b'Shabaka Academy', response.data)
 
+    def test_contact_redirect(self):
+        """Test that GET /contact redirects to homepage anchor."""
+        response = self.client.get('/contact')
+        # Check for 302 Found (redirect)
+        self.assertEqual(response.status_code, 302)
+        # Check the location header, it should point to /#contact or similar
+        # Since we use url_for('main.index', _anchor='contact'), it should be /#contact
+        # Need to handle potential full URL vs path
+        location = response.headers['Location']
+        self.assertTrue(location.endswith('/#contact') or location.endswith('index.html#contact'))
+
 if __name__ == '__main__':
     unittest.main()

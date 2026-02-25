@@ -19,8 +19,11 @@ def about():
 def services():
     return render_template('services.html')
 
-@main_bp.route('/contact', methods=['POST'])
+@main_bp.route('/contact', methods=['GET', 'POST'])
 def contact():
+    if request.method == 'GET':
+        return redirect(url_for('main.index', _anchor='contact'))
+
     email = request.form.get('email')
     if email:
         new_contact = Contact(email=email)
