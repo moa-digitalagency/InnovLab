@@ -1,188 +1,181 @@
 {% extends "base.html" %}
 
 {% block content %}
-<main class="pt-32 pb-20">
-    <!-- Hero Section -->
-    <section class="container mx-auto px-6 mb-20 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-[#064060] mb-6">Nos Services</h1>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-            Un écosystème complet pour transformer vos idées en réalités technologiques souveraines.
+<main class="pt-32 pb-20 overflow-hidden">
+    <!-- Header Section -->
+    <div class="container mx-auto px-6 mb-24 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-[#064060] mb-6 reveal">Nos Services</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto reveal delay-100">
+            Un écosystème complet pour transformer vos idées en succès technologiques durables.
         </p>
-    </section>
+    </div>
 
-    <!-- Z-Pattern Services -->
-    <section class="container mx-auto px-6 space-y-24">
+    <!-- Z-Pattern Layout -->
+    <div class="container mx-auto px-6 space-y-32">
 
-        <!-- 1. Incubation & Accompagnement -->
-        <div class="flex flex-col md:flex-row items-center gap-12 group">
+        <!-- 1. Incubation & Accompagnement (Image Left, Text Right) -->
+        <div class="flex flex-col md:flex-row items-center gap-12 reveal delay-200">
             <div class="w-full md:w-1/2 flex justify-center">
-                <div class="relative w-full max-w-md aspect-video bg-gradient-to-br from-[#076D6D] to-[#30a192] rounded-2xl shadow-xl flex items-center justify-center transform transition-transform duration-500 group-hover:scale-105">
-                    <span class="material-symbols-outlined text-9xl text-white opacity-90">potted_plant</span>
+                <div class="w-64 h-64 bg-slate-50 rounded-full flex items-center justify-center shadow-lg relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-[#076D6D]/5 group-hover:bg-[#076D6D]/10 transition-colors duration-300"></div>
+                    <span class="material-symbols-outlined text-8xl text-[#076D6D] group-hover:scale-110 transition-transform duration-300">rocket_launch</span>
                 </div>
             </div>
             <div class="w-full md:w-1/2 space-y-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-12 h-1 bg-[#076D6D]"></span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier 1</span>
+                </div>
                 <h2 class="text-3xl font-bold text-[#064060]">Incubation & Accompagnement</h2>
-                <div class="h-1 w-20 bg-[#076D6D]"></div>
-                <p class="text-lg text-gray-600 leading-relaxed">
-                    Nous transformons les porteurs de projets en entrepreneurs aguerris. Notre programme d'incubation offre un cadre structuré pour valider votre marché et structurer votre offre.
-                </p>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Sélection rigoureuse des projets à fort potentiel</span>
+                <ul class="space-y-4 text-gray-600 leading-relaxed">
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Sélection Rigoureuse :</strong> Identification de projets à fort potentiel de scalabilité.</span>
                     </li>
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Mentorat Expert par des leaders de l'industrie</span>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Ressources :</strong> Mise à disposition gracieuse des infrastructures (bureaux, internet HD, outils techniques).</span>
                     </li>
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Accès à un réseau de partenaires stratégiques</span>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Mentorat Expert :</strong> Suivi personnalisé par des experts sectoriels (Juridique, Finance, Tech) issus du réseau Shabaka Invest Group.</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- 2. Studio de Développement -->
-        <div class="flex flex-col md:flex-row-reverse items-center gap-12 group">
+        <!-- 2. Studio de Développement (Text Left, Image Right) -->
+        <div class="flex flex-col md:flex-row-reverse items-center gap-12 reveal">
             <div class="w-full md:w-1/2 flex justify-center">
-                <div class="relative w-full max-w-md aspect-video bg-gradient-to-bl from-[#064060] to-[#1d5865] rounded-2xl shadow-xl flex items-center justify-center transform transition-transform duration-500 group-hover:scale-105">
-                    <span class="material-symbols-outlined text-9xl text-white opacity-90">terminal</span>
+                <div class="w-64 h-64 bg-slate-50 rounded-full flex items-center justify-center shadow-lg relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-[#076D6D]/5 group-hover:bg-[#076D6D]/10 transition-colors duration-300"></div>
+                    <span class="material-symbols-outlined text-8xl text-[#076D6D] group-hover:scale-110 transition-transform duration-300">terminal</span>
                 </div>
             </div>
             <div class="w-full md:w-1/2 space-y-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-12 h-1 bg-[#076D6D]"></span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier 2</span>
+                </div>
                 <h2 class="text-3xl font-bold text-[#064060]">Studio de Développement</h2>
-                <div class="h-1 w-20 bg-[#076D6D]"></div>
-                <p class="text-lg text-gray-600 leading-relaxed">
-                    Votre partenaire technologique pour bâtir des solutions robustes et scalables. Nous agissons comme votre Tech Agency dédiée.
+                <p class="text-gray-600 leading-relaxed">
+                    InnovLab dispose d'un pôle de développement complet agissant à la fois comme support technique pour les startups incubées et comme agence digitale pour les clients externes.
                 </p>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Développement d'applications Web & Mobile sur mesure</span>
+                <ul class="space-y-4 text-gray-600 leading-relaxed">
+                     <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Applications Web/Mobile :</strong> Conception de Plateformes et développement sur mesure.</span>
                     </li>
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Architectures robustes et évolutives</span>
-                    </li>
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Méthodologies Agiles et DevOps</span>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Architectures robustes :</strong> Expertise Tech Agency pour des solutions pérennes.</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- 3. IA & Cybersécurité -->
-        <div class="flex flex-col md:flex-row items-center gap-12 group">
+        <!-- 3. IA & Cybersécurité (Image Left, Text Right) -->
+        <div class="flex flex-col md:flex-row items-center gap-12 reveal">
             <div class="w-full md:w-1/2 flex justify-center">
-                <div class="relative w-full max-w-md aspect-video bg-gradient-to-br from-[#076D6D] to-[#30a192] rounded-2xl shadow-xl flex items-center justify-center transform transition-transform duration-500 group-hover:scale-105">
-                    <span class="material-symbols-outlined text-9xl text-white opacity-90">security</span>
+                <div class="w-64 h-64 bg-slate-50 rounded-full flex items-center justify-center shadow-lg relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-[#076D6D]/5 group-hover:bg-[#076D6D]/10 transition-colors duration-300"></div>
+                    <span class="material-symbols-outlined text-8xl text-[#076D6D] group-hover:scale-110 transition-transform duration-300">shield</span>
                 </div>
             </div>
             <div class="w-full md:w-1/2 space-y-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-12 h-1 bg-[#076D6D]"></span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier 3</span>
+                </div>
                 <h2 class="text-3xl font-bold text-[#064060]">IA & Cybersécurité</h2>
-                <div class="h-1 w-20 bg-[#076D6D]"></div>
-                <p class="text-lg text-gray-600 leading-relaxed">
-                    Sécurisez vos actifs et propulsez votre activité grâce à l'intelligence artificielle. Nous allions protection des données et innovation algorithmique.
-                </p>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Audit de sécurité et conformité</span>
+                <ul class="space-y-4 text-gray-600 leading-relaxed">
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Audit :</strong> Analyse approfondie de vos systèmes et processus.</span>
                     </li>
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Protection des données sensibles</span>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Protection des données :</strong> Sécurisation de vos actifs numériques stratégiques.</span>
                     </li>
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Automatisation métier par l'IA</span>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Automatisation métier :</strong> Optimisation par l'intelligence artificielle.</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- 4. Accélération & Investissement -->
-        <div class="flex flex-col md:flex-row-reverse items-center gap-12 group">
+        <!-- 4. Accélération & Investissement (Text Left, Image Right) -->
+        <div class="flex flex-col md:flex-row-reverse items-center gap-12 reveal">
             <div class="w-full md:w-1/2 flex justify-center">
-                <div class="relative w-full max-w-md aspect-video bg-gradient-to-bl from-[#064060] to-[#1d5865] rounded-2xl shadow-xl flex items-center justify-center transform transition-transform duration-500 group-hover:scale-105">
-                    <span class="material-symbols-outlined text-9xl text-white opacity-90">rocket_launch</span>
+                <div class="w-64 h-64 bg-slate-50 rounded-full flex items-center justify-center shadow-lg relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-[#076D6D]/5 group-hover:bg-[#076D6D]/10 transition-colors duration-300"></div>
+                    <span class="material-symbols-outlined text-8xl text-[#076D6D] group-hover:scale-110 transition-transform duration-300">trending_up</span>
                 </div>
             </div>
             <div class="w-full md:w-1/2 space-y-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-12 h-1 bg-[#076D6D]"></span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier 4</span>
+                </div>
                 <h2 class="text-3xl font-bold text-[#064060]">Accélération & Investissement</h2>
-                <div class="h-1 w-20 bg-[#076D6D]"></div>
-                <p class="text-lg text-gray-600 leading-relaxed">
-                    Passez à la vitesse supérieure. Nous préparons votre startup pour le marché mondial et les levées de fonds stratégiques.
-                </p>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Programme "Go-to-Market" intensif</span>
+                <ul class="space-y-4 text-gray-600 leading-relaxed">
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Programme "Go-to-Market" :</strong> Stratégies pour conquérir votre marché.</span>
                     </li>
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Préparation à la levée de fonds (Pitch Deck, BP)</span>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Levée de fonds :</strong> Accompagnement dans la recherche de financements.</span>
                     </li>
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Accès au financement Equity</span>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Equity :</strong> Prises de participation stratégiques.</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- 5. Shabaka Academy -->
-        <div class="flex flex-col md:flex-row items-center gap-12 group">
+        <!-- 5. Shabaka Academy (Image Left, Text Right) -->
+        <div class="flex flex-col md:flex-row items-center gap-12 reveal">
             <div class="w-full md:w-1/2 flex justify-center">
-                <div class="relative w-full max-w-md aspect-video bg-gradient-to-br from-[#076D6D] to-[#30a192] rounded-2xl shadow-xl flex items-center justify-center transform transition-transform duration-500 group-hover:scale-105">
-                    <span class="material-symbols-outlined text-9xl text-white opacity-90">school</span>
+                <div class="w-64 h-64 bg-slate-50 rounded-full flex items-center justify-center shadow-lg relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-[#076D6D]/5 group-hover:bg-[#076D6D]/10 transition-colors duration-300"></div>
+                    <span class="material-symbols-outlined text-8xl text-[#076D6D] group-hover:scale-110 transition-transform duration-300">school</span>
                 </div>
             </div>
             <div class="w-full md:w-1/2 space-y-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-12 h-1 bg-[#076D6D]"></span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier 5</span>
+                </div>
                 <h2 class="text-3xl font-bold text-[#064060]">Shabaka Academy</h2>
-                <div class="h-1 w-20 bg-[#076D6D]"></div>
-                <p class="text-lg text-gray-600 leading-relaxed">
-                    Le partage de connaissances est au cœur de notre mission. Formez vos équipes aux compétences de demain.
-                </p>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Formation continue et certifications</span>
+                <ul class="space-y-4 text-gray-600 leading-relaxed">
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Formation :</strong> Montée en compétences sur les technologies clés.</span>
                     </li>
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Consulting et audits de compétences</span>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Consulting :</strong> Expertise ponctuelle pour vos équipes.</span>
                     </li>
-                    <li class="flex items-center gap-3 text-gray-700">
-                        <span class="material-symbols-outlined text-[#076D6D]">check_circle</span>
-                        <span>Ateliers pratiques et Hackathons</span>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
+                        <span><strong>Ateliers pratiques :</strong> Mises en situation et hackathons.</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-    </section>
+    </div>
 
-    <!-- Call to Action -->
-    <section class="container mx-auto px-6 mt-32 mb-10">
-        <div class="bg-[#064060] rounded-3xl p-12 text-center relative overflow-hidden shadow-2xl">
-            <!-- Decorative circles -->
-            <div class="absolute top-0 left-0 w-64 h-64 bg-[#076D6D] rounded-full mix-blend-multiply filter blur-3xl opacity-20 -translate-x-1/2 -translate-y-1/2"></div>
-            <div class="absolute bottom-0 right-0 w-64 h-64 bg-[#30a192] rounded-full mix-blend-multiply filter blur-3xl opacity-20 translate-x-1/2 translate-y-1/2"></div>
+    <!-- CTA Section -->
+    <div class="container mx-auto px-6 mt-32 text-center reveal">
+        <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-300 bg-[#076D6D] rounded-xl hover:bg-[#055050] hover:shadow-xl hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-[#076D6D]/30 group">
+            Démarrer un projet
+            <span class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+    </div>
 
-            <div class="relative z-10">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Prêt à concrétiser votre vision ?</h2>
-                <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
-                    Que vous soyez fondateur, investisseur ou une entreprise en quête d'innovation, nous avons l'expertise pour vous accompagner.
-                </p>
-                <a href="{{ url_for('main.index') }}#contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-[#064060] transition-all duration-200 bg-white rounded-xl hover:bg-gray-100 hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white">
-                    Démarrer un projet
-                    <span class="material-symbols-outlined ml-2">arrow_forward</span>
-                </a>
-            </div>
-        </div>
-    </section>
 </main>
 {% endblock %}
