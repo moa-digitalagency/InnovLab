@@ -1,0 +1,28 @@
+:root {
+    --deep-ocean: #064060;
+    --teal: #076D6D;
+    --teal-light: #80B06F;
+    --off-white: #f8fafc;
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+}
+.bg-deep-ocean { background-color: #064060; }
+.bg-brand-teal { background-color: #076D6D; }
+.text-deep-ocean { color: #064060; }
+.text-brand-teal { color: #076D6D; }
+.hero-pattern {
+    background-image: radial-gradient(#076D6D 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.05;
+}
+.roadmap-line {
+    background: linear-gradient(90deg, transparent 0%, var(--teal) 15%, var(--teal) 85%, transparent 100%);
+}
+.glass-nav {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
