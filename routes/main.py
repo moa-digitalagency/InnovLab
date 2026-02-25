@@ -19,6 +19,102 @@ def about():
 def services():
     return render_template('services.html')
 
+@main_bp.route('/portfolio', methods=['GET'])
+def portfolio():
+    projects = [
+        {
+            "category": "PropTech",
+            "title": "Shabaka Alu+ (PWA Devis)",
+            "description": "Standardise le chiffrage en menuiserie aluminium. En générant des devis techniques précis en moins de 30 secondes, il élimine l'erreur humaine et décuple la productivité commerciale."
+        },
+        {
+            "category": "PropTech",
+            "title": "Shabaka Syndic",
+            "description": "Plateforme collaborative qui professionnalise la gestion des copropriétés. En digitalisant les appels de fonds et les quittances, elle instaure une transparence totale."
+        },
+        {
+            "category": "PropTech",
+            "title": "Gestion Chantiers (Partenariat Bellari)",
+            "description": "Outil de contrôle financier en temps réel. Grâce au pointage automatisé et à la traçabilité des achats par preuve visuelle, il éradique le gaspillage sur site."
+        },
+        {
+            "category": "PropTech",
+            "title": "Shabaka IMMO",
+            "description": "Synchronise reconnaissance d'image et traitement vocal pour générer instantanément des rapports de visite enrichis, accélérant la prise de décision client."
+        },
+        {
+            "category": "GovTech",
+            "title": "SGI-GP (GoPass)",
+            "description": "Architecture Zero Trust et principe 'Flight-Bound' pour la maximisation des recettes aéroportuaires. Permet une réconciliation infaillible entre manifestes de vol et flux financiers."
+        },
+        {
+            "category": "GovTech",
+            "title": "Intel ATM-RDC",
+            "description": "Système de Situational Awareness dédié à la sanctuarisation de l'espace aérien. Utilise l'IA comportementale pour détecter les menaces non déclarées."
+        },
+        {
+            "category": "GovTech",
+            "title": "GEC",
+            "description": "Gestion Électronique des Courriels assurant la pérennité de la mémoire administrative et fluidifiant les circuits de décision via une traçabilité immuable."
+        },
+        {
+            "category": "GovTech",
+            "title": "AfrikaID (MOA Digital)",
+            "description": "Rempart de KYC avancé protégeant les écosystèmes numériques contre les usurpations d'identité grâce à l'analyse des hash MRZ et la vérification biométrique."
+        },
+        {
+            "category": "GovTech",
+            "title": "MyCharika",
+            "description": "Plateforme de dématérialisation simplifiant la création d'entreprise et l'extraction automatisée de données fiscales."
+        },
+        {
+            "category": "GovTech",
+            "title": "Shabaka Safety",
+            "description": "Solution intégrée (hardware/software) réduisant les accidents de travail. Son IA détecte automatiquement le non-port des Équipements de Protection Individuelle (EPI)."
+        },
+        {
+            "category": "GovTech",
+            "title": "Busconnect",
+            "description": "Optimise la mobilité urbaine par une analyse granulaire des flux, permettant une gestion prédictive des transports publics."
+        },
+        {
+            "category": "HealthTech",
+            "title": "Algorithme AAPCMLU (Dr. KALONJI)",
+            "description": "Moteur d'inférence propriétaire utilisant une analyse probabiliste pour classifier les lithiases urinaires, fournissant un diagnostic de précision."
+        },
+        {
+            "category": "HealthTech",
+            "title": "Urgence Gabon",
+            "description": "Système d'optimisation logistique pour les interventions médicales critiques, visant la réduction du temps de réponse vital."
+        },
+        {
+            "category": "Retail/Daily",
+            "title": "Hannout AI",
+            "description": "Modernise le commerce de proximité grâce à la reconnaissance visuelle automatique des produits en caisse, fluidifiant le parcours client."
+        },
+        {
+            "category": "Retail/Daily",
+            "title": "LexIA (Jurisprudence IA)",
+            "description": "Sécurise les arguments juridiques par une analyse sémantique des précédents judiciaires, offrant une certitude légale et un gain de temps stratégique."
+        },
+        {
+            "category": "Retail/Daily",
+            "title": "AI Journalist Manager",
+            "description": "Plateforme de veille stratégique multilingue intégrant le clonage vocal ultra-réaliste et la validation factuelle en temps réel."
+        },
+        {
+            "category": "Retail/Daily",
+            "title": "Disparus.org",
+            "description": "Solution à impact social utilisant l'IA pour générer des visuels optimisés pour les réseaux sociaux et des affiches avec QR Codes dynamiques pour les avis de recherche."
+        },
+        {
+            "category": "Retail/Daily",
+            "title": "Talento & Quick Receipt",
+            "description": "Matching intelligent de talents par analyse sémantique de CV et simplification transactionnelle via quittances thermiques et WhatsApp."
+        }
+    ]
+    return render_template('portfolio.html', projects=projects)
+
 @main_bp.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'GET':
