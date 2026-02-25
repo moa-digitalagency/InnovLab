@@ -26,7 +26,7 @@ class TestRoutes(unittest.TestCase):
     def test_index(self):
         response = self.app.get('/')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Solutions Startups', response.data)
+        self.assertIn(b'Futur Technologique', response.data)
 
     def test_founder_route(self):
         response = self.app.get('/candidature/founder')
