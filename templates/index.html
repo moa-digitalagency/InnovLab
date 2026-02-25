@@ -1,40 +1,295 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#f8fafc]">
-<div class="absolute inset-0 hero-pattern pointer-events-none"></div>
-<div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-[#076D6D]/10 rounded-full blur-3xl"></div>
-<div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-[#064060]/10 rounded-full blur-3xl"></div>
-<div class="container mx-auto px-6 relative z-10 text-center">
-<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-50 text-[#076D6D] text-xs font-bold tracking-wide uppercase mb-6 border border-teal-100">
-<span class="w-2 h-2 rounded-full bg-[#076D6D] animate-pulse"></span>
-            Écosystème d'Excellence Panafricain
+<style>
+    /* Styles pour le conteneur principal */
+    .hero-container {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        overflow: hidden;
+        /* Fond ultra-clair avec une très subtile touche de la couleur du logo */
+        background: radial-gradient(circle at 50% 50%, #ffffff 0%, #F0FDFA 50%, #E2E8F0 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .svg-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .content-overlay {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        max-width: 900px;
+        padding: 2rem;
+        margin-top: 2rem;
+    }
+
+    /* --- ANIMATIONS "ALIVE" ET DYNAMIQUES --- */
+
+    /* Respiration de l'écosystème (Halos) */
+    @keyframes breathe {
+        0%, 100% { transform: scale(1); opacity: 0.3; }
+        50% { transform: scale(1.1); opacity: 0.5; }
+    }
+
+    /* Pulsation des nœuds technologiques africains */
+    @keyframes pulse-tech-node {
+        0%, 100% { r: 4; fill: #1E5B61; filter: drop-shadow(0 0 4px rgba(30, 91, 97, 0.6)); }
+        50% { r: 6.5; fill: #3CA892; filter: drop-shadow(0 0 12px rgba(60, 168, 146, 1)); }
+    }
+
+    /* Battement de cœur central (Émanant du centre de l'Afrique) */
+    @keyframes heartbeat-ring {
+        0% { r: 0; opacity: 1; stroke-width: 4; }
+        100% { r: 150; opacity: 0; stroke-width: 0; }
+    }
+
+    /* Flux de données voyageant sur les lignes du continent */
+    @keyframes data-stream {
+        to { stroke-dashoffset: -200; }
+    }
+
+    /* Rotation lente du filigrane logo en arrière-plan */
+    @keyframes spin-watermark {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Classes d'animation */
+    .halo-breathe { animation: breathe 8s ease-in-out infinite; transform-origin: center; }
+    .halo-breathe-alt { animation: breathe 12s ease-in-out infinite reverse; transform-origin: center; }
+
+    .node { animation: pulse-tech-node 3s ease-in-out infinite; }
+    .node:nth-child(even) { animation-delay: 1.5s; }
+    .node:nth-child(3n) { animation-delay: 0.7s; }
+
+    .pulse-ring {
+        fill: none;
+        stroke: #3CA892;
+        transform-origin: 700px 480px; /* Centré sur l'Afrique centrale */
+        animation: heartbeat-ring 4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+    .pulse-ring:nth-child(2) { animation-delay: 2s; }
+
+    .data-flow-line {
+        stroke-dasharray: 6 24;
+        animation: data-stream 10s linear infinite;
+    }
+    .data-flow-line-fast {
+        stroke-dasharray: 4 30;
+        animation: data-stream 6s linear infinite reverse;
+    }
+
+    .watermark {
+        transform-origin: 700px 450px;
+        animation: spin-watermark 60s linear infinite;
+    }
+
+</style>
+
+<section class="hero-container">
+
+    <!-- Le SVG Animé : Carte de l'Afrique en Réseau Technologique -->
+    <svg class="svg-background" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <filter id="glow-strong" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="glow-soft" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="15" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+            <filter id="blur-bg" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="80" />
+            </filter>
+
+            <!-- Dégradés Shabaka -->
+            <linearGradient id="africa-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#3CA892" stop-opacity="0.8" />
+                <stop offset="50%" stop-color="#1E5B61" stop-opacity="0.9" />
+                <stop offset="100%" stop-color="#3CA892" stop-opacity="0.8" />
+            </linearGradient>
+        </defs>
+
+        <!-- 1. Halos lumineux d'arrière-plan -->
+        <g opacity="0.6">
+            <!-- Halo Vert Menthe (#3CA892) -->
+            <circle cx="500" cy="300" r="250" fill="#3CA892" opacity="0.15" filter="url(#blur-bg)" class="halo-breathe" />
+            <!-- Halo Teal Foncé (#1E5B61) -->
+            <circle cx="900" cy="600" r="300" fill="#1E5B61" opacity="0.1" filter="url(#blur-bg)" class="halo-breathe-alt" />
+        </g>
+
+        <!-- 2. Filigrane Logo (Hexagone rotatif en fond) -->
+        <g class="watermark" opacity="0.04" stroke="#1E5B61" stroke-width="2" fill="none">
+            <polygon points="700,150 960,300 960,600 700,750 440,600 440,300" />
+            <polygon points="700,200 916,325 916,575 700,700 484,575 484,325" />
+            <path d="M 440,300 L 960,600 M 440,600 L 960,300 M 700,150 L 700,750" />
+        </g>
+
+        <!-- 3. BATTEMENT DE CŒUR (Ondes rayonnant de l'Afrique) -->
+        <circle cx="700" cy="480" class="pulse-ring" />
+        <circle cx="700" cy="480" class="pulse-ring" />
+
+        <!-- 4. CARTE DE L'AFRIQUE (Réseau de lignes) -->
+        <g transform="translate(-10, -20)"> <!-- Ajustement fin du centrage -->
+            <!-- Lignes de base (Structure de l'Afrique) -->
+            <g stroke="#1E5B61" stroke-width="1.5" stroke-opacity="0.3" fill="none">
+                <!-- Contour / Silhouette -->
+                <path d="M 580,200 L 660,210 L 840,240 L 960,400 L 880,480 L 740,740 L 660,600 L 600,440 L 450,370 Z" />
+                <!-- Madagascar -->
+                <polygon points="920,600 950,580 930,680" />
+
+                <!-- Connexions internes (Réseau) -->
+                <path d="M 580,200 L 600,440 L 700,520 L 880,480" />
+                <path d="M 840,240 L 700,520 L 740,740" />
+                <path d="M 660,210 L 700,520" />
+                <path d="M 450,370 L 700,520" />
+                <path d="M 600,440 L 660,600" />
+                <path d="M 840,240 L 960,400" />
+
+                <!-- Lignes s'étendant vers le monde (Connexions externes) -->
+                <path d="M 580,200 L 300,100" stroke-dasharray="4 8" />
+                <path d="M 840,240 L 1100,150" stroke-dasharray="4 8" />
+                <path d="M 960,400 L 1250,450" stroke-dasharray="4 8" />
+                <path d="M 450,370 L 200,450" stroke-dasharray="4 8" />
+            </g>
+
+            <!-- Lignes de flux de données animées (Vivant) -->
+            <g stroke="url(#africa-grad)" stroke-width="2.5" fill="none" filter="url(#glow-soft)">
+                <path class="data-flow-line" d="M 580,200 L 660,210 L 840,240 L 960,400 L 880,480 L 740,740 L 660,600 L 600,440 L 450,370 Z" />
+                <path class="data-flow-line-fast" d="M 450,370 L 700,520 L 880,480 L 960,400" />
+                <path class="data-flow-line" d="M 580,200 L 600,440 L 700,520 L 740,740" />
+            </g>
+
+            <!-- 5. NŒUDS DE L'ÉCOSYSTÈME (Villes/Hubs Tech d'Afrique) -->
+            <!-- Contour lumineux derrière les nœuds -->
+            <g fill="#3CA892" opacity="0.3" filter="url(#glow-strong)">
+                <circle cx="580" cy="200" r="12" /> <!-- Maroc -->
+                <circle cx="840" cy="240" r="12" /> <!-- Egypte -->
+                <circle cx="960" cy="400" r="12" /> <!-- Corne/Somalie -->
+                <circle cx="880" cy="480" r="12" /> <!-- Kenya -->
+                <circle cx="740" cy="740" r="12" /> <!-- Af. du Sud -->
+                <circle cx="600" cy="440" r="12" /> <!-- Nigeria -->
+                <circle cx="450" cy="370" r="12" /> <!-- Sénégal -->
+                <circle cx="700" cy="520" r="16" /> <!-- Centre (Cœur) -->
+            </g>
+
+            <!-- Points nodaux centraux -->
+            <g>
+                <circle cx="580" cy="200" class="node" />
+                <circle cx="660" cy="210" class="node" />
+                <circle cx="840" cy="240" class="node" />
+                <circle cx="960" cy="400" class="node" />
+                <circle cx="880" cy="480" class="node" />
+                <circle cx="740" cy="740" class="node" />
+                <circle cx="660" cy="600" class="node" />
+                <circle cx="600" cy="440" class="node" />
+                <circle cx="450" cy="370" class="node" />
+                <!-- Nœud Central Majeur -->
+                <circle cx="700" cy="520" r="8" fill="#1E5B61" stroke="#3CA892" stroke-width="3" filter="url(#glow-strong)" class="node" style="animation-duration: 2s;" />
+                <!-- Nœuds Madagascar -->
+                <circle cx="920" cy="600" class="node" />
+                <circle cx="950" cy="580" class="node" />
+                <circle cx="930" cy="680" class="node" />
+            </g>
+        </g>
+    </svg>
+
+    <!-- Contenu superposé (Textes mis à jour) -->
+    <div class="content-overlay">
+        <!-- Sur-titre exact du logo -->
+        <div class="inline-block mb-6 px-5 py-2 rounded-full bg-white/70 border border-[#3CA892]/40 backdrop-blur-md shadow-lg shadow-[#3CA892]/10">
+            <span class="text-[#1E5B61] font-bold tracking-widest text-xs uppercase flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-[#3CA892] animate-pulse"></span>
+                Innovation par la collaboration
+            </span>
         </div>
-<h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-[#064060] tracking-tight leading-tight mb-8 max-w-6xl mx-auto">
-            Le Catalyseur de la <br class="hidden md:block"/>
-<span class="text-transparent bg-clip-text bg-gradient-to-r from-[#064060] to-[#076D6D]">Souveraineté Technologique Africaine</span>
-</h1>
-<p class="text-lg md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
-            Une plateforme unique fusionnant innovation de rupture, puissance corporative et capital intelligent pour bâtir les géants de demain.
+
+        <!-- Titre mis à jour -->
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#1E5B61] leading-[1.1] mb-6">
+            Co-construisez le <br/>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#1E5B61] via-[#3CA892] to-[#1E5B61] bg-[length:200%_auto] animate-[gradient_4s_linear_infinite]">
+                Futur Technologique
+            </span> <br/>
+            de l'Afrique.
+        </h1>
+
+        <style>
+            @keyframes gradient {
+                0% { background-position: 0% 50%; }
+                100% { background-position: 200% 50%; }
+            }
+        </style>
+
+        <!-- Sous-titre mis à jour -->
+        <p class="text-slate-600/90 text-lg md:text-xl max-w-3xl mx-auto mb-14 leading-relaxed font-medium backdrop-blur-sm bg-white/30 p-4 rounded-2xl border border-white/40">
+            Déployez des solutions d'avant-garde à travers un partenariat intégré. Nous fusionnons notre expertise R&D avec vos ambitions pour transformer durablement votre avantage compétitif.
         </p>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
-<a class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-[#076D6D] transition-all duration-300" href="{{ url_for('main.founder') }}">
-<span class="material-symbols-outlined text-[#076D6D] text-3xl mb-3 group-hover:scale-110 transition-transform">rocket_launch</span>
-<span class="font-bold text-[#064060] text-lg mb-1">Je suis Fondateur</span>
-<span class="text-sm text-gray-500 font-light">Accélérez votre vision</span>
-</a>
-<a class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-[#076D6D] transition-all duration-300" href="{{ url_for('main.startup') }}">
-<span class="material-symbols-outlined text-[#076D6D] text-3xl mb-3 group-hover:scale-110 transition-transform">business</span>
-<span class="font-bold text-[#064060] text-lg mb-1">Je suis Startup</span>
-<span class="text-sm text-gray-500 font-light">Changez l'échelle</span>
-</a>
-<a class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-[#076D6D] transition-all duration-300" href="{{ url_for('main.investor') }}">
-<span class="material-symbols-outlined text-[#076D6D] text-3xl mb-3 group-hover:scale-110 transition-transform">trending_up</span>
-<span class="font-bold text-[#064060] text-lg mb-1">Je suis Investisseur</span>
-<span class="text-sm text-gray-500 font-light">Financez l'impact</span>
-</a>
-</div>
-</div>
+
+        <!-- Cartes (Mises à jour selon la maquette) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+
+            <!-- Carte Fondateur -->
+            <a href="{{ url_for('main.founder') }}" class="bg-white py-10 px-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:shadow-[#3CA892]/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center group">
+                <div class="text-[#1E5B61] mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+                        <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+                        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+                        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+                    </svg>
+                </div>
+                <h3 class="font-bold text-xl text-[#1a383d] mb-2">Je suis Fondateur</h3>
+                <p class="text-slate-400 text-sm">Accélérez votre vision</p>
+            </a>
+
+            <!-- Carte Startup -->
+            <a href="{{ url_for('main.startup') }}" class="bg-white py-10 px-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:shadow-[#3CA892]/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center group">
+                <div class="text-[#1E5B61] mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                        <path d="M9 22v-4h6v4"></path>
+                        <path d="M8 6h.01"></path>
+                        <path d="M16 6h.01"></path>
+                        <path d="M12 6h.01"></path>
+                        <path d="M12 10h.01"></path>
+                        <path d="M12 14h.01"></path>
+                        <path d="M16 10h.01"></path>
+                        <path d="M16 14h.01"></path>
+                        <path d="M8 10h.01"></path>
+                        <path d="M8 14h.01"></path>
+                    </svg>
+                </div>
+                <h3 class="font-bold text-xl text-[#1a383d] mb-2">Je suis Startup</h3>
+                <p class="text-slate-400 text-sm">Changez l'échelle</p>
+            </a>
+
+            <!-- Carte Investisseur -->
+            <a href="{{ url_for('main.investor') }}" class="bg-white py-10 px-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg hover:shadow-[#3CA892]/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col items-center justify-center group">
+                <div class="text-[#1E5B61] mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                        <polyline points="17 6 23 6 23 12"></polyline>
+                    </svg>
+                </div>
+                <h3 class="font-bold text-xl text-[#1a383d] mb-2">Je suis Investisseur</h3>
+                <p class="text-slate-400 text-sm">Financez l'impact</p>
+            </a>
+
+        </div>
+    </div>
 </section>
 <section class="py-24 bg-white overflow-hidden" id="parcours">
 <div class="container mx-auto px-6">
