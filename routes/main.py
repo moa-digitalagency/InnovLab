@@ -33,7 +33,7 @@ def founder():
         file_pitch = request.files.get('file_pitch')
         if file_pitch and file_pitch.filename:
             filename = secure_filename(file_pitch.filename)
-            upload_folder = os.path.join(current_app.root_path, 'statics', 'uploads')
+            upload_folder = current_app.config['UPLOAD_FOLDER']
             if not os.path.exists(upload_folder):
                 os.makedirs(upload_folder)
             file_pitch.save(os.path.join(upload_folder, filename))
@@ -58,12 +58,26 @@ def startup():
         email = request.form.get('email')
         secteur = request.form.get('secteur')
         besoins = request.form.get('besoins')
+        website_url = request.form.get('website_url')
+        stage = request.form.get('stage')
+
+        filename = None
+        file_pitch = request.files.get('file_pitch')
+        if file_pitch and file_pitch.filename:
+            filename = secure_filename(file_pitch.filename)
+            upload_folder = current_app.config['UPLOAD_FOLDER']
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+            file_pitch.save(os.path.join(upload_folder, filename))
 
         new_startup = StartupRequest(
             nom_startup=nom_startup,
             email=email,
             secteur=secteur,
-            besoins=besoins
+            besoins=besoins,
+            website_url=website_url,
+            stage=stage,
+            file_pitch=filename
         )
         db.session.add(new_startup)
         db.session.commit()
@@ -78,12 +92,26 @@ def investor():
         email = request.form.get('email')
         type_investisseur = request.form.get('type_investisseur')
         ticket_moyen = request.form.get('ticket_moyen')
+        sectors_interest = request.form.get('sectors_interest')
+        linkedin_profile = request.form.get('linkedin_profile')
+
+        filename = None
+        file_intent = request.files.get('file_intent')
+        if file_intent and file_intent.filename:
+            filename = secure_filename(file_intent.filename)
+            upload_folder = current_app.config['UPLOAD_FOLDER']
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+            file_intent.save(os.path.join(upload_folder, filename))
 
         new_investor = InvestorRequest(
             nom=nom,
             email=email,
             type_investisseur=type_investisseur,
-            ticket_moyen=ticket_moyen
+            ticket_moyen=ticket_moyen,
+            sectors_interest=sectors_interest,
+            linkedin_profile=linkedin_profile,
+            file_intent=filename
         )
         db.session.add(new_investor)
         db.session.commit()
