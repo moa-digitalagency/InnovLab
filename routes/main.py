@@ -15,6 +15,10 @@ def index():
 def about():
     return render_template('about.html')
 
+@main_bp.route('/services', methods=['GET'])
+def services():
+    return render_template('services.html')
+
 @main_bp.route('/contact', methods=['POST'])
 def contact():
     email = request.form.get('email')
