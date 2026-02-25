@@ -1,167 +1,271 @@
 {% extends "base.html" %}
 
 {% block content %}
-<main class="pt-32 pb-20 overflow-hidden">
+<main class="pt-32 pb-20 overflow-hidden bg-white">
     <!-- Header Section -->
     <div class="container mx-auto px-6 mb-24 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-[#064060] mb-6 reveal">Nos Services</h1>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto reveal delay-100">
-            Un écosystème complet pour transformer vos idées en succès technologiques durables.
+        <h1 class="text-4xl md:text-5xl font-bold text-[#064060] mb-6 reveal">5. MISSIONS OPÉRATIONNELLES & SERVICES</h1>
+        <p class="text-xl text-gray-600 max-w-4xl mx-auto reveal delay-100 leading-relaxed">
+            L'offre de Shabaka InnovLab s'articule autour de cinq piliers fondamentaux pour sécuriser le parcours de l'entrepreneur et offrir des services technologiques de haut niveau.
         </p>
     </div>
 
     <!-- Z-Pattern Layout -->
     <div class="container mx-auto px-6 space-y-32">
 
-        <!-- 1. Incubation & Accompagnement (Image Left, Text Right) -->
+        <!-- Pillar A: Incubation & Accompagnement (Left Block, Right Text) -->
         <div class="flex flex-col md:flex-row items-center gap-12 reveal delay-200">
-            <div class="w-full md:w-1/2 flex justify-center">
-                <div class="w-64 h-64 bg-slate-50 rounded-full flex items-center justify-center shadow-lg relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-[#076D6D]/5 group-hover:bg-[#076D6D]/10 transition-colors duration-300"></div>
-                    <span class="material-symbols-outlined text-8xl text-[#076D6D] group-hover:scale-110 transition-transform duration-300">rocket_launch</span>
+            <!-- Animated SVG Block -->
+            <div class="w-full md:w-1/2">
+                <div class="relative w-full h-80 bg-slate-50 rounded-2xl border border-slate-100 shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500">
+                    <!-- Background Elements -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-[#30a192]/10 rounded-bl-full transition-transform duration-700 group-hover:scale-150"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#1d5865]/5 rounded-tr-full transition-transform duration-700 group-hover:scale-125"></div>
+
+                    <!-- Main Animated SVG -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition-transform duration-500 group-hover:scale-105">
+                            <!-- Base Platform -->
+                            <rect x="40" y="150" width="120" height="10" rx="2" fill="#1d5865" class="opacity-80"/>
+                            <!-- Plant/Rocket Stem -->
+                            <path d="M100 150V80" stroke="#30a192" stroke-width="4" stroke-linecap="round" class="origin-bottom scale-y-0 animate-[growUp_1s_ease-out_forwards]"/>
+                            <!-- Leaves/Steps -->
+                            <rect x="70" y="110" width="30" height="6" rx="2" fill="#076D6D" class="opacity-0 animate-[fadeInLeft_0.5s_ease-out_0.5s_forwards] group-hover:fill-[#30a192] transition-colors"/>
+                            <rect x="100" y="90" width="30" height="6" rx="2" fill="#076D6D" class="opacity-0 animate-[fadeInRight_0.5s_ease-out_0.7s_forwards] group-hover:fill-[#30a192] transition-colors"/>
+                            <!-- Top Bulb/Rocket -->
+                            <circle cx="100" cy="60" r="20" fill="#1d5865" class="opacity-0 animate-[fadeIn_0.5s_ease-out_1s_forwards] group-hover:animate-pulse"/>
+                            <path d="M100 60L90 40L100 30L110 40L100 60Z" fill="#30a192" class="opacity-0 animate-[fadeIn_0.5s_ease-out_1.2s_forwards]"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
+
+            <!-- Content -->
             <div class="w-full md:w-1/2 space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-12 h-1 bg-[#076D6D]"></span>
-                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier 1</span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier A</span>
                 </div>
-                <h2 class="text-3xl font-bold text-[#064060]">Incubation & Accompagnement</h2>
+                <h2 class="text-3xl font-bold text-[#064060]">Accompagnement & Incubation</h2>
                 <ul class="space-y-4 text-gray-600 leading-relaxed">
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Sélection Rigoureuse :</strong> Identification de projets à fort potentiel de scalabilité.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Sélection Rigoureuse :</strong> Identification de projets à fort potentiel de scalabilité.</span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Ressources :</strong> Mise à disposition gracieuse des infrastructures (bureaux, internet HD, outils techniques).</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Ressources :</strong> Mise à disposition gracieuse des infrastructures (bureaux, internet HD, outils techniques).</span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Mentorat Expert :</strong> Suivi personnalisé par des experts sectoriels (Juridique, Finance, Tech) issus du réseau Shabaka Invest Group.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Mentorat Expert :</strong> Suivi personnalisé par des experts sectoriels (Juridique, Finance, Tech) issus du réseau Shabaka Invest Group.</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- 2. Studio de Développement (Text Left, Image Right) -->
+        <!-- Pillar B: Développement Web & Mobile (Right Block, Left Text) -->
         <div class="flex flex-col md:flex-row-reverse items-center gap-12 reveal">
-            <div class="w-full md:w-1/2 flex justify-center">
-                <div class="w-64 h-64 bg-slate-50 rounded-full flex items-center justify-center shadow-lg relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-[#076D6D]/5 group-hover:bg-[#076D6D]/10 transition-colors duration-300"></div>
-                    <span class="material-symbols-outlined text-8xl text-[#076D6D] group-hover:scale-110 transition-transform duration-300">terminal</span>
+            <!-- Animated SVG Block -->
+            <div class="w-full md:w-1/2">
+                <div class="relative w-full h-80 bg-slate-50 rounded-2xl border border-slate-100 shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500">
+                    <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#1d5865] to-[#30a192]"></div>
+                    <!-- Animated Code Blocks -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg width="240" height="200" viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition-transform duration-500 group-hover:scale-105">
+                            <!-- Laptop Base -->
+                            <rect x="40" y="140" width="160" height="10" rx="2" fill="#1d5865"/>
+                            <!-- Screen -->
+                            <rect x="50" y="40" width="140" height="90" rx="4" stroke="#30a192" stroke-width="2" fill="white"/>
+                            <!-- Code Lines -->
+                            <rect x="60" y="55" width="40" height="6" rx="2" fill="#1d5865" class="group-hover:w-60 transition-all duration-1000 ease-in-out"/>
+                            <rect x="60" y="70" width="80" height="6" rx="2" fill="#30a192" class="opacity-50 group-hover:opacity-100 transition-opacity duration-500"/>
+                            <rect x="60" y="85" width="60" height="6" rx="2" fill="#1d5865" class="group-hover:translate-x-2 transition-transform duration-500"/>
+                            <rect x="60" y="100" width="100" height="6" rx="2" fill="#30a192" class="opacity-50 group-hover:opacity-100 transition-opacity duration-500 delay-100"/>
+                            <!-- Floating Elements -->
+                            <circle cx="180" cy="50" r="15" fill="#076D6D" class="animate-bounce opacity-80"/>
+                            <rect x="20" y="80" width="20" height="20" rx="4" fill="#30a192" class="animate-spin opacity-60" style="animation-duration: 3s;"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
+
+            <!-- Content -->
             <div class="w-full md:w-1/2 space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-12 h-1 bg-[#076D6D]"></span>
-                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier 2</span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier B</span>
                 </div>
-                <h2 class="text-3xl font-bold text-[#064060]">Studio de Développement</h2>
-                <p class="text-gray-600 leading-relaxed">
+                <h2 class="text-3xl font-bold text-[#064060]">Développement Web & Mobile <br><span class="text-xl font-normal text-[#30a192]">(Service Incubés & Externe)</span></h2>
+                <p class="text-gray-600 italic">
                     InnovLab dispose d'un pôle de développement complet agissant à la fois comme support technique pour les startups incubées et comme agence digitale pour les clients externes.
                 </p>
                 <ul class="space-y-4 text-gray-600 leading-relaxed">
-                     <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Applications Web/Mobile :</strong> Conception de Plateformes et développement sur mesure.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Conception de Plateformes :</strong> Développement sur mesure d'applications web, mobiles et de sites vitrines ou e-commerce.</span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Architectures robustes :</strong> Expertise Tech Agency pour des solutions pérennes.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Ingénierie Logicielle :</strong> Création d'architectures robustes et évolutives.</span>
+                    </li>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Maintenance & Suivi :</strong> Gestion technique continue des produits déployés.</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- 3. IA & Cybersécurité (Image Left, Text Right) -->
+        <!-- Pillar C: Expertise Avancée (Left Block, Right Text) -->
         <div class="flex flex-col md:flex-row items-center gap-12 reveal">
-            <div class="w-full md:w-1/2 flex justify-center">
-                <div class="w-64 h-64 bg-slate-50 rounded-full flex items-center justify-center shadow-lg relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-[#076D6D]/5 group-hover:bg-[#076D6D]/10 transition-colors duration-300"></div>
-                    <span class="material-symbols-outlined text-8xl text-[#076D6D] group-hover:scale-110 transition-transform duration-300">shield</span>
+            <!-- Animated SVG Block -->
+            <div class="w-full md:w-1/2">
+                <div class="relative w-full h-80 bg-slate-50 rounded-2xl border border-slate-100 shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500">
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#30a192]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    <!-- Main Animated SVG -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Central Hub -->
+                            <circle cx="110" cy="110" r="30" stroke="#1d5865" stroke-width="4" fill="white" class="group-hover:fill-[#1d5865]/10 transition-colors duration-500"/>
+                            <path d="M100 110L120 110M110 100L110 120" stroke="#30a192" stroke-width="4" stroke-linecap="round" class="animate-[spin_4s_linear_infinite] origin-center"/>
+
+                            <!-- Orbiting Satellites -->
+                            <g class="animate-[spin_10s_linear_infinite] origin-center" style="transform-box: fill-box; transform-origin: center;">
+                                <circle cx="110" cy="40" r="10" fill="#30a192" class="group-hover:scale-125 transition-transform"/>
+                                <line x1="110" y1="50" x2="110" y2="80" stroke="#1d5865" stroke-width="1" stroke-dasharray="4 4"/>
+
+                                <circle cx="180" cy="150" r="10" fill="#30a192" class="group-hover:scale-125 transition-transform"/>
+                                <line x1="171" y1="145" x2="135" y2="125" stroke="#1d5865" stroke-width="1" stroke-dasharray="4 4"/>
+
+                                <circle cx="40" cy="150" r="10" fill="#30a192" class="group-hover:scale-125 transition-transform"/>
+                                <line x1="49" y1="145" x2="85" y2="125" stroke="#1d5865" stroke-width="1" stroke-dasharray="4 4"/>
+                            </g>
+
+                            <!-- Shield Icon Overlay (Cybersecurity) -->
+                            <path d="M110 170C110 170 140 160 140 130V110H80V130C80 160 110 170 110 170Z" fill="#076D6D" class="opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
+
+            <!-- Content -->
             <div class="w-full md:w-1/2 space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-12 h-1 bg-[#076D6D]"></span>
-                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier 3</span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier C</span>
                 </div>
-                <h2 class="text-3xl font-bold text-[#064060]">IA & Cybersécurité</h2>
+                <h2 class="text-3xl font-bold text-[#064060]">Expertise Avancée : <br>IA, Cyber & Marketing</h2>
                 <ul class="space-y-4 text-gray-600 leading-relaxed">
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Audit :</strong> Analyse approfondie de vos systèmes et processus.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Déploiement d'Outils IA & Automatisation :</strong> Intégration de solutions d'intelligence artificielle pour optimiser les processus métiers et configuration des automatisations pour réduire les tâches chronophages.</span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Protection des données :</strong> Sécurisation de vos actifs numériques stratégiques.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Cybersécurité :</strong> Consulting, audit, protection des données et sécurisation des infrastructures numériques.</span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Automatisation métier :</strong> Optimisation par l'intelligence artificielle.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Communication & Marketing :</strong> Stratégie de marque, branding, marketing digital et gestion de la visibilité pour accélérer la pénétration de marché.</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- 4. Accélération & Investissement (Text Left, Image Right) -->
+        <!-- Pillar D: Accélération & Investissement (Right Block, Left Text) -->
         <div class="flex flex-col md:flex-row-reverse items-center gap-12 reveal">
-            <div class="w-full md:w-1/2 flex justify-center">
-                <div class="w-64 h-64 bg-slate-50 rounded-full flex items-center justify-center shadow-lg relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-[#076D6D]/5 group-hover:bg-[#076D6D]/10 transition-colors duration-300"></div>
-                    <span class="material-symbols-outlined text-8xl text-[#076D6D] group-hover:scale-110 transition-transform duration-300">trending_up</span>
+             <!-- Animated SVG Block -->
+             <div class="w-full md:w-1/2">
+                <div class="relative w-full h-80 bg-slate-50 rounded-2xl border border-slate-100 shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500">
+                    <!-- Graph Background -->
+                    <div class="absolute bottom-0 left-0 right-0 h-1/2 flex items-end justify-around px-8">
+                        <div class="w-8 bg-[#30a192]/20 h-1/4 rounded-t-sm group-hover:h-1/3 transition-all duration-500"></div>
+                        <div class="w-8 bg-[#30a192]/40 h-1/2 rounded-t-sm group-hover:h-2/3 transition-all duration-500 delay-100"></div>
+                        <div class="w-8 bg-[#30a192]/60 h-3/4 rounded-t-sm group-hover:h-5/6 transition-all duration-500 delay-200"></div>
+                        <div class="w-8 bg-[#1d5865] h-5/6 rounded-t-sm group-hover:h-full transition-all duration-500 delay-300"></div>
+                    </div>
+                    <!-- Rocket/Arrow -->
+                    <div class="absolute top-10 right-10">
+                        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" class="group-hover:-translate-y-2 group-hover:translate-x-2 transition-transform duration-500">
+                            <path d="M10 70L70 10M70 10V50M70 10H30" stroke="#076D6D" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <!-- Coin/Finance elements -->
+                    <div class="absolute top-1/2 left-10">
+                        <div class="w-12 h-12 rounded-full border-4 border-[#1d5865] flex items-center justify-center group-hover:rotate-12 transition-transform">
+                            <span class="font-bold text-2xl text-[#1d5865]">$</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- Content -->
             <div class="w-full md:w-1/2 space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-12 h-1 bg-[#076D6D]"></span>
-                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier 4</span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier D</span>
                 </div>
                 <h2 class="text-3xl font-bold text-[#064060]">Accélération & Investissement</h2>
                 <ul class="space-y-4 text-gray-600 leading-relaxed">
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Programme "Go-to-Market" :</strong> Stratégies pour conquérir votre marché.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Programme Intensif :</strong> Cycles d'accélération de 3 à 6 mois pour booster le "Go-to-Market".</span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Levée de fonds :</strong> Accompagnement dans la recherche de financements.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Financement :</strong> Prise de participation directe dans les startups accompagnées.</span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Equity :</strong> Prises de participation stratégiques.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Levée de Fonds :</strong> Soutien actif dans la recherche de financements externes (Business Angels, VC).</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- 5. Shabaka Academy (Image Left, Text Right) -->
+        <!-- Pillar E: Conseil & Formation (Left Block, Right Text) -->
         <div class="flex flex-col md:flex-row items-center gap-12 reveal">
-            <div class="w-full md:w-1/2 flex justify-center">
-                <div class="w-64 h-64 bg-slate-50 rounded-full flex items-center justify-center shadow-lg relative overflow-hidden group">
-                    <div class="absolute inset-0 bg-[#076D6D]/5 group-hover:bg-[#076D6D]/10 transition-colors duration-300"></div>
-                    <span class="material-symbols-outlined text-8xl text-[#076D6D] group-hover:scale-110 transition-transform duration-300">school</span>
+            <!-- Animated SVG Block -->
+            <div class="w-full md:w-1/2">
+                <div class="relative w-full h-80 bg-slate-50 rounded-2xl border border-slate-100 shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500">
+                    <!-- Background Book Pattern -->
+                    <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#1d5865 1px, transparent 1px); background-size: 20px 20px;"></div>
+
+                    <!-- Main SVG -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <svg width="220" height="200" viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Book -->
+                            <path d="M40 140C40 140 80 140 110 160C140 140 180 140 180 140V60C180 60 140 60 110 80C80 60 40 60 40 60V140Z" fill="white" stroke="#1d5865" stroke-width="3" class="group-hover:translate-y-2 transition-transform duration-500"/>
+                            <path d="M110 160V80" stroke="#1d5865" stroke-width="2"/>
+                            <!-- Bookmark/Ribbon -->
+                            <path d="M140 60V100L150 90L160 100V60" fill="#30a192" class="group-hover:h-20 transition-all duration-300"/>
+                            <!-- Mortarboard/Cap -->
+                            <path d="M110 40L160 65L110 90L60 65L110 40Z" fill="#1d5865" class="group-hover:-translate-y-4 transition-transform duration-500"/>
+                            <circle cx="110" cy="40" r="4" fill="#30a192"/>
+                            <!-- Tassel -->
+                            <path d="M160 65V85" stroke="#30a192" stroke-width="2"/>
+                            <circle cx="160" cy="85" r="3" fill="#30a192" class="animate-bounce" style="animation-duration: 2s;"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
+
+            <!-- Content -->
             <div class="w-full md:w-1/2 space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-12 h-1 bg-[#076D6D]"></span>
-                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier 5</span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier E</span>
                 </div>
-                <h2 class="text-3xl font-bold text-[#064060]">Shabaka Academy</h2>
+                <h2 class="text-3xl font-bold text-[#064060]">Conseil & Formation <br><span class="text-xl font-normal text-[#30a192]">(Shabaka Academy)</span></h2>
                 <ul class="space-y-4 text-gray-600 leading-relaxed">
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Formation :</strong> Montée en compétences sur les technologies clés.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Consulting :</strong> Appui en stratégie, gestion fiscale et droit des affaires (l'ADN de Shabaka Invest).</span>
                     </li>
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Consulting :</strong> Expertise ponctuelle pour vos équipes.</span>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="material-symbols-outlined text-[#076D6D] mt-1">check_circle</span>
-                        <span><strong>Ateliers pratiques :</strong> Mises en situation et hackathons.</span>
+                    <li class="flex items-start gap-3 group/item">
+                        <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
+                        <span><strong class="text-[#1d5865]">Ateliers Pratiques :</strong> Formations certifiantes en nouvelles technologies, Pitch Investisseur et Management.</span>
                     </li>
                 </ul>
             </div>
@@ -170,12 +274,19 @@
     </div>
 
     <!-- CTA Section -->
-    <div class="container mx-auto px-6 mt-32 text-center reveal">
-        <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-300 bg-[#076D6D] rounded-xl hover:bg-[#055050] hover:shadow-xl hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-[#076D6D]/30 group">
+    <div class="container mx-auto px-6 mt-32 mb-10 text-center reveal">
+        <a href="{{ url_for('main.contact') }}" class="inline-flex items-center justify-center px-10 py-5 text-xl font-bold text-white transition-all duration-300 bg-[#076D6D] rounded-xl hover:bg-[#055050] hover:shadow-2xl hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-[#076D6D]/30 group shadow-lg">
             Démarrer un projet
-            <span class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            <span class="material-symbols-outlined ml-3 text-2xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
         </a>
     </div>
 
 </main>
+
+<style>
+@keyframes growUp { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes fadeInLeft { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeInRight { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+</style>
 {% endblock %}
