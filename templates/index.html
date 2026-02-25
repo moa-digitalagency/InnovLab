@@ -1,42 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Shabaka InnovLab - Le Catalyseur de la Souveraineté Technologique</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="antialiased scroll-smooth">
-<header class="fixed w-full top-0 z-50 glass-nav border-b border-gray-100 shadow-sm transition-all duration-300">
-<div class="container mx-auto px-6 h-20 flex items-center justify-between">
-<div class="flex items-center gap-3">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-4xl text-[#064060]">groups</span>
-<div class="flex flex-col leading-none">
-<span class="font-bold text-xl text-[#064060] tracking-tight">Shabaka</span>
-<span class="font-light text-lg text-[#076D6D]">InnovLab</span>
-</div>
-</div>
-</div>
-<nav class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-600">
-<a class="hover:text-[#076D6D] transition-colors" href="#parcours">Parcours</a>
-<a class="hover:text-[#076D6D] transition-colors" href="#solutions-b2b">Solutions B2B</a>
-<a class="hover:text-[#076D6D] transition-colors" href="#investisseurs">Investisseurs</a>
-</nav>
-<div class="hidden md:flex items-center gap-4">
-<a class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 bg-[#076D6D] rounded-lg hover:bg-[#055050] hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#076D6D]" href="#contact">
-                Rejoindre l'Aventure
-            </a>
-</div>
-<button class="md:hidden p-2 text-gray-600">
-<span class="material-symbols-outlined">menu</span>
-</button>
-</div>
-</header>
+{% extends "base.html" %}
+
+{% block content %}
 <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#f8fafc]">
 <div class="absolute inset-0 hero-pattern pointer-events-none"></div>
 <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-[#076D6D]/10 rounded-full blur-3xl"></div>
@@ -54,17 +18,17 @@
             Une plateforme unique fusionnant innovation de rupture, puissance corporative et capital intelligent pour bâtir les géants de demain.
         </p>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
-<a class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-[#076D6D] transition-all duration-300" href="#parcours">
+<a class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-[#076D6D] transition-all duration-300" href="{{ url_for('main.founder') }}">
 <span class="material-symbols-outlined text-[#076D6D] text-3xl mb-3 group-hover:scale-110 transition-transform">rocket_launch</span>
 <span class="font-bold text-[#064060] text-lg mb-1">Je suis Fondateur</span>
 <span class="text-sm text-gray-500 font-light">Accélérez votre vision</span>
 </a>
-<a class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-[#076D6D] transition-all duration-300" href="#solutions-b2b">
-<span class="material-symbols-outlined text-[#076D6D] text-3xl mb-3 group-hover:scale-110 transition-transform">apartment</span>
-<span class="font-bold text-[#064060] text-lg mb-1">Je suis Corporate</span>
-<span class="text-sm text-gray-500 font-light">Co-construisez le futur</span>
+<a class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-[#076D6D] transition-all duration-300" href="{{ url_for('main.startup') }}">
+<span class="material-symbols-outlined text-[#076D6D] text-3xl mb-3 group-hover:scale-110 transition-transform">business</span>
+<span class="font-bold text-[#064060] text-lg mb-1">Je suis Startup</span>
+<span class="text-sm text-gray-500 font-light">Changez l'échelle</span>
 </a>
-<a class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-[#076D6D] transition-all duration-300" href="#investisseurs">
+<a class="group flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-[#076D6D] transition-all duration-300" href="{{ url_for('main.investor') }}">
 <span class="material-symbols-outlined text-[#076D6D] text-3xl mb-3 group-hover:scale-110 transition-transform">trending_up</span>
 <span class="font-bold text-[#064060] text-lg mb-1">Je suis Investisseur</span>
 <span class="text-sm text-gray-500 font-light">Financez l'impact</span>
@@ -126,25 +90,25 @@
 </div>
 </div>
 </section>
-<section class="py-24 bg-[#f8fafc]" id="solutions-b2b">
+<section class="py-24 bg-[#f8fafc]" id="solutions-startups">
 <div class="container mx-auto px-6">
 <div class="flex flex-col lg:flex-row items-center gap-16">
 <div class="lg:w-1/2">
-<h2 class="text-sm font-black text-[#076D6D] uppercase tracking-widest mb-4">Pour les Entreprises</h2>
-<h3 class="text-3xl md:text-4xl font-bold text-[#064060] mb-6">Co-construisons le Futur</h3>
+<h2 class="text-sm font-black text-[#076D6D] uppercase tracking-widest mb-4">Pour les Startups</h2>
+<h3 class="text-3xl md:text-4xl font-bold text-[#064060] mb-6">Accélérez votre Croissance</h3>
 <p class="text-lg text-gray-600 mb-8 font-light">
-                    Ne subissez pas la disruption, provoquez-la. Nous connectons votre puissance industrielle à l'agilité de nos startups pour créer des avantages concurrentiels durables.
+                    Transformez votre potentiel en leadership. Nous connectons votre agilité à notre puissance réseau pour multiplier vos opportunités de marché.
                 </p>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
 <span class="material-symbols-outlined text-[#076D6D] text-3xl mb-3">hub</span>
-<h4 class="font-bold text-[#064060] mb-2">Open Innovation</h4>
-<p class="text-sm text-gray-500">Sourcing de startups alignées avec vos enjeux stratégiques.</p>
+<h4 class="font-bold text-[#064060] mb-2">Accès Marché</h4>
+<p class="text-sm text-gray-500">Connexions stratégiques avec les grands comptes et partenaires clés.</p>
 </div>
 <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
 <span class="material-symbols-outlined text-[#076D6D] text-3xl mb-3">security</span>
-<h4 class="font-bold text-[#064060] mb-2">Cyber Shield</h4>
-<p class="text-sm text-gray-500">Audits et protection avancée de vos actifs numériques critiques.</p>
+<h4 class="font-bold text-[#064060] mb-2">Support Technique</h4>
+<p class="text-sm text-gray-500">Accès à nos infrastructures et experts pour sécuriser votre scale-up.</p>
 </div>
 </div>
 </div>
@@ -154,8 +118,8 @@
 <div class="relative z-10">
 <div class="flex justify-between items-start mb-12">
 <div>
-<h4 class="text-2xl font-bold mb-2">Future-Proofing</h4>
-<p class="text-teal-200 text-sm">Indice de résilience technologique</p>
+<h4 class="text-2xl font-bold mb-2">Scale-up Ready</h4>
+<p class="text-teal-200 text-sm">Indice de potentiel de croissance</p>
 </div>
 <span class="bg-[#076D6D]/30 border border-[#076D6D] px-3 py-1 rounded-full text-xs font-bold uppercase">A+ Rating</span>
 </div>
@@ -164,14 +128,14 @@
 <div class="h-full w-3/4 bg-[#076D6D]"></div>
 </div>
 <div class="flex justify-between text-xs text-gray-300">
-<span>Adoption IA</span>
+<span>Maturité Produit</span>
 <span>75%</span>
 </div>
 <div class="h-2 bg-white/10 rounded-full overflow-hidden">
 <div class="h-full w-11/12 bg-white"></div>
 </div>
 <div class="flex justify-between text-xs text-gray-300">
-<span>Sécurité des Données</span>
+<span>Traction Marché</span>
 <span>92%</span>
 </div>
 </div>
@@ -179,7 +143,7 @@
 <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
 <span class="material-symbols-outlined text-sm">auto_awesome</span>
 </div>
-<p class="text-sm font-light italic">"L'alliance stratégique entre Corporates et Startups est la clé de la souveraineté."</p>
+<p class="text-sm font-light italic">"Nous transformons les startups prometteuses en champions continentaux."</p>
 </div>
 </div>
 </div>
@@ -363,14 +327,14 @@
 <div class="bg-[#064060] p-10 rounded-3xl border border-gray-100 flex flex-col group hover:shadow-xl transition-all relative text-white">
 <span class="material-symbols-outlined absolute top-8 right-8 text-4xl text-white/10">format_quote</span>
 <div class="mb-6">
-<span class="bg-white/20 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Corporate</span>
+<span class="bg-white/20 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Scale-up</span>
 </div>
-<p class="text-blue-100 mb-8 italic flex-grow text-sm leading-relaxed">"Une collaboration fluide. Shabaka nous a connectés aux technologies de rupture dont nous avions besoin pour moderniser nos processus internes."</p>
+<p class="text-blue-100 mb-8 italic flex-grow text-sm leading-relaxed">"Le programme d'accélération nous a ouvert les portes des grands comptes. Nous avons doublé notre CA en 6 mois."</p>
 <div class="flex items-center gap-4 border-t border-white/20 pt-6">
-<div class="w-10 h-10 bg-white text-[#064060] rounded-full flex items-center justify-center font-bold text-xs">CT</div>
+<div class="w-10 h-10 bg-white text-[#064060] rounded-full flex items-center justify-center font-bold text-xs">AM</div>
 <div>
-<p class="font-bold text-white text-sm">Directeur CTO</p>
-<p class="text-xs text-blue-300 font-medium">Grand Groupe Industriel</p>
+<p class="font-bold text-white text-sm">Amine M.</p>
+<p class="text-xs text-blue-300 font-medium">CEO, FinTech Africa</p>
 </div>
 </div>
 </div>
@@ -391,85 +355,4 @@
 </div>
 </div>
 </section>
-<footer class="bg-[#064060] text-white pt-24 pb-12 border-t border-[#076D6D]" id="contact">
-<div class="container mx-auto px-6">
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
-<div class="space-y-6">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-4xl text-[#076D6D]">groups</span>
-<div class="flex flex-col leading-none">
-<span class="font-bold text-xl text-white tracking-tight">Shabaka</span>
-<span class="font-light text-lg text-gray-400">InnovLab</span>
-</div>
-</div>
-<p class="text-gray-400 text-sm leading-relaxed">
-                    Le point de convergence de l'innovation, du capital et de l'industrie pour une Afrique souveraine.
-                </p>
-{% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    <div class="mb-4">
-      {% for category, message in messages %}
-        <div class="text-sm {% if category == 'success' %}text-teal-400{% else %}text-red-400{% endif %} font-semibold">
-          {{ message }}
-        </div>
-      {% endfor %}
-    </div>
-  {% endif %}
-{% endwith %}
-<form action="{{ url_for('main.contact') }}" method="POST" class="flex gap-2">
-<input name="email" class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-[#076D6D] w-full" placeholder="Votre email" type="email" required/>
-<button type="submit" class="bg-[#076D6D] px-4 py-2 rounded-lg hover:bg-[#055050] transition-colors material-symbols-outlined text-white">send</button>
-</form>
-</div>
-<div>
-<h4 class="text-lg font-bold mb-6 border-b-2 border-[#076D6D] inline-block pb-1">Contact Direct</h4>
-<ul class="space-y-4 text-sm text-gray-400">
-<li class="flex items-start gap-3">
-<span class="material-symbols-outlined text-[#076D6D] text-lg mt-0.5">location_on</span>
-<span>Centre d'affaires Gueliz, Bd My Rachid, Étage 1, Bureau 8, 40000 Marrakech</span>
-</li>
-<li class="flex items-center gap-3">
-<span class="material-symbols-outlined text-[#076D6D] text-lg">call</span>
-<span>+212 699 14 00 01</span>
-</li>
-<li class="flex items-center gap-3">
-<span class="material-symbols-outlined text-[#076D6D] text-lg">mail</span>
-<a class="hover:text-white transition-colors" href="mailto:nticshabaka@gmail.com">nticshabaka@gmail.com</a>
-</li>
-</ul>
-</div>
-<div>
-<h4 class="text-lg font-bold mb-6 border-b-2 border-[#076D6D] inline-block pb-1">Navigation</h4>
-<ul class="space-y-3 text-sm text-gray-400 font-medium">
-<li><a class="hover:text-[#076D6D] transition-colors" href="#parcours">Parcours Fondateur</a></li>
-<li><a class="hover:text-[#076D6D] transition-colors" href="#solutions-b2b">Solutions Corporate</a></li>
-<li><a class="hover:text-[#076D6D] transition-colors" href="#investisseurs">Investisseurs</a></li>
-<li><a class="hover:text-[#076D6D] transition-colors" href="#fortresses">Nos Produits</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-lg font-bold mb-6 border-b-2 border-[#076D6D] inline-block pb-1">Mentions Légales</h4>
-<ul class="space-y-3 text-sm text-gray-400">
-<li><strong class="text-white">RC :</strong> 163795</li>
-<li><strong class="text-white">ICE :</strong> 003694652000069</li>
-<li class="pt-4">
-<a class="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-xl hover:bg-white/10 transition-colors w-fit" href="http://www.shabakainvestgroup.com/" target="_blank">
-<span class="material-symbols-outlined text-sm">public</span>
-                            Site Corporate
-                        </a>
-</li>
-</ul>
-</div>
-</div>
-<div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
-<p>© 2024 Shabaka InnovLab. Tous droits réservés.</p>
-<div class="flex gap-8">
-<a class="hover:text-white transition-colors" href="#">Politique de Confidentialité</a>
-<a class="hover:text-white transition-colors" href="#">Conditions Générales</a>
-</div>
-</div>
-</div>
-</footer>
-
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-</body></html>
+{% endblock %}
