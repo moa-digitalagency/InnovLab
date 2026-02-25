@@ -32,17 +32,17 @@ class TestRoutes(unittest.TestCase):
         response = self.app.get('/candidature/founder')
         self.assertEqual(response.status_code, 200)
         # Check for title or specific text
-        self.assertIn(b'Candidature Fondateur', response.data)
+        self.assertIn(b'Programme Fondateurs', response.data)
 
     def test_startup_route(self):
         response = self.app.get('/candidature/startup')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Candidature Startup', response.data)
+        self.assertIn(b'Programme Startups', response.data)
 
     def test_investor_route(self):
         response = self.app.get('/candidature/investor')
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Espace Investisseur', response.data)
+        self.assertIn(b'Investissez dans le Futur', response.data)
 
     def test_founder_submission(self):
         with app.app_context():
