@@ -25,6 +25,7 @@
 </div>
 </div>
 <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-600">
+<a class="hover:text-[#076D6D] transition-colors" href="{{ url_for('main.about') }}">À propos</a>
 <a class="hover:text-[#076D6D] transition-colors" href="{{ url_for('main.index') }}#parcours">Parcours</a>
 <a class="hover:text-[#076D6D] transition-colors" href="{{ url_for('main.index') }}#solutions-startups">Solutions Startups</a>
 <a class="hover:text-[#076D6D] transition-colors" href="{{ url_for('main.index') }}#investisseurs">Investisseurs</a>
@@ -40,6 +41,7 @@
 </div>
 <!-- Mobile Menu -->
 <div class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 top-20 shadow-lg p-6 flex flex-col gap-4" id="mobile-menu">
+    <a class="text-gray-600 hover:text-[#076D6D] font-medium" href="{{ url_for('main.about') }}">À propos</a>
     <a class="text-gray-600 hover:text-[#076D6D] font-medium" href="{{ url_for('main.index') }}#parcours">Parcours</a>
     <a class="text-gray-600 hover:text-[#076D6D] font-medium" href="{{ url_for('main.index') }}#solutions-startups">Solutions Startups</a>
     <a class="text-gray-600 hover:text-[#076D6D] font-medium" href="{{ url_for('main.index') }}#investisseurs">Investisseurs</a>

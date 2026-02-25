@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Hero Section: L'Approche Galilée -->
+<section class="relative min-h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-50 to-slate-100 pt-20">
+    <div class="absolute inset-0 z-0">
+        <!-- Subtle geometric animation -->
+        <div class="absolute top-20 left-10 w-64 h-64 bg-[#30a192]/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-[#1d5865]/10 rounded-full blur-3xl animate-pulse" style="animation-duration: 4s;"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10 text-center reveal">
+        <h1 class="text-5xl md:text-7xl font-bold text-[#1d5865] mb-6 tracking-tight">
+            L'Approche Galilée
+        </h1>
+        <div class="w-24 h-1 bg-[#30a192] mx-auto mb-8"></div>
+        <p class="text-xl md:text-2xl text-gray-600 font-light italic max-w-4xl mx-auto leading-relaxed">
+            "Ce n'est pas le poids d'une idée qui détermine sa réussite, <br class="hidden md:block"/>
+            mais l'absence de résistance à son mouvement."
+        </p>
+    </div>
+</section>
+
+<!-- Le Socle: Grid 2 colonnes -->
+<section class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+
+            <!-- Shabaka Invest Group -->
+            <div class="reveal delay-100 bg-slate-50 p-10 rounded-3xl border border-slate-100 hover:shadow-lg transition-all duration-300">
+                <div class="w-16 h-16 bg-[#1d5865]/10 rounded-2xl flex items-center justify-center mb-6 text-[#1d5865]">
+                    <span class="material-symbols-outlined text-4xl">gavel</span>
+                </div>
+                <h2 class="text-3xl font-bold text-[#1d5865] mb-4">Shabaka Invest Group</h2>
+                <h3 class="text-[#30a192] font-semibold text-lg mb-6 uppercase tracking-widest">Le Bouclier Juridique & Administratif</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Nous sécurisons chaque étape de votre croissance. De la structuration juridique à l'ingénierie fiscale, nous créons l'environnement de confiance nécessaire pour que les investisseurs s'engagent et que les fondateurs se concentrent sur leur vision.
+                </p>
+            </div>
+
+            <!-- Shabaka InnovLab -->
+            <div class="reveal delay-200 bg-slate-50 p-10 rounded-3xl border border-slate-100 hover:shadow-lg transition-all duration-300">
+                <div class="w-16 h-16 bg-[#30a192]/10 rounded-2xl flex items-center justify-center mb-6 text-[#30a192]">
+                    <span class="material-symbols-outlined text-4xl">rocket_launch</span>
+                </div>
+                <h2 class="text-3xl font-bold text-[#1d5865] mb-4">Shabaka InnovLab</h2>
+                <h3 class="text-[#30a192] font-semibold text-lg mb-6 uppercase tracking-widest">Le Catalyseur Technologique</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Plus qu'un incubateur, c'est une usine à succès. Nous transformons les concepts en produits robustes grâce à notre Studio Dev intégré, notre expertise en IA et notre réseau de mentors chevronnés.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Notre Infrastructure -->
+<section class="py-24 bg-gray-50">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-4xl font-bold text-[#1d5865] mb-4">Notre Infrastructure</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Un espace conçu pour l'excellence et la collaboration.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            <!-- Coworking Collaboratif -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 reveal delay-100 group">
+                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#30a192] group-hover:text-white transition-colors duration-300">
+                    <span class="material-symbols-outlined text-2xl">groups</span>
+                </div>
+                <h3 class="text-xl font-bold text-[#1d5865] mb-3">Coworking Collaboratif</h3>
+                <p class="text-gray-500 text-sm mb-4 font-semibold uppercase tracking-wider text-[#30a192]">Peer-to-peer learning</p>
+                <p class="text-gray-600">
+                    Un environnement stimulant où les idées circulent librement. Apprenez de vos pairs et grandissez ensemble.
+                </p>
+            </div>
+
+            <!-- Salles de Brainstorming -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 reveal delay-200 group">
+                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#30a192] group-hover:text-white transition-colors duration-300">
+                    <span class="material-symbols-outlined text-2xl">lightbulb</span>
+                </div>
+                <h3 class="text-xl font-bold text-[#1d5865] mb-3">Salles de Brainstorming</h3>
+                <p class="text-gray-500 text-sm mb-4 font-semibold uppercase tracking-wider text-[#30a192]">Écrans interactifs</p>
+                <p class="text-gray-600">
+                    Des espaces équipés pour la créativité sans limite. Visualisez, itérez et validez vos concepts en temps réel.
+                </p>
+            </div>
+
+            <!-- Bureaux Open-Space -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 reveal delay-300 group">
+                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#30a192] group-hover:text-white transition-colors duration-300">
+                    <span class="material-symbols-outlined text-2xl">desk</span>
+                </div>
+                <h3 class="text-xl font-bold text-[#1d5865] mb-3">Bureaux Open-Space</h3>
+                <p class="text-gray-500 text-sm mb-4 font-semibold uppercase tracking-wider text-[#30a192]">Immersion totale</p>
+                <p class="text-gray-600">
+                    Plongez au cœur de l'action. Des postes de travail ergonomiques pour une productivité maximale.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Section SIS (Shabaka Intelligence Systems) -->
+<section class="py-24 bg-[#064060] text-white relative overflow-hidden">
+    <!-- Background Elements -->
+    <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#30a192" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,81.6,-46.6C91.4,-34.1,98.1,-19.2,95.8,-4.9C93.5,9.4,82.2,23.1,70.8,34.3C59.4,45.5,47.9,54.2,35.6,60.7C23.3,67.2,10.2,71.5,-2.2,75.3C-14.6,79.1,-26.3,82.4,-37.5,77.5C-48.7,72.6,-59.4,59.5,-67.6,45.8C-75.8,32.1,-81.5,17.8,-80.4,4.1C-79.3,-9.6,-71.4,-22.7,-61.7,-33.5C-52,-44.3,-40.5,-52.8,-28.9,-61.6C-17.3,-70.4,-5.6,-79.5,4.9,-88C15.4,-96.5,23.2,-87.3,30.5,-83.6L44.7,-76.4Z" transform="translate(100 100)" />
+        </svg>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+            <div class="reveal">
+                <div class="inline-block px-4 py-1 rounded-full border border-[#30a192] text-[#30a192] text-sm font-bold mb-6">
+                    R&D Engine
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">SIS <br/><span class="text-[#30a192]">Shabaka Intelligence Systems</span></h2>
+                <p class="text-gray-300 text-lg leading-relaxed mb-8">
+                    Le cœur technologique de notre écosystème. SIS développe les briques logicielles et matérielles qui propulsent nos startups vers l'excellence.
+                </p>
+
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-4">
+                        <span class="material-symbols-outlined text-[#30a192]">memory</span>
+                        <span class="font-medium">Hardware propriétaire</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <span class="material-symbols-outlined text-[#30a192]">smart_toy</span>
+                        <span class="font-medium">Serveurs IA & Calcul Haute Performance</span>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <span class="material-symbols-outlined text-[#30a192]">shield</span>
+                        <span class="font-medium">Souveraineté Numérique & Sécurité</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="reveal delay-200 relative">
+                <div class="absolute inset-0 bg-[#30a192] rounded-3xl transform rotate-6 opacity-20"></div>
+                <div class="relative bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-3xl">
+                    <div class="flex items-center justify-between mb-8">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span class="text-xs text-gray-400 font-mono">SIS_KERNEL_V2.0</span>
+                    </div>
+                    <div class="font-mono text-sm text-[#30a192]">
+                        <p class="mb-2"><span class="text-purple-400">def</span> <span class="text-yellow-300">accelerate_growth</span>(startup):</p>
+                        <p class="pl-4 mb-2"><span class="text-gray-400"># Initializing core systems</span></p>
+                        <p class="pl-4 mb-2">security = <span class="text-blue-300">SecurityLayer</span>(mode="MAX")</p>
+                        <p class="pl-4 mb-2">ai_engine = <span class="text-blue-300">NeuralNet</span>(optimize=True)</p>
+                        <p class="pl-4 mb-2"><span class="text-purple-400">return</span> startup.scale(factor=100)</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
