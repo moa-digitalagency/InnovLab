@@ -1,6 +1,9 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, current_app
 from models.contact import Contact
+from models.forms import FounderRequest, StartupRequest, InvestorRequest
 from models import db
+from werkzeug.utils import secure_filename
+import os
 
 main_bp = Blueprint('main', __name__)
 
@@ -17,3 +20,73 @@ def contact():
         db.session.commit()
         flash('Merci pour votre inscription!', 'success')
     return redirect(url_for('main.index'))
+
+@main_bp.route('/candidature/founder', methods=['GET', 'POST'])
+def founder():
+    if request.method == 'POST':
+        nom = request.form.get('nom')
+        email = request.form.get('email')
+        projet_name = request.form.get('projet_name')
+        description = request.form.get('description')
+
+        filename = None
+        file_pitch = request.files.get('file_pitch')
+        if file_pitch and file_pitch.filename:
+            filename = secure_filename(file_pitch.filename)
+            upload_folder = os.path.join(current_app.root_path, 'statics', 'uploads')
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+            file_pitch.save(os.path.join(upload_folder, filename))
+
+        new_founder = FounderRequest(
+            nom=nom,
+            email=email,
+            projet_name=projet_name,
+            description=description,
+            file_pitch=filename
+        )
+        db.session.add(new_founder)
+        db.session.commit()
+        flash('Votre candidature a été envoyée avec succès!', 'success')
+        return redirect(url_for('main.index'))
+    return render_template('candidature/founder.html')
+
+@main_bp.route('/candidature/startup', methods=['GET', 'POST'])
+def startup():
+    if request.method == 'POST':
+        nom_startup = request.form.get('nom_startup')
+        email = request.form.get('email')
+        secteur = request.form.get('secteur')
+        besoins = request.form.get('besoins')
+
+        new_startup = StartupRequest(
+            nom_startup=nom_startup,
+            email=email,
+            secteur=secteur,
+            besoins=besoins
+        )
+        db.session.add(new_startup)
+        db.session.commit()
+        flash('Votre candidature a été envoyée avec succès!', 'success')
+        return redirect(url_for('main.index'))
+    return render_template('candidature/startup.html')
+
+@main_bp.route('/candidature/investor', methods=['GET', 'POST'])
+def investor():
+    if request.method == 'POST':
+        nom = request.form.get('nom')
+        email = request.form.get('email')
+        type_investisseur = request.form.get('type_investisseur')
+        ticket_moyen = request.form.get('ticket_moyen')
+
+        new_investor = InvestorRequest(
+            nom=nom,
+            email=email,
+            type_investisseur=type_investisseur,
+            ticket_moyen=ticket_moyen
+        )
+        db.session.add(new_investor)
+        db.session.commit()
+        flash('Votre demande a été envoyée avec succès!', 'success')
+        return redirect(url_for('main.index'))
+    return render_template('candidature/investor.html')

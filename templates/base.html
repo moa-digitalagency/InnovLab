@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shabaka InnovLab - Le Catalyseur de la Souveraineté Technologique</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="antialiased scroll-smooth">
+<header class="fixed w-full top-0 z-50 glass-nav border-b border-gray-100 shadow-sm transition-all duration-300">
+<div class="container mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-4xl text-[#064060]">groups</span>
+<div class="flex flex-col leading-none">
+<span class="font-bold text-xl text-[#064060] tracking-tight">Shabaka</span>
+<span class="font-light text-lg text-[#076D6D]">InnovLab</span>
+</div>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-8 font-medium text-sm text-gray-600">
+<a class="hover:text-[#076D6D] transition-colors" href="{{ url_for('main.index') }}#parcours">Parcours</a>
+<a class="hover:text-[#076D6D] transition-colors" href="{{ url_for('main.index') }}#solutions-startups">Solutions Startups</a>
+<a class="hover:text-[#076D6D] transition-colors" href="{{ url_for('main.index') }}#investisseurs">Investisseurs</a>
+</nav>
+<div class="hidden md:flex items-center gap-4">
+<a class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 bg-[#076D6D] rounded-lg hover:bg-[#055050] hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#076D6D]" href="#contact">
+                Rejoindre l'Aventure
+            </a>
+</div>
+<button class="md:hidden p-2 text-gray-600" id="mobile-menu-btn">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<!-- Mobile Menu -->
+<div class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full left-0 top-20 shadow-lg p-6 flex flex-col gap-4" id="mobile-menu">
+    <a class="text-gray-600 hover:text-[#076D6D] font-medium" href="{{ url_for('main.index') }}#parcours">Parcours</a>
+    <a class="text-gray-600 hover:text-[#076D6D] font-medium" href="{{ url_for('main.index') }}#solutions-startups">Solutions Startups</a>
+    <a class="text-gray-600 hover:text-[#076D6D] font-medium" href="{{ url_for('main.index') }}#investisseurs">Investisseurs</a>
+    <a class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 bg-[#076D6D] rounded-lg hover:bg-[#055050]" href="#contact">
+        Rejoindre l'Aventure
+    </a>
+</div>
+</header>
+
+{% block content %}{% endblock %}
+
+<footer class="bg-[#064060] text-white pt-24 pb-12 border-t border-[#076D6D]" id="contact">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+<div class="space-y-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-4xl text-[#076D6D]">groups</span>
+<div class="flex flex-col leading-none">
+<span class="font-bold text-xl text-white tracking-tight">Shabaka</span>
+<span class="font-light text-lg text-gray-400">InnovLab</span>
+</div>
+</div>
+<p class="text-gray-400 text-sm leading-relaxed">
+                    Le point de convergence de l'innovation, du capital et de l'industrie pour une Afrique souveraine.
+                </p>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="mb-4">
+      {% for category, message in messages %}
+        <div class="text-sm {% if category == 'success' %}text-teal-400{% else %}text-red-400{% endif %} font-semibold">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+<form action="{{ url_for('main.contact') }}" method="POST" class="flex gap-2">
+<input name="email" class="bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-[#076D6D] w-full" placeholder="Votre email" type="email" required/>
+<button type="submit" class="bg-[#076D6D] px-4 py-2 rounded-lg hover:bg-[#055050] transition-colors material-symbols-outlined text-white">send</button>
+</form>
+</div>
+<div>
+<h4 class="text-lg font-bold mb-6 border-b-2 border-[#076D6D] inline-block pb-1">Contact Direct</h4>
+<ul class="space-y-4 text-sm text-gray-400">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[#076D6D] text-lg mt-0.5">location_on</span>
+<span>Centre d'affaires Gueliz, Bd My Rachid, Étage 1, Bureau 8, 40000 Marrakech</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#076D6D] text-lg">call</span>
+<span>+212 699 14 00 01</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#076D6D] text-lg">mail</span>
+<a class="hover:text-white transition-colors" href="mailto:nticshabaka@gmail.com">nticshabaka@gmail.com</a>
+</li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-bold mb-6 border-b-2 border-[#076D6D] inline-block pb-1">Navigation</h4>
+<ul class="space-y-3 text-sm text-gray-400 font-medium">
+<li><a class="hover:text-[#076D6D] transition-colors" href="{{ url_for('main.index') }}#parcours">Parcours Fondateur</a></li>
+<li><a class="hover:text-[#076D6D] transition-colors" href="{{ url_for('main.index') }}#solutions-startups">Solutions Startups</a></li>
+<li><a class="hover:text-[#076D6D] transition-colors" href="{{ url_for('main.index') }}#investisseurs">Investisseurs</a></li>
+<li><a class="hover:text-[#076D6D] transition-colors" href="{{ url_for('main.index') }}#fortresses">Nos Produits</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-bold mb-6 border-b-2 border-[#076D6D] inline-block pb-1">Mentions Légales</h4>
+<ul class="space-y-3 text-sm text-gray-400">
+<li><strong class="text-white">RC :</strong> 163795</li>
+<li><strong class="text-white">ICE :</strong> 003694652000069</li>
+<li class="pt-4">
+<a class="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-xl hover:bg-white/10 transition-colors w-fit" href="http://www.shabakainvestgroup.com/" target="_blank">
+<span class="material-symbols-outlined text-sm">public</span>
+                            Site Corporate
+                        </a>
+</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 gap-4">
+<p>© 2024 Shabaka InnovLab. Tous droits réservés.</p>
+<div class="flex gap-8">
+<a class="hover:text-white transition-colors" href="#">Politique de Confidentialité</a>
+<a class="hover:text-white transition-colors" href="#">Conditions Générales</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body></html>

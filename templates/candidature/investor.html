@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-[#f8fafc]">
+    <div class="absolute inset-0 hero-pattern pointer-events-none"></div>
+    <div class="container mx-auto px-6 relative z-10">
+        <div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h1 class="text-3xl font-bold text-[#064060] mb-6 text-center">Espace Investisseur</h1>
+            <p class="text-gray-500 mb-8 text-center">Investissez dans la souveraineté technologique africaine.</p>
+
+            <form action="{{ url_for('main.investor') }}" method="POST" class="space-y-6">
+                <div>
+                    <label for="nom" class="block text-sm font-medium text-gray-700 mb-1">Nom (ou Entité)</label>
+                    <input type="text" name="nom" id="nom" required class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email professionnel</label>
+                    <input type="email" name="email" id="email" required class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
+                </div>
+                <div>
+                    <label for="type_investisseur" class="block text-sm font-medium text-gray-700 mb-1">Type d'investisseur</label>
+                    <select name="type_investisseur" id="type_investisseur" class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
+                        <option value="BA">Business Angel</option>
+                        <option value="VC">Venture Capital</option>
+                        <option value="Corporate">Corporate / CVC</option>
+                        <option value="Institutional">Institutionnel</option>
+                        <option value="Other">Autre</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="ticket_moyen" class="block text-sm font-medium text-gray-700 mb-1">Ticket moyen</label>
+                    <select name="ticket_moyen" id="ticket_moyen" class="w-full rounded-lg border-gray-300 focus:border-[#076D6D] focus:ring-[#076D6D]">
+                        <option value="<50k">&lt; 50k €</option>
+                        <option value="50k-200k">50k - 200k €</option>
+                        <option value="200k-500k">200k - 500k €</option>
+                        <option value="500k-1M">500k - 1M €</option>
+                        <option value=">1M">&gt; 1M €</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-[#076D6D] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#055050] transition-colors">Rejoindre le réseau</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
