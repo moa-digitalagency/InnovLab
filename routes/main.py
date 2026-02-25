@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, current_app
 from models.contact import Contact
+from models.message import Message
 from models.forms import FounderRequest, StartupRequest, InvestorRequest
 from models import db
 from werkzeug.utils import secure_filename
@@ -127,6 +128,26 @@ def contact():
         db.session.commit()
         flash('Merci pour votre inscription!', 'success')
     return redirect(url_for('main.index'))
+
+@main_bp.route('/contact-us', methods=['GET', 'POST'])
+def contact_us():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        subject = request.form.get('subject')
+        message = request.form.get('message')
+
+        new_message = Message(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message
+        )
+        db.session.add(new_message)
+        db.session.commit()
+        flash('Votre message a été envoyé avec succès!', 'success')
+        return redirect(url_for('main.contact_us'))
+    return render_template('contact_page.html')
 
 @main_bp.route('/candidature/founder', methods=['GET', 'POST'])
 def founder():
