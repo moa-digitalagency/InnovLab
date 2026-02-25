@@ -2,7 +2,9 @@
 <html lang="fr"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Shabaka InnovLab - Le Catalyseur de la Souveraineté Technologique</title>
+{% set current_page = request.endpoint.split('.')[-1] if request.endpoint else 'index' %}
+<title>{{ seo_settings[current_page].title_tag if seo_settings and current_page in seo_settings else 'Shabaka InnovLab' }}</title>
+<meta name="description" content="{{ seo_settings[current_page].meta_desc if seo_settings and current_page in seo_settings else 'Shabaka InnovLab - Le Catalyseur de la Souveraineté Technologique' }}">
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
@@ -84,15 +86,15 @@
 <ul class="space-y-4 text-sm text-gray-400">
 <li class="flex items-start gap-3">
 <span class="material-symbols-outlined text-[#076D6D] text-lg mt-0.5">location_on</span>
-<span>Centre d'affaires Gueliz, Bd My Rachid, Étage 1, Bureau 8, 40000 Marrakech</span>
+<span>{{ site_settings.address if site_settings else "Centre d'affaires Gueliz, Bd My Rachid, Étage 1, Bureau 8, 40000 Marrakech" }}</span>
 </li>
 <li class="flex items-center gap-3">
 <span class="material-symbols-outlined text-[#076D6D] text-lg">call</span>
-<span>+212 699 14 00 01</span>
+<span>{{ site_settings.phone if site_settings else "+212 699 14 00 01" }}</span>
 </li>
 <li class="flex items-center gap-3">
 <span class="material-symbols-outlined text-[#076D6D] text-lg">mail</span>
-<a class="hover:text-white transition-colors" href="mailto:nticshabaka@gmail.com">nticshabaka@gmail.com</a>
+<a class="hover:text-white transition-colors" href="mailto:{{ site_settings.contact_email if site_settings else 'nticshabaka@gmail.com' }}">{{ site_settings.contact_email if site_settings else 'nticshabaka@gmail.com' }}</a>
 </li>
 </ul>
 </div>

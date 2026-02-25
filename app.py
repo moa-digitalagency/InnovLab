@@ -28,6 +28,15 @@ def create_app():
     from routes.admin_routes import admin_bp
     app.register_blueprint(admin_bp)
 
+    from models.settings import SiteSettings, SeoSettings
+
+    @app.context_processor
+    def inject_settings():
+        site_settings = SiteSettings.query.first()
+        seo_settings_list = SeoSettings.query.all()
+        seo_settings = {s.page_name: s for s in seo_settings_list}
+        return dict(site_settings=site_settings, seo_settings=seo_settings)
+
     return app
 
 app = create_app()

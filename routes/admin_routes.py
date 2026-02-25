@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from models import db, User
 from models.forms import FounderRequest, StartupRequest, InvestorRequest
+from models.settings import SiteSettings, SeoSettings
 from datetime import datetime, date
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
@@ -93,3 +94,73 @@ def delete_investor(id):
     db.session.commit()
     flash('Investor request deleted.', 'success')
     return redirect(url_for('admin.investors'))
+
+@admin_bp.route('/seo', methods=['GET', 'POST'])
+@login_required
+def seo():
+    pages = ['index', 'founder', 'startup', 'investor']
+
+    # Ensure defaults exist
+    entries = SeoSettings.query.all()
+    existing_pages = [e.page_name for e in entries]
+
+    needs_commit = False
+    for page in pages:
+        if page not in existing_pages:
+            new_seo = SeoSettings(
+                page_name=page,
+                title_tag=f'Shabaka - {page.capitalize()}',
+                meta_desc='Shabaka InnovLab - Le Catalyseur de la Souveraineté Technologique'
+            )
+            db.session.add(new_seo)
+            needs_commit = True
+
+    if needs_commit:
+        db.session.commit()
+
+    if request.method == 'POST':
+        for page in pages:
+            seo_entry = SeoSettings.query.filter_by(page_name=page).first()
+            if seo_entry:
+                title = request.form.get(f'title_{page}')
+                desc = request.form.get(f'desc_{page}')
+                if title: seo_entry.title_tag = title
+                if desc: seo_entry.meta_desc = desc
+        db.session.commit()
+        flash('Paramètres SEO mis à jour.', 'success')
+        return redirect(url_for('admin.seo'))
+
+    seo_entries = SeoSettings.query.all()
+    # Map entries for easier access in template
+    seo_map = {e.page_name: e for e in seo_entries}
+
+    return render_template('admin/seo.html', seo_map=seo_map, pages=pages)
+
+@admin_bp.route('/settings', methods=['GET', 'POST'])
+@login_required
+def settings():
+    settings_obj = SiteSettings.query.first()
+    if not settings_obj:
+        settings_obj = SiteSettings(
+            site_title='Shabaka InnovLab',
+            contact_email='nticshabaka@gmail.com',
+            phone='+212 699 14 00 01',
+            address="Centre d'affaires Gueliz, Bd My Rachid, Étage 1, Bureau 8, 40000 Marrakech"
+        )
+        db.session.add(settings_obj)
+        db.session.commit()
+
+    if request.method == 'POST':
+        email = request.form.get('contact_email')
+        phone = request.form.get('phone')
+        address = request.form.get('address')
+
+        if email: settings_obj.contact_email = email
+        if phone: settings_obj.phone = phone
+        if address: settings_obj.address = address
+
+        db.session.commit()
+        flash('Paramètres du site mis à jour.', 'success')
+        return redirect(url_for('admin.settings'))
+
+    return render_template('admin/settings.html', settings=settings_obj)

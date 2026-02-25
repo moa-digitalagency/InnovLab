@@ -1,0 +1,40 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="mb-8 flex items-center justify-between">
+    <div>
+        <h2 class="text-3xl font-bold text-white">SEO Avancé</h2>
+        <p class="text-gray-400 mt-1">Gérez les titres et méta-descriptions.</p>
+    </div>
+</div>
+
+<form method="POST" class="space-y-8 pb-12">
+    {% for page in pages %}
+    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-lg">
+        <h3 class="text-xl font-bold text-teal-400 mb-4 capitalize flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">web</span>
+            {{ page }}
+        </h3>
+        <div class="grid grid-cols-1 gap-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Titre de la page</label>
+                <input type="text" name="title_{{ page }}" value="{{ seo_map[page].title_tag if page in seo_map else '' }}"
+                       class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600" placeholder="Titre de la page...">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Méta Description</label>
+                <textarea name="desc_{{ page }}" rows="3"
+                          class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600" placeholder="Description pour les moteurs de recherche...">{{ seo_map[page].meta_desc if page in seo_map else '' }}</textarea>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="flex justify-end sticky bottom-6 z-20 pointer-events-none">
+        <button type="submit" class="pointer-events-auto bg-teal-600 hover:bg-teal-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center gap-2">
+            <span class="material-symbols-outlined">save</span>
+            Enregistrer les modifications
+        </button>
+    </div>
+</form>
+{% endblock %}

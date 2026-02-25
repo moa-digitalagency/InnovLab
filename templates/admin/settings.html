@@ -1,0 +1,60 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="mb-8 flex items-center justify-between">
+    <div>
+        <h2 class="text-3xl font-bold text-white">Paramètres Généraux</h2>
+        <p class="text-gray-400 mt-1">Configuration du site et contact.</p>
+    </div>
+</div>
+
+<form method="POST" class="max-w-3xl pb-12">
+    <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-lg space-y-8">
+
+        <div>
+            <label class="block text-sm font-medium text-gray-400 mb-2">Email de Contact (Notifications)</label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
+                    <span class="material-symbols-outlined text-lg">mail</span>
+                </span>
+                <input type="email" name="contact_email" value="{{ settings.contact_email }}" required
+                       class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+            </div>
+            <p class="text-xs text-gray-500 mt-2 flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">info</span>
+                Cet email recevra les nouvelles candidatures.
+            </p>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-400 mb-2">Numéro de Téléphone (Footer)</label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
+                    <span class="material-symbols-outlined text-lg">call</span>
+                </span>
+                <input type="text" name="phone" value="{{ settings.phone }}" required
+                       class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-400 mb-2">Adresse Physique (Footer)</label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 pt-3 pointer-events-none text-gray-500">
+                    <span class="material-symbols-outlined text-lg">location_on</span>
+                </span>
+                <textarea name="address" rows="3" required
+                          class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">{{ settings.address }}</textarea>
+            </div>
+        </div>
+
+        <div class="pt-6 border-t border-gray-700 flex justify-end">
+            <button type="submit" class="bg-teal-600 hover:bg-teal-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center gap-2">
+                <span class="material-symbols-outlined">save</span>
+                Sauvegarder
+            </button>
+        </div>
+
+    </div>
+</form>
+{% endblock %}
