@@ -26,6 +26,12 @@
         <button onclick="switchTab('integrations')" id="btn-integrations" class="tab-btn px-6 py-4 text-sm font-medium text-blue-100/80 border-b-2 border-transparent hover:text-gray-200 focus:outline-none transition-colors whitespace-nowrap">
             Intégrations
         </button>
+        <button onclick="switchTab('map')" id="btn-map" class="tab-btn px-6 py-4 text-sm font-medium text-blue-100/80 border-b-2 border-transparent hover:text-gray-200 focus:outline-none transition-colors whitespace-nowrap">
+            Carte
+        </button>
+        <button onclick="switchTab('legal')" id="btn-legal" class="tab-btn px-6 py-4 text-sm font-medium text-blue-100/80 border-b-2 border-transparent hover:text-gray-200 focus:outline-none transition-colors whitespace-nowrap">
+            Pages Légales
+        </button>
     </nav>
 
     <form method="POST" enctype="multipart/form-data" class="p-8">
@@ -183,6 +189,42 @@
                 <textarea name="custom_head_code" rows="10"
                           class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white font-mono text-sm focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600"
                           placeholder="<!-- Collez vos scripts ici -->">{{ settings.custom_head_code or '' }}</textarea>
+            </div>
+        </div>
+
+        <!-- MAP SECTION -->
+        <div id="section-map" class="tab-section hidden space-y-6">
+            <h3 class="text-xl font-bold text-white mb-4">Coordonnées Géographiques (Map)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <label class="block text-sm font-medium text-blue-100/80 mb-2">Latitude</label>
+                    <input type="text" name="map_latitude" value="{{ settings.map_latitude or '31.6295' }}"
+                           class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-blue-100/80 mb-2">Longitude</label>
+                    <input type="text" name="map_longitude" value="{{ settings.map_longitude or '-8.0063' }}"
+                           class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+                </div>
+            </div>
+        </div>
+
+        <!-- LEGAL SECTION -->
+        <div id="section-legal" class="tab-section hidden space-y-6">
+            <h3 class="text-xl font-bold text-white mb-4">Pages Légales</h3>
+            <p class="text-sm text-blue-100/80 mb-4">Vous pouvez utiliser du HTML pour formater le texte.</p>
+
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-blue-100/80 mb-2">Politique de Confidentialité</label>
+                    <textarea name="privacy_policy" rows="10"
+                              class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white font-mono text-sm focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">{{ settings.privacy_policy or '' }}</textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-blue-100/80 mb-2">Conditions Générales (CGV)</label>
+                    <textarea name="terms_conditions" rows="10"
+                              class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white font-mono text-sm focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">{{ settings.terms_conditions or '' }}</textarea>
+                </div>
             </div>
         </div>
 

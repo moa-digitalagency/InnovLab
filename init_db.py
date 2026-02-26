@@ -23,7 +23,11 @@ def check_and_migrate():
             ('telegram_chat_id', 'VARCHAR(128)'),
             ('linkedin_url', 'VARCHAR(256)'),
             ('twitter_url', 'VARCHAR(256)'),
-            ('facebook_url', 'VARCHAR(256)')
+            ('facebook_url', 'VARCHAR(256)'),
+            ('map_latitude', "VARCHAR(20) DEFAULT '31.6295'"),
+            ('map_longitude', "VARCHAR(20) DEFAULT '-8.0063'"),
+            ('privacy_policy', 'TEXT'),
+            ('terms_conditions', 'TEXT')
         ],
         'seo_settings': [
             ('meta_title_default', 'VARCHAR(256)'),

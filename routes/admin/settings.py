@@ -108,6 +108,18 @@ def settings():
         custom_head_code = request.form.get('custom_head_code')
         if custom_head_code is not None: settings_obj.custom_head_code = custom_head_code
 
+        # Map Coordinates
+        map_lat = request.form.get('map_latitude')
+        map_lon = request.form.get('map_longitude')
+        if map_lat is not None: settings_obj.map_latitude = map_lat
+        if map_lon is not None: settings_obj.map_longitude = map_lon
+
+        # Legal Pages
+        privacy = request.form.get('privacy_policy')
+        terms = request.form.get('terms_conditions')
+        if privacy is not None: settings_obj.privacy_policy = privacy
+        if terms is not None: settings_obj.terms_conditions = terms
+
         # File Uploads (Logos)
         def save_logo(file_key, db_field):
             file = request.files.get(file_key)
