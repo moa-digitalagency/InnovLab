@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_required
 from models.settings import SiteSettings, SeoSettings
 from models import db
 from services.file_service import save_file
@@ -7,6 +8,7 @@ from security.decorators import admin_required
 settings_bp = Blueprint('settings', __name__, url_prefix='/admin')
 
 @settings_bp.route('/seo', methods=['GET', 'POST'])
+@login_required
 @admin_required
 def seo():
     pages = ['index', 'founder', 'startup', 'investor']
@@ -64,6 +66,7 @@ def seo():
     return render_template('admin/seo.html', seo_map=seo_map, pages=pages)
 
 @settings_bp.route('/settings', methods=['GET', 'POST'])
+@login_required
 @admin_required
 def settings():
     settings_obj = SiteSettings.query.first()

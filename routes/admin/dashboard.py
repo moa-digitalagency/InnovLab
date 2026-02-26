@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_required
 from security.decorators import admin_required
 from models import db
 from models.forms import FounderRequest, StartupRequest, InvestorRequest
@@ -8,6 +9,7 @@ from datetime import datetime, date, timedelta
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin', static_folder='../../statics', static_url_path='/static')
 
 @admin_bp.route('/dashboard')
+@login_required
 @admin_required
 def dashboard():
     founders_count = FounderRequest.query.count()
@@ -47,24 +49,28 @@ def dashboard():
                            chart_data=chart_data)
 
 @admin_bp.route('/founders')
+@login_required
 @admin_required
 def founders():
     founders = FounderRequest.query.order_by(FounderRequest.created_at.desc()).all()
     return render_template('admin/founders.html', founders=founders)
 
 @admin_bp.route('/startups')
+@login_required
 @admin_required
 def startups():
     startups = StartupRequest.query.order_by(StartupRequest.created_at.desc()).all()
     return render_template('admin/startups.html', startups=startups)
 
 @admin_bp.route('/investors')
+@login_required
 @admin_required
 def investors():
     investors = InvestorRequest.query.order_by(InvestorRequest.created_at.desc()).all()
     return render_template('admin/investors.html', investors=investors)
 
 @admin_bp.route('/founders/delete/<int:id>', methods=['POST'])
+@login_required
 @admin_required
 def delete_founder(id):
     founder = FounderRequest.query.get_or_404(id)
@@ -74,6 +80,7 @@ def delete_founder(id):
     return redirect(url_for('admin.founders'))
 
 @admin_bp.route('/startups/delete/<int:id>', methods=['POST'])
+@login_required
 @admin_required
 def delete_startup(id):
     startup = StartupRequest.query.get_or_404(id)
@@ -83,6 +90,7 @@ def delete_startup(id):
     return redirect(url_for('admin.startups'))
 
 @admin_bp.route('/investors/delete/<int:id>', methods=['POST'])
+@login_required
 @admin_required
 def delete_investor(id):
     investor = InvestorRequest.query.get_or_404(id)
@@ -92,6 +100,7 @@ def delete_investor(id):
     return redirect(url_for('admin.investors'))
 
 @admin_bp.route('/view/<request_type>/<int:request_id>')
+@login_required
 @admin_required
 def view_request(request_type, request_id):
     if request_type == 'founder':
@@ -107,6 +116,7 @@ def view_request(request_type, request_id):
     return render_template('admin/request_detail.html', request_obj=request_obj, request_type=request_type)
 
 @admin_bp.route('/toggle_status/<request_type>/<int:request_id>', methods=['POST'])
+@login_required
 @admin_required
 def toggle_status(request_type, request_id):
     if request_type == 'founder':
