@@ -6,6 +6,7 @@
     {% set current_page = request.endpoint.split('.')[-1] if request.endpoint else 'index' %}
     <title>{{ seo_settings[current_page].title_tag if seo_settings and current_page in seo_settings else 'Shabaka InnovLab' }}</title>
     <meta name="description" content="{{ seo_settings[current_page].meta_desc if seo_settings and current_page in seo_settings else 'Shabaka InnovLab - Le Catalyseur de la Souveraineté Technologique' }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename=site_settings.favicon) if site_settings and site_settings.favicon else url_for('static', filename='img/favicon.ico') }}">
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
@@ -25,6 +26,11 @@
     {% endif %}
 
     {% block styles %}{% endblock %}
+
+    <!-- Custom Head Code -->
+    {% if site_settings and site_settings.custom_head_code %}
+    {{ site_settings.custom_head_code | safe }}
+    {% endif %}
 </head>
 <body class="font-sans antialiased bg-[#ffffff] scroll-smooth">
 
@@ -36,10 +42,12 @@
 
             <!-- Logo -->
             <a href="{{ url_for('main.index') }}" class="flex items-center gap-3 group">
+                {% if site_settings and site_settings.header_logo %}
+                <div class="h-10 w-auto flex items-center">
+                    <img src="{{ url_for('static', filename=site_settings.header_logo) }}" alt="Shabaka Logo" class="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-300">
+                </div>
+                {% else %}
                 <div class="w-10 h-10 shrink-0 flex items-center justify-center">
-                    {% if site_settings and site_settings.header_logo %}
-                    <img src="{{ url_for('static', filename=site_settings.header_logo) }}" alt="Shabaka Logo" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300">
-                    {% else %}
                     <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-sm group-hover:scale-105 transition-transform duration-300">
                         <path d="M 10 30 L 50 7 L 90 30 L 90 50 L 50 27 L 30 38.5 L 30 60 L 10 48.5 Z" fill="#1d5865"/>
                         <path d="M 90 70 L 50 93 L 10 70 L 10 50 L 50 73 L 70 61.5 L 70 40 L 90 51.5 Z" fill="#1d5865" opacity="0.8"/>
@@ -53,12 +61,12 @@
                             <circle cx="70" cy="45" r="6.5" fill="#30a192" stroke="none"/>
                         </g>
                     </svg>
-                    {% endif %}
                 </div>
                 <div>
                     <h1 class="font-bold text-xl text-[#1d5865] leading-none mb-0.5">Shabaka</h1>
                     <p class="text-[#30a192] text-[10px] font-bold tracking-widest uppercase leading-none">InnovLab</p>
                 </div>
+                {% endif %}
             </a>
 
             <!-- Navigation Desktop -->

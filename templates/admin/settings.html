@@ -23,6 +23,9 @@
         <button onclick="switchTab('social')" id="btn-social" class="tab-btn px-6 py-4 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-200 focus:outline-none transition-colors whitespace-nowrap">
             Réseaux Sociaux
         </button>
+        <button onclick="switchTab('integrations')" id="btn-integrations" class="tab-btn px-6 py-4 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-200 focus:outline-none transition-colors whitespace-nowrap">
+            Intégrations
+        </button>
     </nav>
 
     <form method="POST" enctype="multipart/form-data" class="p-8">
@@ -68,6 +71,25 @@
                     <input type="file" name="footer_logo" accept="image/*"
                            class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-600 file:text-white hover:file:bg-teal-500 cursor-pointer bg-gray-900 rounded-lg border border-gray-700">
                     <p class="text-xs text-gray-500 mt-1">Format recommandé : Blanc ou couleur claire sur fond sombre.</p>
+                </div>
+
+                <!-- Favicon -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Favicon</label>
+                    <div class="flex items-center gap-4 mb-3">
+                        {% if settings.favicon %}
+                        <div class="bg-white p-2 rounded-lg h-16 w-16 flex items-center justify-center">
+                            <img src="{{ url_for('static', filename=settings.favicon) }}" class="max-h-full max-w-full" alt="Favicon">
+                        </div>
+                        {% else %}
+                        <div class="h-16 w-16 bg-gray-700 rounded-lg flex items-center justify-center text-gray-500 text-xs">
+                            Aucun
+                        </div>
+                        {% endif %}
+                    </div>
+                    <input type="file" name="favicon" accept="image/png, image/x-icon, image/vnd.microsoft.icon"
+                           class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-600 file:text-white hover:file:bg-teal-500 cursor-pointer bg-gray-900 rounded-lg border border-gray-700">
+                    <p class="text-xs text-gray-500 mt-1">Format recommandé : PNG ou ICO (32x32px).</p>
                 </div>
             </div>
         </div>
@@ -148,6 +170,19 @@
                 <label class="block text-sm font-medium text-gray-400 mb-2">Facebook URL</label>
                 <input type="url" name="facebook_url" value="{{ settings.facebook_url or '' }}"
                        class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+            </div>
+        </div>
+
+        <!-- INTEGRATIONS SECTION -->
+        <div id="section-integrations" class="tab-section hidden space-y-6">
+            <h3 class="text-xl font-bold text-white mb-4">Intégrations & Scripts</h3>
+            <p class="text-sm text-gray-400 mb-4">Ajoutez ici vos scripts de suivi (Google Analytics, Facebook Pixel, etc.) qui seront injectés dans le &lt;head&gt; de toutes les pages.</p>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Code Custom Head</label>
+                <textarea name="custom_head_code" rows="10"
+                          class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white font-mono text-sm focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600"
+                          placeholder="<!-- Collez vos scripts ici -->">{{ settings.custom_head_code or '' }}</textarea>
             </div>
         </div>
 
