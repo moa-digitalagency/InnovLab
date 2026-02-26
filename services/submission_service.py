@@ -14,9 +14,14 @@ class SubmissionService:
         """
         if email:
             new_contact = Contact(email=email)
-            db.session.add(new_contact)
-            db.session.commit()
-            return new_contact
+            try:
+                db.session.add(new_contact)
+                db.session.commit()
+                return new_contact
+            except Exception as e:
+                db.session.rollback()
+                current_app.logger.error(f"Database Error in process_quick_contact: {e}")
+                return None
         return None
 
     @staticmethod
@@ -35,8 +40,14 @@ class SubmissionService:
             subject=subject,
             message=message
         )
-        db.session.add(new_message)
-        db.session.commit()
+
+        try:
+            db.session.add(new_message)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error(f"Database Error in process_contact_message: {e}")
+            return None
 
         # Telegram Notification
         try:
@@ -72,8 +83,14 @@ class SubmissionService:
             primary_need=primary_need,
             file_pitch=filename
         )
-        db.session.add(new_founder)
-        db.session.commit()
+
+        try:
+            db.session.add(new_founder)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error(f"Database Error in process_founder_application: {e}")
+            return None
 
         # Telegram Notification
         try:
@@ -118,8 +135,14 @@ class SubmissionService:
             stage=stage,
             file_pitch=filename
         )
-        db.session.add(new_startup)
-        db.session.commit()
+
+        try:
+            db.session.add(new_startup)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error(f"Database Error in process_startup_application: {e}")
+            return None
 
         # Telegram Notification
         try:
@@ -160,8 +183,14 @@ class SubmissionService:
             linkedin_profile=linkedin_profile,
             file_intent=filename
         )
-        db.session.add(new_investor)
-        db.session.commit()
+
+        try:
+            db.session.add(new_investor)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error(f"Database Error in process_investor_application: {e}")
+            return None
 
         # Telegram Notification
         try:
