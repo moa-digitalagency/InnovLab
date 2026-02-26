@@ -6,12 +6,15 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config.settings import Config
 
-def check_directory(path):
+def ensure_directory(path):
     """
-    Checks if a directory exists and is writable.
+    Ensures that a directory exists and is writable.
+    Creates it if it doesn't exist.
     """
-    if not os.path.exists(path):
-        print(f"[FAIL] Directory does not exist: {path}")
+    try:
+        os.makedirs(path, exist_ok=True)
+    except OSError as e:
+        print(f"[FAIL] Could not create directory: {path}. Error: {e}")
         return False
 
     if not os.path.isdir(path):
@@ -22,11 +25,11 @@ def check_directory(path):
         print(f"[FAIL] Directory is not writable: {path}")
         return False
 
-    print(f"[OK] Directory exists and is writable: {path}")
+    print(f"[OK] Directory ready: {path}")
     return True
 
 def main():
-    print("Checking system directories...")
+    print("Verifying and preparing system directories...")
 
     base_upload_folder = Config.UPLOAD_FOLDER
 
@@ -34,13 +37,6 @@ def main():
     if not base_upload_folder:
         print("[FAIL] UPLOAD_FOLDER is not configured in Config.")
         sys.exit(1)
-
-    # Resolve absolute path if it's relative
-    if not os.path.isabs(base_upload_folder):
-        # Assuming run from repo root if relative path is used in Config
-        # Config.UPLOAD_FOLDER is usually constructed relative to __file__ in config/settings.py
-        # which means it should already be absolute. Let's trust Config.
-        pass
 
     directories_to_check = [
         base_upload_folder,
@@ -51,14 +47,14 @@ def main():
 
     all_good = True
     for directory in directories_to_check:
-        if not check_directory(directory):
+        if not ensure_directory(directory):
             all_good = False
 
     if all_good:
         print("\nSystem check passed: All directories are ready.")
         sys.exit(0)
     else:
-        print("\nSystem check failed: Some directories are missing or invalid.")
+        print("\nSystem check failed: Some directories could not be prepared.")
         sys.exit(1)
 
 if __name__ == "__main__":
