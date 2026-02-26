@@ -27,7 +27,7 @@
             <!-- Right Column in Design (Form), but First in HTML for Mobile ordering (Map below Form) -->
             <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 shadow-sm order-1 lg:order-2 reveal">
                 <h2 class="text-2xl font-bold text-[#1d5865] mb-6">Envoyez-nous un message</h2>
-                <form action="{{ url_for('main.contact_us') }}" method="POST" class="space-y-6">
+                <form action="{{ url_for('forms.contact_us_submit') }}" method="POST" class="space-y-6">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nom complet</label>
                         <input type="text" id="name" name="name" required

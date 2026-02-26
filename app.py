@@ -39,18 +39,30 @@ def create_app():
     db.init_app(app)
 
     login_manager = LoginManager()
-    login_manager.login_view = 'admin.login'
+    login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
     from security.auth import load_user
     login_manager.user_loader(load_user)
 
     # Import and register blueprints/routes
-    from routes.main import main_bp
+    from routes.public.navigation import main_bp
     app.register_blueprint(main_bp)
 
-    from routes.admin_routes import admin_bp
+    from routes.public.forms import forms_bp
+    app.register_blueprint(forms_bp)
+
+    from routes.admin.auth import auth_bp
+    app.register_blueprint(auth_bp)
+
+    from routes.admin.dashboard import admin_bp
     app.register_blueprint(admin_bp)
+
+    from routes.admin.portfolio import portfolio_bp
+    app.register_blueprint(portfolio_bp)
+
+    from routes.admin.settings import settings_bp
+    app.register_blueprint(settings_bp)
 
     from models.settings import SiteSettings, SeoSettings
 
