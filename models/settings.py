@@ -12,6 +12,7 @@ class SiteSettings(db.Model):
     header_logo = db.Column(db.String(256))
     footer_logo = db.Column(db.String(256))
     favicon = db.Column(db.String(256))
+    custom_head_code = db.Column(db.Text)
 
     # Telegram
     telegram_bot_token = db.Column(db.String(256))

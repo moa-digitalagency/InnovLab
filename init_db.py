@@ -17,6 +17,7 @@ def check_and_migrate():
             ('header_logo', 'VARCHAR(256)'),
             ('footer_logo', 'VARCHAR(256)'),
             ('favicon', 'VARCHAR(256)'),
+            ('custom_head_code', 'TEXT'),
             ('telegram_bot_token', 'VARCHAR(256)'),
             ('telegram_chat_id', 'VARCHAR(128)'),
             ('linkedin_url', 'VARCHAR(256)'),

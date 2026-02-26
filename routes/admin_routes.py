@@ -213,6 +213,10 @@ def settings():
         if twitter is not None: settings_obj.twitter_url = twitter
         if facebook is not None: settings_obj.facebook_url = facebook
 
+        # Custom Head Code
+        custom_head_code = request.form.get('custom_head_code')
+        if custom_head_code is not None: settings_obj.custom_head_code = custom_head_code
+
         # File Uploads (Logos)
         # Ensure we use the configured static folder
         static_folder = current_app.static_folder if current_app.static_folder else 'static'
@@ -233,6 +237,7 @@ def settings():
 
         save_logo('header_logo', 'header_logo')
         save_logo('footer_logo', 'footer_logo')
+        save_logo('favicon', 'favicon')
 
         db.session.commit()
         flash('Paramètres du site mis à jour.', 'success')
