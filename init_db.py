@@ -24,6 +24,15 @@ def check_and_migrate():
             ('meta_keywords_default', 'VARCHAR(256)'),
             ('google_analytics_id', 'VARCHAR(64)'),
             ('robots_txt_content', 'TEXT')
+        ],
+        'founder_request': [
+            ('status', "VARCHAR(20) DEFAULT 'new'")
+        ],
+        'startup_request': [
+            ('status', "VARCHAR(20) DEFAULT 'new'")
+        ],
+        'investor_request': [
+            ('status', "VARCHAR(20) DEFAULT 'new'")
         ]
     }
 

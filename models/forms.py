@@ -10,6 +10,7 @@ class FounderRequest(db.Model):
     project_stage = db.Column(db.String(64))
     primary_need = db.Column(db.String(64))
     file_pitch = db.Column(db.String(256))
+    status = db.Column(db.String(20), default='new')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
@@ -26,6 +27,7 @@ class StartupRequest(db.Model):
     team_size = db.Column(db.String(64))
     stage = db.Column(db.String(64))
     file_pitch = db.Column(db.String(256))
+    status = db.Column(db.String(20), default='new')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
@@ -40,6 +42,7 @@ class InvestorRequest(db.Model):
     sectors_interest = db.Column(db.String(256))
     linkedin_profile = db.Column(db.String(256))
     file_intent = db.Column(db.String(256))
+    status = db.Column(db.String(20), default='new')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self):
