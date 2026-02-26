@@ -1,5 +1,5 @@
 from app import app
-from models import db, User, SiteSettings, SeoSettings, FounderRequest, StartupRequest, InvestorRequest, PortfolioProject
+from models import db, User, SiteSettings, SeoSettings, FounderRequest, StartupRequest, InvestorRequest, PortfolioProject, Contact, Message
 import sys
 import os
 from sqlalchemy import inspect, text
