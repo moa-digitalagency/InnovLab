@@ -4,6 +4,7 @@ from config.settings import Config
 from models import db, User
 from dotenv import load_dotenv
 import os
+from sqlalchemy.exc import OperationalError
 
 load_dotenv()
 
@@ -28,6 +29,25 @@ def create_upload_directories(app):
         except Exception as e:
             # Using print here as logger might not be fully configured or to ensure stdout visibility
             print(f"Error creating directory {directory}: {e}")
+
+class MockSiteSettings:
+    header_logo = None
+    footer_logo = None
+    favicon = None
+    site_title = "Shabaka InnovLab"
+    privacy_policy = None
+    terms_conditions = None
+    address = "Marrakech, Maroc"
+    phone = "+212 600 00 00 00"
+    contact_email = "contact@shabaka.com"
+    custom_head_code = None
+    telegram_bot_token = None
+    telegram_chat_id = None
+    linkedin_url = None
+    twitter_url = None
+    facebook_url = None
+    map_latitude = '31.6295'
+    map_longitude = '-8.0063'
 
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='statics')
@@ -69,14 +89,24 @@ def create_app():
     # Context Processor for injecting site and SEO settings into all templates
     @app.context_processor
     def inject_settings():
-        site_settings = SiteSettings.query.first()
-        seo_settings_list = SeoSettings.query.all()
-        seo_settings = {s.page_name: s for s in seo_settings_list}
+        try:
+            site_settings = SiteSettings.query.first()
+            if site_settings is None:
+                raise ValueError("SiteSettings table is empty")
+
+            seo_settings_list = SeoSettings.query.all()
+            seo_settings = {s.page_name: s for s in seo_settings_list}
+
+        except (OperationalError, Exception) as e:
+            app.logger.error(f"Database Error in inject_settings: {e}")
+            site_settings = MockSiteSettings()
+            seo_settings = {}
+
         return dict(
             site_settings=site_settings,
             seo_settings=seo_settings,
-            whatsapp_number=app.config['WHATSAPP_NUMBER'],
-            consultation_url=app.config['CONSULTATION_URL']
+            whatsapp_number=app.config.get('WHATSAPP_NUMBER', ''),
+            consultation_url=app.config.get('CONSULTATION_URL', '')
         )
 
     @app.errorhandler(404)
