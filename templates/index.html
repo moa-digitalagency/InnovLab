@@ -291,7 +291,7 @@
                 <!-- Boutons -->
                 <div class="flex flex-col sm:flex-row gap-4">
                     <!-- CTA Principal -->
-                    <a href="{{ url_for('main.founder') }}" class="px-8 py-3.5 rounded-xl bg-[#30a192] text-[#ffffff] font-bold text-sm hover:bg-[#258073] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#30a192]/25 flex items-center justify-center gap-2 group">
+                    <a href="{{ url_for('main.founder') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit gap-2">
                         Soumettre un projet
                         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -299,7 +299,7 @@
                         </svg>
                     </a>
                     <!-- Bouton Secondaire -->
-                    <a href="{{ url_for('main.about') }}" class="px-8 py-3.5 rounded-xl bg-transparent border border-[#1d5865] text-[#1d5865] font-bold text-sm hover:border-[#076D6D] hover:text-[#076D6D] hover:bg-transparent hover:underline underline-offset-4 transition-all duration-300 flex items-center justify-center gap-2">
+                    <a href="{{ url_for('main.about') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-transparent border-2 border-[#076D6D] text-[#076D6D] font-bold text-sm hover:bg-[#076D6D] hover:text-white hover:-translate-y-1 transition-all duration-300 group w-fit gap-2">
                         En savoir plus
                     </a>
                 </div>
@@ -410,8 +410,8 @@
             </div>
 
             <!-- CTA Ajouté pour inciter à démarrer le parcours -->
-            <div class="mt-16 text-center reveal delay-300">
-                <a href="{{ url_for('main.services') }}" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#1d5865] text-[#ffffff] font-bold text-sm hover:bg-[#15344b] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#1d5865]/20 group">
+            <div class="mt-16 text-center reveal delay-300 flex justify-center">
+                <a href="{{ url_for('main.services') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit gap-2">
                     Démarrer votre étape 01
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
@@ -452,7 +452,7 @@
                 </div>
 
                 <!-- CTA discret intégré -->
-                <a href="{{ url_for('main.startup') }}" class="inline-flex items-center gap-2 px-8 py-3 bg-[#076D6D] text-white font-bold rounded-full shadow-lg hover:bg-[#055050] transition-transform transform hover:-translate-y-1 group">
+                <a href="{{ url_for('main.startup') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit gap-2">
                     Postuler au programme d'incubation
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
@@ -637,8 +637,8 @@
             </div>
 
             <!-- CTA pour découvrir l'infrastructure -->
-            <div class="mt-16 text-center reveal delay-400">
-                <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center gap-2 px-8 py-3 bg-white text-[#064060] font-bold rounded-full shadow-lg hover:bg-gray-100 transition-all group">
+            <div class="mt-16 text-center reveal delay-400 flex justify-center">
+                <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit gap-2">
                     Planifier une visite de l'espace
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
@@ -760,8 +760,8 @@
         </div>
 
         <!-- CTA Solutions -->
-        <div class="max-w-7xl mx-auto px-4 mt-12 text-center reveal delay-500">
-            <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[#1d5865] text-[#ffffff] font-bold text-sm hover:bg-[#15344b] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#1d5865]/20 group">
+        <div class="max-w-7xl mx-auto px-4 mt-12 text-center reveal delay-500 flex justify-center">
+            <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit gap-2">
                 Demander une consultation technique
                 <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
@@ -792,11 +792,11 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{{ url_for('main.investor') }}" class="px-8 py-3.5 rounded-xl bg-[#30a192] text-[#ffffff] font-bold text-sm hover:bg-[#258073] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#30a192]/25 flex items-center justify-center gap-2 group">
+                    <a href="{{ url_for('main.investor') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit gap-2">
                         Lancer un projet
                         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </a>
-                    <a href="{{ url_for('main.services') }}" class="px-8 py-3.5 rounded-xl bg-transparent border border-[#30a192] text-[#30a192] font-bold text-sm hover:bg-[#30a192]/10 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+                    <a href="{{ url_for('main.services') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-transparent border-2 border-[#076D6D] text-[#076D6D] font-bold text-sm hover:bg-[#076D6D] hover:text-white hover:-translate-y-1 transition-all duration-300 group w-fit gap-2">
                         Voir le catalogue complet
                     </a>
                 </div>
@@ -932,10 +932,10 @@
         </div>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8 reveal delay-500">
-            <a href="{{ url_for('main.contact_us') }}" class="px-8 py-3 bg-[#076D6D] text-white font-bold rounded-full shadow-lg hover:bg-[#055050] transition-transform transform hover:-translate-y-1 text-center">
+            <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit">
                 Démarrer un Projet
             </a>
-            <a href="{{ url_for('main.portfolio') }}" class="px-8 py-3 bg-white text-[#076D6D] border border-[#076D6D] font-bold rounded-full hover:bg-gray-50 transition-all text-center">
+            <a href="{{ url_for('main.portfolio') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-transparent border-2 border-[#076D6D] text-[#076D6D] font-bold text-sm hover:bg-[#076D6D] hover:text-white hover:-translate-y-1 transition-all duration-300 group w-fit">
                 Explorer les Forteresses
             </a>
         </div>
