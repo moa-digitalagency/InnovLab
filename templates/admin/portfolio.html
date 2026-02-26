@@ -1,0 +1,85 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="mb-8 flex items-center justify-between">
+    <div>
+        <h2 class="text-3xl font-bold text-white">Portfolio</h2>
+        <p class="text-gray-400 mt-1">Gérez les projets affichés sur le site public.</p>
+    </div>
+    <a href="{{ url_for('admin.add_portfolio') }}" class="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg transition-colors shadow-lg shadow-teal-900/20">
+        <span class="material-symbols-outlined">add</span>
+        Ajouter un projet
+    </a>
+</div>
+
+<div class="bg-gray-800 rounded-xl border border-gray-700 shadow-lg overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="w-full text-left text-gray-400">
+            <thead class="bg-gray-700/50 text-gray-200 uppercase text-xs font-semibold tracking-wider">
+                <tr>
+                    <th class="px-6 py-4">Image</th>
+                    <th class="px-6 py-4">Titre</th>
+                    <th class="px-6 py-4">Catégorie</th>
+                    <th class="px-6 py-4">URL Projet</th>
+                    <th class="px-6 py-4">Statut</th>
+                    <th class="px-6 py-4 text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-700">
+                {% for project in projects %}
+                <tr class="hover:bg-gray-700/30 transition-colors group">
+                    <td class="px-6 py-4">
+                        {% if project.image_url %}
+                        <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}" class="h-10 w-16 object-cover rounded border border-gray-600">
+                        {% else %}
+                        <div class="h-10 w-16 bg-gray-700 rounded flex items-center justify-center text-xs text-gray-500 border border-gray-600">No Img</div>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 font-medium text-white">{{ project.title }}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-gray-700 text-gray-300 border border-gray-600">{{ project.category }}</span>
+                    </td>
+                    <td class="px-6 py-4">
+                        <a href="{{ project.project_url }}" target="_blank" class="text-blue-400 hover:text-blue-300 hover:underline truncate max-w-[150px] block">{{ project.project_url }}</a>
+                    </td>
+                    <td class="px-6 py-4">
+                        {% if project.is_active %}
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-900/30 text-green-400 border border-green-800">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-400 mr-1.5"></span>
+                            Actif
+                        </span>
+                        {% else %}
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-900/30 text-red-400 border border-red-800">
+                            <span class="w-1.5 h-1.5 rounded-full bg-red-400 mr-1.5"></span>
+                            Inactif
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                        <div class="flex items-center justify-end gap-2">
+                            <a href="{{ url_for('admin.edit_portfolio', id=project.id) }}" class="p-2 text-blue-400 hover:bg-blue-900/30 rounded-lg transition-colors" title="Modifier">
+                                <span class="material-symbols-outlined">edit</span>
+                            </a>
+                            <form action="{{ url_for('admin.delete_portfolio', id=project.id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');" class="inline-block">
+                                <button type="submit" class="p-2 text-red-400 hover:bg-red-900/30 rounded-lg transition-colors" title="Supprimer">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                        <div class="flex flex-col items-center justify-center">
+                            <span class="material-symbols-outlined text-4xl mb-2 opacity-50">folder_off</span>
+                            <p>Aucun projet trouvé.</p>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

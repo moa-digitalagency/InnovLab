@@ -46,11 +46,17 @@
         <!-- Projects Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
             {% for project in projects %}
-            <div class="project-card group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-100" data-category="{{ project.category }}">
-                <!-- Card Header with Gradient Line -->
-                <div class="h-2 bg-gradient-to-r from-[#1d5865] via-[#30a192] to-[#076D6D]"></div>
+            <div class="project-card group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-slate-100 flex flex-col" data-category="{{ project.category }}">
+                <!-- Card Header -->
+                {% if project.image_url %}
+                <div class="h-48 overflow-hidden relative border-b border-gray-100 flex-shrink-0">
+                    <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                {% else %}
+                <div class="h-2 bg-gradient-to-r from-[#1d5865] via-[#30a192] to-[#076D6D] flex-shrink-0"></div>
+                {% endif %}
 
-                <div class="p-8 flex flex-col h-full">
+                <div class="p-8 flex flex-col flex-grow">
                     <!-- Badge -->
                     <div class="flex justify-between items-start mb-6">
                         <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide
@@ -73,7 +79,7 @@
 
                     <!-- Action -->
                     <div class="pt-6 border-t border-gray-100 mt-auto">
-                        <a href="#" class="inline-flex items-center justify-center w-full py-3 px-6 rounded-xl bg-slate-50 text-[#1d5865] font-bold hover:bg-[#1d5865] hover:text-white transition-all duration-300 group-hover:shadow-md">
+                        <a href="{{ project.project_url }}" target="_blank" class="inline-flex items-center justify-center w-full py-3 px-6 rounded-xl bg-slate-50 text-[#1d5865] font-bold hover:bg-[#1d5865] hover:text-white transition-all duration-300 group-hover:shadow-md">
                             Voir le projet
                             <span class="material-symbols-outlined ml-2 text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
                         </a>

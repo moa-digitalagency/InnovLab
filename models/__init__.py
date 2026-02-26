@@ -7,3 +7,4 @@ from .user import User
 from .settings import SiteSettings, SeoSettings
 from .forms import FounderRequest, StartupRequest, InvestorRequest
 from .message import Message
+from .portfolio import PortfolioProject
