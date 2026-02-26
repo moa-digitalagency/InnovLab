@@ -1,9 +1,11 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_login import login_user, logout_user, login_required, current_user
+from werkzeug.utils import secure_filename
 from models import db, User
 from models.forms import FounderRequest, StartupRequest, InvestorRequest
 from models.settings import SiteSettings, SeoSettings
 from datetime import datetime, date
+import os
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -119,6 +121,22 @@ def seo():
         db.session.commit()
 
     if request.method == 'POST':
+        # Handle Global SEO Settings (stored in 'index' page entry or specific global entry)
+        global_seo = SeoSettings.query.filter_by(page_name='index').first()
+        if global_seo:
+            ga_id = request.form.get('google_analytics_id')
+            robots = request.form.get('robots_txt_content')
+            def_title = request.form.get('meta_title_default')
+            def_desc = request.form.get('meta_description_default')
+            def_keywords = request.form.get('meta_keywords_default')
+
+            if ga_id is not None: global_seo.google_analytics_id = ga_id
+            if robots is not None: global_seo.robots_txt_content = robots
+            if def_title is not None: global_seo.meta_title_default = def_title
+            if def_desc is not None: global_seo.meta_description_default = def_desc
+            if def_keywords is not None: global_seo.meta_keywords_default = def_keywords
+
+        # Handle Per-Page SEO Settings
         for page in pages:
             seo_entry = SeoSettings.query.filter_by(page_name=page).first()
             if seo_entry:
@@ -126,6 +144,7 @@ def seo():
                 desc = request.form.get(f'desc_{page}')
                 if title: seo_entry.title_tag = title
                 if desc: seo_entry.meta_desc = desc
+
         db.session.commit()
         flash('Paramètres SEO mis à jour.', 'success')
         return redirect(url_for('admin.seo'))
@@ -151,6 +170,7 @@ def settings():
         db.session.commit()
 
     if request.method == 'POST':
+        # Contact
         email = request.form.get('contact_email')
         phone = request.form.get('phone')
         address = request.form.get('address')
@@ -158,6 +178,41 @@ def settings():
         if email: settings_obj.contact_email = email
         if phone: settings_obj.phone = phone
         if address: settings_obj.address = address
+
+        # Telegram
+        tg_token = request.form.get('telegram_bot_token')
+        tg_chat = request.form.get('telegram_chat_id')
+        if tg_token is not None: settings_obj.telegram_bot_token = tg_token
+        if tg_chat is not None: settings_obj.telegram_chat_id = tg_chat
+
+        # Social Media
+        linkedin = request.form.get('linkedin_url')
+        twitter = request.form.get('twitter_url')
+        facebook = request.form.get('facebook_url')
+        if linkedin is not None: settings_obj.linkedin_url = linkedin
+        if twitter is not None: settings_obj.twitter_url = twitter
+        if facebook is not None: settings_obj.facebook_url = facebook
+
+        # File Uploads (Logos)
+        # Ensure we use the configured static folder
+        static_folder = current_app.static_folder if current_app.static_folder else 'static'
+        upload_folder = os.path.join(current_app.root_path, static_folder, 'uploads', 'logos')
+
+        if not os.path.exists(upload_folder):
+            os.makedirs(upload_folder)
+
+        def save_logo(file_key, db_field):
+            file = request.files.get(file_key)
+            if file and file.filename:
+                filename = secure_filename(file.filename)
+                final_name = filename
+
+                file.save(os.path.join(upload_folder, final_name))
+                # Store path relative to static folder for url_for
+                setattr(settings_obj, db_field, f"uploads/logos/{final_name}")
+
+        save_logo('header_logo', 'header_logo')
+        save_logo('footer_logo', 'footer_logo')
 
         db.session.commit()
         flash('Paramètres du site mis à jour.', 'success')

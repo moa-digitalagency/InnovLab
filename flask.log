@@ -1,0 +1,27 @@
+ * Serving Flask app 'app.py'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [26/Feb/2026 00:51:07] "GET /admin/login HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:51:09] "POST /admin/login HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:51:09] "[32mGET /admin/settings HTTP/1.1[0m" 302 -
+127.0.0.1 - - [26/Feb/2026 00:51:09] "GET /admin/login?next=/admin/settings HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:09] "GET /admin/login HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:10] "[32mPOST /admin/login HTTP/1.1[0m" 302 -
+127.0.0.1 - - [26/Feb/2026 00:52:10] "GET /admin/dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:10] "GET /admin/settings HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:12] "[32mPOST /admin/settings HTTP/1.1[0m" 302 -
+127.0.0.1 - - [26/Feb/2026 00:52:12] "GET /admin/settings HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:12] "GET /statics/uploads/logos/test_logo.png HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:13] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:13] "GET /statics/js/script.js HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:13] "[36mGET /statics/uploads/logos/test_logo.png HTTP/1.1[0m" 304 -
+127.0.0.1 - - [26/Feb/2026 00:52:13] "GET /statics/css/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:16] "GET /admin/seo HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:16] "[32mPOST /admin/seo HTTP/1.1[0m" 302 -
+127.0.0.1 - - [26/Feb/2026 00:52:16] "GET /admin/seo HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:17] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [26/Feb/2026 00:52:18] "[36mGET /statics/css/style.css HTTP/1.1[0m" 304 -
+127.0.0.1 - - [26/Feb/2026 00:52:18] "[36mGET /statics/js/script.js HTTP/1.1[0m" 304 -
+127.0.0.1 - - [26/Feb/2026 00:52:18] "[36mGET /statics/uploads/logos/test_logo.png HTTP/1.1[0m" 304 -

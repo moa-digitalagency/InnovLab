@@ -4,36 +4,95 @@
 <div class="mb-8 flex items-center justify-between">
     <div>
         <h2 class="text-3xl font-bold text-white">SEO Avancé</h2>
-        <p class="text-gray-400 mt-1">Gérez les titres et méta-descriptions.</p>
+        <p class="text-gray-400 mt-1">Configuration globale et optimisation par page.</p>
     </div>
 </div>
 
-<form method="POST" class="space-y-8 pb-12">
-    {% for page in pages %}
-    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-lg">
-        <h3 class="text-xl font-bold text-teal-400 mb-4 capitalize flex items-center gap-2">
-            <span class="material-symbols-outlined text-sm">web</span>
-            {{ page }}
+<form method="POST" class="pb-12 space-y-8">
+
+    <!-- GLOBAL SEO CONFIGURATION -->
+    <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-lg relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+            <span class="material-symbols-outlined text-9xl">public</span>
+        </div>
+        <h3 class="text-xl font-bold text-teal-400 mb-6 flex items-center gap-2 relative z-10">
+            <span class="material-symbols-outlined">settings_suggest</span>
+            Configuration Globale
         </h3>
-        <div class="grid grid-cols-1 gap-6">
-            <div>
-                <label class="block text-sm font-medium text-gray-400 mb-2">Titre de la page</label>
-                <input type="text" name="title_{{ page }}" value="{{ seo_map[page].title_tag if page in seo_map else '' }}"
-                       class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600" placeholder="Titre de la page...">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+            <!-- Analytics & Robots -->
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Google Analytics ID</label>
+                    <input type="text" name="google_analytics_id" value="{{ seo_map['index'].google_analytics_id if 'index' in seo_map and seo_map['index'].google_analytics_id else '' }}"
+                           class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600" placeholder="Ex: G-XXXXXXXXXX">
+                    <p class="text-xs text-gray-500 mt-1">L'ID de mesure GA4.</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Fichier robots.txt</label>
+                    <textarea name="robots_txt_content" rows="6"
+                              class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white font-mono text-xs focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600" placeholder="User-agent: *&#10;Disallow: /admin/">{{ seo_map['index'].robots_txt_content if 'index' in seo_map and seo_map['index'].robots_txt_content else '' }}</textarea>
+                </div>
             </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-400 mb-2">Méta Description</label>
-                <textarea name="desc_{{ page }}" rows="3"
-                          class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600" placeholder="Description pour les moteurs de recherche...">{{ seo_map[page].meta_desc if page in seo_map else '' }}</textarea>
+
+            <!-- Default Meta Tags -->
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Titre par défaut (Meta Title)</label>
+                    <input type="text" name="meta_title_default" value="{{ seo_map['index'].meta_title_default if 'index' in seo_map and seo_map['index'].meta_title_default else '' }}"
+                           class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Description par défaut</label>
+                    <textarea name="meta_description_default" rows="3"
+                              class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">{{ seo_map['index'].meta_description_default if 'index' in seo_map and seo_map['index'].meta_description_default else '' }}</textarea>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Mots-clés par défaut</label>
+                    <input type="text" name="meta_keywords_default" value="{{ seo_map['index'].meta_keywords_default if 'index' in seo_map and seo_map['index'].meta_keywords_default else '' }}"
+                           class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+                </div>
             </div>
         </div>
     </div>
-    {% endfor %}
 
-    <div class="flex justify-end sticky bottom-6 z-20 pointer-events-none">
-        <button type="submit" class="pointer-events-auto bg-teal-600 hover:bg-teal-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center gap-2">
+    <div class="border-t border-gray-700 my-8"></div>
+
+    <!-- PER PAGE CONFIGURATION -->
+    <h3 class="text-2xl font-bold text-white mb-6 pl-2 border-l-4 border-teal-500">Optimisation par Page</h3>
+
+    <div class="grid grid-cols-1 gap-6">
+        {% for page in pages %}
+        <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-md hover:border-teal-500/50 transition-colors">
+            <h4 class="text-lg font-bold text-white mb-4 capitalize flex items-center gap-2">
+                <span class="material-symbols-outlined text-teal-500">web_asset</span>
+                {{ page }}
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Titre de la page</label>
+                    <input type="text" name="title_{{ page }}" value="{{ seo_map[page].title_tag if page in seo_map else '' }}"
+                           class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Méta Description</label>
+                    <textarea name="desc_{{ page }}" rows="2"
+                              class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">{{ seo_map[page].meta_desc if page in seo_map else '' }}</textarea>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Sticky Save Button -->
+    <div class="fixed bottom-6 right-8 z-50">
+        <button type="submit" class="bg-teal-600 hover:bg-teal-500 text-white font-bold py-4 px-8 rounded-full shadow-2xl transition-all transform hover:-translate-y-1 flex items-center gap-3 border-2 border-teal-400/20 backdrop-blur-sm">
             <span class="material-symbols-outlined">save</span>
-            Enregistrer les modifications
+            Sauvegarder tout
         </button>
     </div>
 </form>
