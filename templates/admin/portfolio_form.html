@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="mb-8">
-    <a href="{{ url_for('portfolio.portfolio') }}" class="text-gray-400 hover:text-white flex items-center gap-2 mb-4 transition-colors">
+    <a href="{{ url_for('portfolio.portfolio') }}" class="text-blue-100/80 hover:text-white flex items-center gap-2 mb-4 transition-colors">
         <span class="material-symbols-outlined text-sm">arrow_back</span>
         Retour au Portfolio
     </a>
@@ -14,12 +14,12 @@
         <!-- Title & Category Row -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label for="title" class="block text-sm font-medium text-gray-300 mb-2">Titre du Projet</label>
+                <label for="title" class="block text-sm font-medium text-blue-50 mb-2">Titre du Projet</label>
                 <input type="text" name="title" id="title" required value="{{ project.title if project else '' }}"
                     class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all placeholder-gray-600">
             </div>
             <div>
-                <label for="category" class="block text-sm font-medium text-gray-300 mb-2">Catégorie</label>
+                <label for="category" class="block text-sm font-medium text-blue-50 mb-2">Catégorie</label>
                 <select name="category" id="category" required
                     class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all appearance-none">
                     {% for cat in ['PropTech', 'GovTech', 'HealthTech', 'Retail/Daily'] %}
@@ -31,7 +31,7 @@
 
         <!-- Description -->
         <div>
-            <label for="description" class="block text-sm font-medium text-gray-300 mb-2">Description</label>
+            <label for="description" class="block text-sm font-medium text-blue-50 mb-2">Description</label>
             <textarea name="description" id="description" rows="4" required
                 class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all placeholder-gray-600">{{ project.description if project else '' }}</textarea>
         </div>
@@ -39,16 +39,16 @@
         <!-- URL & Image -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label for="project_url" class="block text-sm font-medium text-gray-300 mb-2">URL du Site (Lien complet)</label>
+                <label for="project_url" class="block text-sm font-medium text-blue-50 mb-2">URL du Site (Lien complet)</label>
                 <input type="url" name="project_url" id="project_url" required value="{{ project.project_url if project else '' }}" placeholder="https://..."
                     class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all placeholder-gray-600">
             </div>
             <div>
-                <label for="image" class="block text-sm font-medium text-gray-300 mb-2">Image (Optionnel)</label>
+                <label for="image" class="block text-sm font-medium text-blue-50 mb-2">Image (Optionnel)</label>
                 <input type="file" name="image" id="image" accept="image/*"
-                    class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-900/30 file:text-teal-400 hover:file:bg-teal-900/50 cursor-pointer focus:outline-none">
+                    class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-blue-100/80 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-900/30 file:text-teal-400 hover:file:bg-teal-900/50 cursor-pointer focus:outline-none">
                 {% if project and project.image_url %}
-                <div class="mt-2 text-xs text-gray-500 flex items-center gap-2">
+                <div class="mt-2 text-xs text-blue-100/60 flex items-center gap-2">
                     <span class="material-symbols-outlined text-sm text-green-400">check_circle</span>
                     Image actuelle: <a href="{{ url_for('static', filename=project.image_url) }}" target="_blank" class="text-blue-400 hover:underline">Voir</a>
                 </div>
@@ -60,13 +60,13 @@
         <div class="pt-2">
             <label class="flex items-center space-x-3 cursor-pointer select-none group">
                 <input type="checkbox" name="is_active" class="form-checkbox h-5 w-5 text-teal-600 bg-gray-900 border-gray-700 rounded focus:ring-teal-500 focus:ring-offset-gray-800 transition-colors" {% if not project or project.is_active %}checked{% endif %}>
-                <span class="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">Projet Actif (Visible sur le site)</span>
+                <span class="text-sm font-medium text-blue-50 group-hover:text-white transition-colors">Projet Actif (Visible sur le site)</span>
             </label>
         </div>
 
         <!-- Actions -->
         <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-700 mt-6">
-            <a href="{{ url_for('portfolio.portfolio') }}" class="px-6 py-3 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white font-medium transition-all">
+            <a href="{{ url_for('portfolio.portfolio') }}" class="px-6 py-3 rounded-lg border border-gray-600 text-blue-50 hover:bg-gray-700 hover:text-white font-medium transition-all">
                 Annuler
             </a>
             <button type="submit" class="px-8 py-3 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-bold transition-all shadow-lg shadow-teal-900/20 flex items-center gap-2">

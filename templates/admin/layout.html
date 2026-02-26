@@ -39,45 +39,45 @@
         <nav class="flex-1 overflow-y-auto py-4">
             <ul class="space-y-2 px-4">
                 <li>
-                    <a href="{{ url_for('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'admin.dashboard' else '' }}">
+                    <a href="{{ url_for('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'admin.dashboard' else '' }}">
                         <span class="material-symbols-outlined">dashboard</span>
                         <span>Dashboard</span>
                     </a>
                 </li>
-                <li class="pt-4 pb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider px-4">Gestion</li>
+                <li class="pt-4 pb-2 text-xs font-semibold text-blue-100/60 uppercase tracking-wider px-4">Gestion</li>
                 <li>
-                    <a href="{{ url_for('admin.founders') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'admin.founders' else '' }}">
+                    <a href="{{ url_for('admin.founders') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'admin.founders' else '' }}">
                         <span class="material-symbols-outlined">person</span>
                         <span>Fondateurs</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('admin.startups') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'admin.startups' else '' }}">
+                    <a href="{{ url_for('admin.startups') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'admin.startups' else '' }}">
                         <span class="material-symbols-outlined">rocket_launch</span>
                         <span>Startups</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('admin.investors') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'admin.investors' else '' }}">
+                    <a href="{{ url_for('admin.investors') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'admin.investors' else '' }}">
                         <span class="material-symbols-outlined">payments</span>
                         <span>Investisseurs</span>
                     </a>
                 </li>
-                <li class="pt-4 pb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider px-4">Configuration</li>
+                <li class="pt-4 pb-2 text-xs font-semibold text-blue-100/60 uppercase tracking-wider px-4">Configuration</li>
                 <li>
-                    <a href="{{ url_for('settings.settings') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'settings.settings' else '' }}">
+                    <a href="{{ url_for('settings.settings') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'settings.settings' else '' }}">
                         <span class="material-symbols-outlined">settings</span>
                         <span>Paramètres</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('settings.seo') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'settings.seo' else '' }}">
+                    <a href="{{ url_for('settings.seo') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'settings.seo' else '' }}">
                         <span class="material-symbols-outlined">search</span>
                         <span>SEO Avancé</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url_for('portfolio.portfolio') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'portfolio.portfolio' else '' }}">
+                    <a href="{{ url_for('portfolio.portfolio') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'portfolio.portfolio' else '' }}">
                         <span class="material-symbols-outlined">image</span>
                         <span>Portfolio</span>
                     </a>

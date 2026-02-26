@@ -15,7 +15,7 @@
     <div class="bg-gray-800 p-8 rounded-lg shadow-xl w-full max-w-md border border-gray-700">
         <div class="text-center mb-8">
             <h1 class="text-2xl font-bold text-teal-500">Shabaka<span class="text-white font-light">Admin</span></h1>
-            <p class="text-gray-400 mt-2">Connectez-vous pour accéder au panneau d'administration.</p>
+            <p class="text-blue-100/80 mt-2">Connectez-vous pour accéder au panneau d'administration.</p>
         </div>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -32,13 +32,13 @@
 
         <form action="{{ url_for('auth.login') }}" method="POST" class="space-y-6">
             <div>
-                <label for="username" class="block text-sm font-medium text-gray-400 mb-2">Nom d'utilisateur</label>
+                <label for="username" class="block text-sm font-medium text-blue-100/80 mb-2">Nom d'utilisateur</label>
                 <input type="text" name="username" id="username" required
                        class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all">
             </div>
 
             <div>
-                <label for="password" class="block text-sm font-medium text-gray-400 mb-2">Mot de passe</label>
+                <label for="password" class="block text-sm font-medium text-blue-100/80 mb-2">Mot de passe</label>
                 <input type="password" name="password" id="password" required
                        class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all">
             </div>
@@ -50,7 +50,7 @@
         </form>
 
         <div class="mt-6 text-center">
-            <a href="/" class="text-sm text-gray-500 hover:text-teal-400 transition-colors">Retour au site principal</a>
+            <a href="/" class="text-sm text-blue-100/60 hover:text-teal-400 transition-colors">Retour au site principal</a>
         </div>
     </div>
 

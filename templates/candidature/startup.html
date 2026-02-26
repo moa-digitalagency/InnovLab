@@ -15,7 +15,7 @@
                 <div class="text-center mb-10">
                     <span class="inline-block py-1 px-3 rounded-full bg-[#076D6D]/10 text-[#076D6D] text-sm font-semibold mb-4">Programme Startups</span>
                     <h1 class="text-3xl md:text-4xl font-bold text-[#064060] mb-4">Accélérez votre Croissance</h1>
-                    <p class="text-gray-600 text-lg">Rejoignez un réseau de partenaires stratégiques pour passer à l'échelle.</p>
+                    <p class="text-[#064060]/80 text-lg">Rejoignez un réseau de partenaires stratégiques pour passer à l'échelle.</p>
                 </div>
 
                 <form action="{{ url_for('forms.startup_submit') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
@@ -26,28 +26,28 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label for="nom_startup" class="block text-sm font-semibold text-gray-700">Nom de la Startup</label>
+                                <label for="nom_startup" class="block text-sm font-semibold text-[#064060]/90">Nom de la Startup</label>
                                 <input type="text" name="nom_startup" id="nom_startup" required
-                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400">
+                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50">
                             </div>
 
                             <div class="space-y-2">
-                                <label for="email" class="block text-sm font-semibold text-gray-700">Email de contact</label>
+                                <label for="email" class="block text-sm font-semibold text-[#064060]/90">Email de contact</label>
                                 <input type="email" name="email" id="email" required
-                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400">
+                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50">
                             </div>
 
                             <div class="space-y-2">
-                                <label for="website_url" class="block text-sm font-semibold text-gray-700">Site Web</label>
+                                <label for="website_url" class="block text-sm font-semibold text-[#064060]/90">Site Web</label>
                                 <input type="url" name="website_url" id="website_url" required
-                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400"
+                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50"
                                     placeholder="https://votre-startup.com">
                             </div>
 
                             <div class="space-y-2">
-                                <label for="secteur" class="block text-sm font-semibold text-gray-700">Secteur d'activité</label>
+                                <label for="secteur" class="block text-sm font-semibold text-[#064060]/90">Secteur d'activité</label>
                                 <input type="text" name="secteur" id="secteur" required
-                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400"
+                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50"
                                     placeholder="Ex: FinTech, AgriTech...">
                             </div>
                         </div>
@@ -59,7 +59,7 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div class="space-y-2">
-                                <label for="stage" class="block text-sm font-semibold text-gray-700">Stade de développement</label>
+                                <label for="stage" class="block text-sm font-semibold text-[#064060]/90">Stade de développement</label>
                                 <select name="stage" id="stage" required
                                     class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all appearance-none cursor-pointer">
                                     <option value="" disabled selected>Choisir...</option>
@@ -70,16 +70,16 @@
                             </div>
 
                             <div class="space-y-2">
-                                <label for="annual_revenue" class="block text-sm font-semibold text-gray-700">CA Annuel (Approximatif)</label>
+                                <label for="annual_revenue" class="block text-sm font-semibold text-[#064060]/90">CA Annuel (Approximatif)</label>
                                 <input type="text" name="annual_revenue" id="annual_revenue" required
-                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400"
+                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50"
                                     placeholder="Ex: 50k - 100k EUR">
                             </div>
 
                             <div class="space-y-2">
-                                <label for="team_size" class="block text-sm font-semibold text-gray-700">Taille de l'équipe</label>
+                                <label for="team_size" class="block text-sm font-semibold text-[#064060]/90">Taille de l'équipe</label>
                                 <input type="number" name="team_size" id="team_size" required
-                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-gray-400">
+                                    class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50">
                             </div>
                         </div>
                     </div>
@@ -91,33 +91,33 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
                                 <input type="checkbox" name="besoins" value="Accès Marché" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
-                                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-[#064060]">Accès Marché</span>
+                                <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">Accès Marché</span>
                             </label>
 
                             <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
                                 <input type="checkbox" name="besoins" value="Cyber-Audit" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
-                                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-[#064060]">Cyber-Audit</span>
+                                <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">Cyber-Audit</span>
                             </label>
 
                             <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
                                 <input type="checkbox" name="besoins" value="Levée de fonds" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
-                                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-[#064060]">Levée de fonds</span>
+                                <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">Levée de fonds</span>
                             </label>
 
                             <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
                                 <input type="checkbox" name="besoins" value="Recrutement" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
-                                <span class="ml-3 text-sm font-medium text-gray-700 group-hover:text-[#064060]">Recrutement</span>
+                                <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">Recrutement</span>
                             </label>
                         </div>
                     </div>
 
                     <!-- Upload -->
                     <div class="space-y-2">
-                        <label class="block text-sm font-semibold text-gray-700">Pitch Deck (Obligatoire)</label>
+                        <label class="block text-sm font-semibold text-[#064060]/90">Pitch Deck (Obligatoire)</label>
                         <div class="relative group">
                             <input type="file" name="file_pitch" id="file_pitch" required accept=".pdf,.pptx,.ppt"
-                                class="w-full text-sm text-gray-500 bg-white/50 border border-slate-200 rounded-xl file:mr-4 file:py-3 file:px-6 file:rounded-l-xl file:border-0 file:text-sm file:font-semibold file:bg-[#076D6D]/10 file:text-[#076D6D] hover:file:bg-[#076D6D]/20 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#076D6D]">
-                            <p class="mt-2 text-xs text-gray-500">Présentez votre entreprise de manière concise (Max 16Mo)</p>
+                                class="w-full text-sm text-[#064060]/70 bg-white/50 border border-slate-200 rounded-xl file:mr-4 file:py-3 file:px-6 file:rounded-l-xl file:border-0 file:text-sm file:font-semibold file:bg-[#076D6D]/10 file:text-[#076D6D] hover:file:bg-[#076D6D]/20 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#076D6D]">
+                            <p class="mt-2 text-xs text-[#064060]/70">Présentez votre entreprise de manière concise (Max 16Mo)</p>
                         </div>
                     </div>
 

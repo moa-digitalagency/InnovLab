@@ -4,7 +4,7 @@
 <div class="mb-8 flex items-center justify-between">
     <div>
         <h2 class="text-3xl font-bold text-white">Portfolio</h2>
-        <p class="text-gray-400 mt-1">Gérez les projets affichés sur le site public.</p>
+        <p class="text-blue-100/80 mt-1">Gérez les projets affichés sur le site public.</p>
     </div>
     <a href="{{ url_for('portfolio.add_portfolio') }}" class="flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg transition-colors shadow-lg shadow-teal-900/20">
         <span class="material-symbols-outlined">add</span>
@@ -14,7 +14,7 @@
 
 <div class="bg-gray-800 rounded-xl border border-gray-700 shadow-lg overflow-hidden">
     <div class="overflow-x-auto">
-        <table class="w-full text-left text-gray-400">
+        <table class="w-full text-left text-blue-100/80">
             <thead class="bg-gray-700/50 text-gray-200 uppercase text-xs font-semibold tracking-wider">
                 <tr>
                     <th class="px-6 py-4">Image</th>
@@ -32,12 +32,12 @@
                         {% if project.image_url %}
                         <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}" class="h-10 w-16 object-cover rounded border border-gray-600">
                         {% else %}
-                        <div class="h-10 w-16 bg-gray-700 rounded flex items-center justify-center text-xs text-gray-500 border border-gray-600">No Img</div>
+                        <div class="h-10 w-16 bg-gray-700 rounded flex items-center justify-center text-xs text-blue-100/60 border border-gray-600">No Img</div>
                         {% endif %}
                     </td>
                     <td class="px-6 py-4 font-medium text-white">{{ project.title }}</td>
                     <td class="px-6 py-4">
-                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-gray-700 text-gray-300 border border-gray-600">{{ project.category }}</span>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-gray-700 text-blue-50 border border-gray-600">{{ project.category }}</span>
                     </td>
                     <td class="px-6 py-4">
                         <a href="{{ project.project_url }}" target="_blank" class="text-blue-400 hover:text-blue-300 hover:underline truncate max-w-[150px] block">{{ project.project_url }}</a>
@@ -70,7 +70,7 @@
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                    <td colspan="6" class="px-6 py-12 text-center text-blue-100/60">
                         <div class="flex flex-col items-center justify-center">
                             <span class="material-symbols-outlined text-4xl mb-2 opacity-50">folder_off</span>
                             <p>Aucun projet trouvé.</p>
