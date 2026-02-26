@@ -2,6 +2,7 @@ import os
 
 class Config:
     uri = os.getenv('DATABASE_URL', 'sqlite:///app.db')
+    # PostgreSQL Compatibility Fix
     if uri and uri.startswith("postgres://"):
         uri = uri.replace("postgres://", "postgresql://", 1)
 
