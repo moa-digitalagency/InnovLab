@@ -6,6 +6,11 @@ from sqlalchemy import inspect, text
 def check_and_migrate():
     inspector = inspect(db.engine)
 
+    # Determine boolean default based on dialect
+    bool_default = "DEFAULT FALSE"
+    if db.engine.name == 'sqlite':
+        bool_default = "DEFAULT 0"
+
     # Define new columns to check
     schema_updates = {
         'site_settings': [
@@ -33,6 +38,9 @@ def check_and_migrate():
         ],
         'investor_request': [
             ('status', "VARCHAR(20) DEFAULT 'new'")
+        ],
+        'message': [
+            ('read', f"BOOLEAN {bool_default}")
         ]
     }
 
