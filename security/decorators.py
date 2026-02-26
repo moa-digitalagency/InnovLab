@@ -10,7 +10,7 @@ def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if not current_user.is_authenticated:
-            return redirect(url_for('admin.login'))
+            return redirect(url_for('auth.login'))
 
         # Check if user is the main admin (ID 1)
         if current_user.id != 1:

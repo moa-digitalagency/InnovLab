@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="mb-8">
-    <a href="{{ url_for('admin.portfolio') }}" class="text-gray-400 hover:text-white flex items-center gap-2 mb-4 transition-colors">
+    <a href="{{ url_for('portfolio.portfolio') }}" class="text-gray-400 hover:text-white flex items-center gap-2 mb-4 transition-colors">
         <span class="material-symbols-outlined text-sm">arrow_back</span>
         Retour au Portfolio
     </a>
@@ -66,7 +66,7 @@
 
         <!-- Actions -->
         <div class="flex items-center justify-end gap-4 pt-6 border-t border-gray-700 mt-6">
-            <a href="{{ url_for('admin.portfolio') }}" class="px-6 py-3 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white font-medium transition-all">
+            <a href="{{ url_for('portfolio.portfolio') }}" class="px-6 py-3 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white font-medium transition-all">
                 Annuler
             </a>
             <button type="submit" class="px-8 py-3 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-bold transition-all shadow-lg shadow-teal-900/20 flex items-center gap-2">
