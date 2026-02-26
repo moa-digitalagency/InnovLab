@@ -65,15 +65,15 @@ def check_and_migrate():
 def init_database():
     with app.app_context():
         try:
-            # Ensure all tables are created
-            db.drop_all()
+            # Ensure all tables are created (idempotent)
+            # db.drop_all() # Removed to prevent data loss - enabling migration mode
             db.create_all()
-            print("Database tables created.")
+            print("Database tables verified.")
 
             check_and_migrate()
 
         except Exception as e:
-            print(f"Error creating tables: {e}", file=sys.stderr)
+            print(f"Error creating/migrating tables: {e}", file=sys.stderr)
             return
 
         try:
@@ -92,7 +92,10 @@ def init_database():
                     db.session.commit()
                     print(f"Admin user created ({admin_username}).")
                 else:
-                    print(f"Admin user '{admin_username}' already exists.")
+                    print(f"Admin user '{admin_username}' exists. Updating password from environment...")
+                    admin.set_password(admin_password)
+                    db.session.commit()
+                    print(f"Admin password updated for '{admin_username}'.")
         except Exception as e:
             print(f"Error creating admin user: {e}", file=sys.stderr)
 
