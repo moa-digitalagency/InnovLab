@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename=site_settings.favicon) if site_settings and site_settings.favicon else url_for('static', filename='img/favicon.ico') }}">
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
