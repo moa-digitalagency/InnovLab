@@ -1,0 +1,192 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="mb-8 flex items-center justify-between">
+    <div>
+        <h2 class="text-3xl font-bold text-white">Détails de la demande</h2>
+        <p class="text-gray-400 mt-1">
+            {% if request_type == 'founder' %}Fondateur{% elif request_type == 'startup' %}Startup{% elif request_type == 'investor' %}Investisseur{% endif %}
+            #{{ request_obj.id }}
+        </p>
+    </div>
+    <div class="flex items-center gap-4">
+        <a href="{{ url_for('admin.' + request_type + 's') }}" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors">
+            Retour à la liste
+        </a>
+        <form action="{{ url_for('admin.toggle_status', request_type=request_type, request_id=request_obj.id) }}" method="POST">
+            {% if request_obj.status == 'processed' %}
+            <button type="submit" class="px-4 py-2 bg-yellow-600 hover:bg-yellow-500 text-white rounded-lg transition-colors flex items-center gap-2">
+                <span class="material-symbols-outlined">mark_email_unread</span>
+                Marquer comme non lu
+            </button>
+            {% else %}
+            <button type="submit" class="px-4 py-2 bg-teal-600 hover:bg-teal-500 text-white rounded-lg transition-colors flex items-center gap-2">
+                <span class="material-symbols-outlined">check_circle</span>
+                Marquer comme traité
+            </button>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Main Info -->
+    <div class="lg:col-span-2 space-y-8">
+        <div class="bg-gray-800 rounded-xl border border-gray-700 p-6 shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-4">Informations Générales</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Nom / Contact</label>
+                    <div class="text-white text-lg font-medium">
+                        {% if request_type == 'startup' %}{{ request_obj.nom_startup }}{% else %}{{ request_obj.nom }}{% endif %}
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Email</label>
+                    <div class="text-white text-lg"><a href="mailto:{{ request_obj.email }}" class="text-teal-400 hover:underline">{{ request_obj.email }}</a></div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Date de création</label>
+                    <div class="text-white">{{ request_obj.created_at.strftime('%d/%m/%Y à %H:%M') }}</div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Statut</label>
+                    <div>
+                        {% if request_obj.status == 'processed' %}
+                        <span class="px-3 py-1 rounded-full text-sm font-medium bg-green-900/50 text-green-400 border border-green-800">
+                            Traité
+                        </span>
+                        {% else %}
+                        <span class="px-3 py-1 rounded-full text-sm font-medium bg-blue-900/50 text-blue-400 border border-blue-800">
+                            Nouveau
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-800 rounded-xl border border-gray-700 p-6 shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-4">Détails du Projet</h3>
+
+            {% if request_type == 'founder' %}
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Nom du Projet</label>
+                    <div class="text-white text-lg font-medium">{{ request_obj.projet_name }}</div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Description</label>
+                    <div class="text-gray-300 bg-gray-900/50 p-4 rounded-lg border border-gray-700">{{ request_obj.description }}</div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Stade du projet</label>
+                        <div class="text-white">{{ request_obj.project_stage }}</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Besoin principal</label>
+                        <div class="text-white">{{ request_obj.primary_need }}</div>
+                    </div>
+                </div>
+            </div>
+
+            {% elif request_type == 'startup' %}
+            <div class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Secteur</label>
+                        <div class="text-white">{{ request_obj.secteur }}</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Site Web</label>
+                        <div class="text-white">
+                            {% if request_obj.website_url %}
+                            <a href="{{ request_obj.website_url }}" target="_blank" class="text-teal-400 hover:underline flex items-center gap-1">
+                                {{ request_obj.website_url }} <span class="material-symbols-outlined text-sm">open_in_new</span>
+                            </a>
+                            {% else %}
+                            <span class="text-gray-500">Non renseigné</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Besoins</label>
+                    <div class="text-gray-300 bg-gray-900/50 p-4 rounded-lg border border-gray-700">{{ request_obj.besoins }}</div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Revenu Annuel</label>
+                        <div class="text-white">{{ request_obj.annual_revenue }}</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Taille de l'équipe</label>
+                        <div class="text-white">{{ request_obj.team_size }}</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Stade</label>
+                        <div class="text-white">{{ request_obj.stage }}</div>
+                    </div>
+                </div>
+            </div>
+
+            {% elif request_type == 'investor' %}
+            <div class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Type d'investisseur</label>
+                        <div class="text-white">{{ request_obj.type_investisseur }}</div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-1">Ticket Moyen</label>
+                        <div class="text-white text-green-400 font-medium">{{ request_obj.ticket_moyen }}</div>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Profil LinkedIn</label>
+                    <div class="text-white">
+                        {% if request_obj.linkedin_profile %}
+                        <a href="{{ request_obj.linkedin_profile }}" target="_blank" class="text-blue-400 hover:underline flex items-center gap-1">
+                            {{ request_obj.linkedin_profile }} <span class="material-symbols-outlined text-sm">open_in_new</span>
+                        </a>
+                        {% else %}
+                        <span class="text-gray-500">Non renseigné</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Secteurs d'intérêt</label>
+                    <div class="text-gray-300 bg-gray-900/50 p-4 rounded-lg border border-gray-700">{{ request_obj.sectors_interest }}</div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Sidebar / Files -->
+    <div class="space-y-8">
+        <div class="bg-gray-800 rounded-xl border border-gray-700 p-6 shadow-lg">
+            <h3 class="text-xl font-bold text-white mb-6 border-b border-gray-700 pb-4">Pièces Jointes</h3>
+
+            {% set file_path = request_obj.file_pitch if request_type != 'investor' else request_obj.file_intent %}
+
+            {% if file_path %}
+            <div class="bg-gray-900/50 rounded-lg p-4 border border-gray-700 flex flex-col items-center justify-center text-center">
+                <span class="material-symbols-outlined text-5xl text-teal-500 mb-2">description</span>
+                <p class="text-gray-300 text-sm mb-4 break-all">{{ file_path.split('/')[-1] }}</p>
+                <a href="{{ url_for('static', filename='uploads/' + file_path) }}" target="_blank" class="w-full py-2 bg-teal-600 hover:bg-teal-500 text-white rounded-lg transition-colors flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">download</span>
+                    Télécharger
+                </a>
+            </div>
+            {% else %}
+            <div class="text-center py-8 text-gray-500">
+                <span class="material-symbols-outlined text-4xl mb-2 opacity-50">folder_off</span>
+                <p>Aucun fichier joint</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

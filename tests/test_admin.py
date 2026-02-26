@@ -89,5 +89,49 @@ class TestAdmin(unittest.TestCase):
             f = FounderRequest.query.get(fid)
             self.assertIsNone(f)
 
+    def test_view_request_details(self):
+        self.login('admin', 'password')
+        with app.app_context():
+            f = FounderRequest(nom='DetailFounder', email='d@f.com', projet_name='DetailProject')
+            db.session.add(f)
+            db.session.commit()
+            fid = f.id
+
+        response = self.app.get(f'/admin/view/founder/{fid}')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'DetailFounder', response.data)
+        self.assertIn(b'DetailProject', response.data)
+        # Check if status badge is present (initially 'new')
+        self.assertIn(b'Nouveau', response.data)
+
+    def test_toggle_status(self):
+        self.login('admin', 'password')
+        with app.app_context():
+            s = StartupRequest(nom_startup='StatusStartup', email='s@s.com')
+            db.session.add(s)
+            db.session.commit()
+            sid = s.id
+
+            # Initial check
+            s_obj = StartupRequest.query.get(sid)
+            self.assertEqual(s_obj.status, 'new')
+
+        # Toggle to processed
+        response = self.app.post(f'/admin/toggle_status/startup/{sid}', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'Demande marqu\xc3\xa9e comme trait\xc3\xa9e', response.data) # Check flash message
+
+        with app.app_context():
+            s_obj = StartupRequest.query.get(sid)
+            self.assertEqual(s_obj.status, 'processed')
+
+        # Toggle back to new
+        response = self.app.post(f'/admin/toggle_status/startup/{sid}', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
+
+        with app.app_context():
+            s_obj = StartupRequest.query.get(sid)
+            self.assertEqual(s_obj.status, 'new')
+
 if __name__ == '__main__':
     unittest.main()

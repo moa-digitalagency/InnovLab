@@ -219,3 +219,41 @@ def settings():
         return redirect(url_for('admin.settings'))
 
     return render_template('admin/settings.html', settings=settings_obj)
+
+@admin_bp.route('/view/<request_type>/<int:request_id>')
+@login_required
+def view_request(request_type, request_id):
+    if request_type == 'founder':
+        request_obj = FounderRequest.query.get_or_404(request_id)
+    elif request_type == 'startup':
+        request_obj = StartupRequest.query.get_or_404(request_id)
+    elif request_type == 'investor':
+        request_obj = InvestorRequest.query.get_or_404(request_id)
+    else:
+        flash('Type de demande invalide', 'error')
+        return redirect(url_for('admin.dashboard'))
+
+    return render_template('admin/request_detail.html', request_obj=request_obj, request_type=request_type)
+
+@admin_bp.route('/toggle_status/<request_type>/<int:request_id>', methods=['POST'])
+@login_required
+def toggle_status(request_type, request_id):
+    if request_type == 'founder':
+        request_obj = FounderRequest.query.get_or_404(request_id)
+    elif request_type == 'startup':
+        request_obj = StartupRequest.query.get_or_404(request_id)
+    elif request_type == 'investor':
+        request_obj = InvestorRequest.query.get_or_404(request_id)
+    else:
+        flash('Type de demande invalide', 'error')
+        return redirect(url_for('admin.dashboard'))
+
+    if request_obj.status == 'processed':
+        request_obj.status = 'new'
+        flash('Demande marquée comme non lue.', 'info')
+    else:
+        request_obj.status = 'processed'
+        flash('Demande marquée comme traitée.', 'success')
+
+    db.session.commit()
+    return redirect(url_for('admin.view_request', request_type=request_type, request_id=request_id))
