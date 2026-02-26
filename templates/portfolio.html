@@ -29,17 +29,20 @@
             <button class="filter-btn active px-8 py-3 rounded-full border-2 border-[#076D6D] bg-[#076D6D] text-white font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus:outline-none" data-filter="all">
                 Tous
             </button>
-            <button class="filter-btn px-8 py-3 rounded-full border-2 border-[#076D6D] text-[#076D6D] bg-transparent font-bold transition-all duration-300 hover:bg-[#076D6D] hover:text-white hover:shadow-lg hover:-translate-y-1 focus:outline-none" data-filter="PropTech">
-                PropTech
+            <button class="filter-btn px-8 py-3 rounded-full border-2 border-[#076D6D] text-[#076D6D] bg-transparent font-bold transition-all duration-300 hover:bg-[#076D6D] hover:text-white hover:shadow-lg hover:-translate-y-1 focus:outline-none" data-filter="PropTech & BTP">
+                PropTech & BTP
             </button>
-            <button class="filter-btn px-8 py-3 rounded-full border-2 border-[#076D6D] text-[#076D6D] bg-transparent font-bold transition-all duration-300 hover:bg-[#076D6D] hover:text-white hover:shadow-lg hover:-translate-y-1 focus:outline-none" data-filter="GovTech">
-                GovTech
+            <button class="filter-btn px-8 py-3 rounded-full border-2 border-[#076D6D] text-[#076D6D] bg-transparent font-bold transition-all duration-300 hover:bg-[#076D6D] hover:text-white hover:shadow-lg hover:-translate-y-1 focus:outline-none" data-filter="GovTech & LegalTech">
+                GovTech & LegalTech
+            </button>
+            <button class="filter-btn px-8 py-3 rounded-full border-2 border-[#076D6D] text-[#076D6D] bg-transparent font-bold transition-all duration-300 hover:bg-[#076D6D] hover:text-white hover:shadow-lg hover:-translate-y-1 focus:outline-none" data-filter="Sécurité & Mobilité">
+                Sécurité & Mobilité
             </button>
             <button class="filter-btn px-8 py-3 rounded-full border-2 border-[#076D6D] text-[#076D6D] bg-transparent font-bold transition-all duration-300 hover:bg-[#076D6D] hover:text-white hover:shadow-lg hover:-translate-y-1 focus:outline-none" data-filter="HealthTech">
                 HealthTech
             </button>
-            <button class="filter-btn px-8 py-3 rounded-full border-2 border-[#076D6D] text-[#076D6D] bg-transparent font-bold transition-all duration-300 hover:bg-[#076D6D] hover:text-white hover:shadow-lg hover:-translate-y-1 focus:outline-none" data-filter="Retail/Daily">
-                Retail/Daily
+            <button class="filter-btn px-8 py-3 rounded-full border-2 border-[#076D6D] text-[#076D6D] bg-transparent font-bold transition-all duration-300 hover:bg-[#076D6D] hover:text-white hover:shadow-lg hover:-translate-y-1 focus:outline-none" data-filter="Média, Retail et Quotidien">
+                Média, Retail et Quotidien
             </button>
         </div>
 
@@ -60,9 +63,10 @@
                     <!-- Badge -->
                     <div class="flex justify-between items-start mb-6">
                         <span class="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wide
-                            {% if project.category == 'PropTech' %} bg-blue-50 text-blue-700 border border-blue-200
-                            {% elif project.category == 'GovTech' %} bg-purple-50 text-purple-700 border border-purple-200
+                            {% if project.category == 'PropTech & BTP' %} bg-blue-50 text-blue-700 border border-blue-200
+                            {% elif project.category == 'GovTech & LegalTech' %} bg-purple-50 text-purple-700 border border-purple-200
                             {% elif project.category == 'HealthTech' %} bg-green-50 text-green-700 border border-green-200
+                            {% elif project.category == 'Sécurité & Mobilité' %} bg-red-50 text-red-700 border border-red-200
                             {% else %} bg-orange-50 text-orange-700 border border-orange-200 {% endif %}">
                             {{ project.category }}
                         </span>

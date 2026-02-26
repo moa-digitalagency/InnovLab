@@ -22,7 +22,7 @@
                 <label for="category" class="block text-sm font-medium text-blue-50 mb-2">Catégorie</label>
                 <select name="category" id="category" required
                     class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition-all appearance-none">
-                    {% for cat in ['PropTech', 'GovTech', 'HealthTech', 'Retail/Daily'] %}
+                    {% for cat in ['PropTech & BTP', 'GovTech & LegalTech', 'Sécurité & Mobilité', 'HealthTech', 'Média, Retail et Quotidien'] %}
                     <option value="{{ cat }}" {% if project and project.category == cat %}selected{% endif %}>{{ cat }}</option>
                     {% endfor %}
                 </select>
