@@ -1,0 +1,15 @@
+{
+    "welcome": "Bienvenue",
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "contact": "Contact",
+    "admin_panel": "Panneau d'administration",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "submit": "Envoyer",
+    "cancel": "Annuler",
+    "success_message": "Opération réussie",
+    "error_message": "Une erreur est survenue"
+}

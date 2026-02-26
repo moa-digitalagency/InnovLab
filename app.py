@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_login import LoginManager
-from config.config import Config
+from config.settings import Config
 from models import db, User
 from dotenv import load_dotenv
 import os
