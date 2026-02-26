@@ -47,17 +47,17 @@
 
             <!-- Navigation Desktop -->
             <nav class="hidden md:flex items-center gap-8">
+                <a href="{{ url_for('main.index') }}" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Accueil</a>
                 <a href="{{ url_for('main.about') }}" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">À propos</a>
-                <a href="{{ url_for('main.index') }}#journey" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Parcours</a>
-                <a href="{{ url_for('main.index') }}#startups" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Startups</a>
-                <a href="{{ url_for('main.index') }}#infrastructure" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Infrastructure</a>
+                <a href="{{ url_for('main.services') }}" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Nos Services</a>
                 <a href="{{ url_for('main.portfolio') }}" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Portfolio</a>
+                <a href="{{ url_for('main.contact_us') }}" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Contact</a>
             </nav>
 
             <!-- CTA & Menu Mobile Toggle -->
             <div class="flex items-center gap-4">
-                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-[#1d5865] text-[#ffffff] font-bold text-sm hover:bg-[#15344b] hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-[#1d5865]/20">
-                    Nous contacter
+                <a href="{{ url_for('main.startup') }}" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-[#1d5865] text-[#ffffff] font-bold text-sm hover:bg-[#15344b] hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-[#1d5865]/20">
+                    Rejoindre l'Aventure
                 </a>
 
                 <button id="mobile-menu-btn" class="md:hidden text-[#1d5865] p-2 focus:outline-none">
@@ -69,12 +69,12 @@
         <!-- Menu Mobile Déroulant -->
         <div id="mobile-menu" class="hidden md:hidden bg-[#ffffff] border-b border-slate-100 absolute w-full left-0 top-20 shadow-xl overflow-hidden transition-all duration-300">
             <div class="flex flex-col px-4 py-6 gap-4">
+                <a href="{{ url_for('main.index') }}" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Accueil</a>
                 <a href="{{ url_for('main.about') }}" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">À propos</a>
-                <a href="{{ url_for('main.index') }}#journey" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Parcours Fondateur</a>
-                <a href="{{ url_for('main.index') }}#startups" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Offre Startups</a>
-                <a href="{{ url_for('main.index') }}#infrastructure" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Infrastructure</a>
-                <a href="{{ url_for('main.portfolio') }}" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Portfolio Stratégique</a>
-                <a href="#contact" class="mobile-link inline-flex items-center justify-center px-6 py-3.5 mt-2 rounded-xl bg-[#30a192] text-[#ffffff] font-bold text-sm shadow-md">Nous contacter</a>
+                <a href="{{ url_for('main.services') }}" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Nos Services</a>
+                <a href="{{ url_for('main.portfolio') }}" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Portfolio</a>
+                <a href="{{ url_for('main.contact_us') }}" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Contact</a>
+                <a href="{{ url_for('main.startup') }}" class="mobile-link inline-flex items-center justify-center px-6 py-3.5 mt-2 rounded-xl bg-[#30a192] text-[#ffffff] font-bold text-sm shadow-md">Rejoindre l'Aventure</a>
             </div>
         </div>
     </header>
@@ -156,10 +156,11 @@
             <div class="reveal delay-300">
                 <h4 class="font-bold text-lg text-[#ffffff] mb-6 pb-2 border-b border-[#30a192]/50 inline-block">Navigation</h4>
                 <ul class="space-y-3">
-                    <li><a href="{{ url_for('main.index') }}#journey" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Parcours Fondateur</a></li>
-                    <li><a href="{{ url_for('main.index') }}#solutions-avancees" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Solutions Corporate</a></li>
+                    <li><a href="{{ url_for('main.index') }}" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Accueil</a></li>
+                    <li><a href="{{ url_for('main.about') }}" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">À propos</a></li>
+                    <li><a href="{{ url_for('main.services') }}" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Nos Services</a></li>
                     <li><a href="{{ url_for('main.portfolio') }}" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Portfolio</a></li>
-                    <li><a href="{{ url_for('main.index') }}#startups" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Nos Produits</a></li>
+                    <li><a href="{{ url_for('main.contact_us') }}" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Contact</a></li>
                 </ul>
             </div>
 
