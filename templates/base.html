@@ -38,12 +38,12 @@
     <!-- HEADER STICKY                              -->
     <!-- ========================================== -->
     <header class="fixed top-0 left-0 w-full z-50 bg-[#ffffff]/80 backdrop-blur-lg border-b border-slate-100/50 transition-all duration-300" id="main-header">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 h-24 flex items-center justify-between">
 
             <!-- Logo -->
             <a href="{{ url_for('main.index') }}" class="flex items-center gap-3 group">
                 {% if site_settings and site_settings.header_logo %}
-                <div class="h-10 w-auto flex items-center">
+                <div class="h-16 w-auto flex items-center">
                     <img src="{{ url_for('static', filename=site_settings.header_logo) }}" alt="Shabaka Logo" class="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-300">
                 </div>
                 {% else %}
@@ -92,7 +92,7 @@
         </div>
 
         <!-- Menu Mobile Déroulant -->
-        <div id="mobile-menu" class="hidden md:hidden bg-[#ffffff] border-b border-slate-100 absolute w-full left-0 top-20 shadow-xl overflow-hidden transition-all duration-300">
+        <div id="mobile-menu" class="hidden md:hidden bg-[#ffffff] border-b border-slate-100 absolute w-full left-0 top-24 shadow-xl overflow-hidden transition-all duration-300">
             <div class="flex flex-col px-4 py-6 gap-4">
                 <a href="{{ url_for('main.index') }}" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Accueil</a>
                 <a href="{{ url_for('main.about') }}" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">L'ADN InnovLab</a>
@@ -105,7 +105,7 @@
     </header>
 
     <!-- Flash Messages (Toasts) -->
-    <div class="fixed top-24 right-4 z-[60] flex flex-col gap-3 w-full max-w-sm pointer-events-none px-4 md:px-0">
+    <div class="fixed top-28 right-4 z-[60] flex flex-col gap-3 w-full max-w-sm pointer-events-none px-4 md:px-0">
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             {% for category, message in messages %}
@@ -151,10 +151,12 @@
                         </svg>
                         {% endif %}
                     </div>
+                    {% if not (site_settings and site_settings.footer_logo) %}
                     <div>
                         <h3 class="font-bold text-2xl text-[#ffffff] leading-none mb-1">Shabaka</h3>
                         <p class="text-[#30a192] text-sm font-bold tracking-widest uppercase leading-none">InnovLab</p>
                     </div>
+                    {% endif %}
                 </div>
                 <p class="text-blue-100/80 text-sm leading-relaxed mb-6 pr-4">
                     Le point de convergence de l'innovation, du capital et de l'industrie pour une Afrique souveraine.
