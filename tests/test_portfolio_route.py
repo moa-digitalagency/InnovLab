@@ -18,6 +18,48 @@ class TestPortfolioRoute(unittest.TestCase):
             db.drop_all()
 
     def test_portfolio_page_loads(self):
+        from models.portfolio import PortfolioProject
+
+        # Seed database with a sample project
+        with self.app.app_context():
+            project = PortfolioProject(
+                title="Shabaka Syndic",
+                category="PropTech",
+                description="Gestion de copropriété simplifiée.",
+                project_url="https://shabakasyndic.ma",
+                is_active=True
+            )
+            db.session.add(project)
+
+            project2 = PortfolioProject(
+                title="GovTech Project",
+                category="GovTech",
+                description="Description GovTech",
+                project_url="#",
+                is_active=True
+            )
+            db.session.add(project2)
+
+            project3 = PortfolioProject(
+                title="HealthTech Project",
+                category="HealthTech",
+                description="Description HealthTech",
+                project_url="#",
+                is_active=True
+            )
+            db.session.add(project3)
+
+            project4 = PortfolioProject(
+                title="Retail Project",
+                category="Retail/Daily",
+                description="Description Retail",
+                project_url="#",
+                is_active=True
+            )
+            db.session.add(project4)
+
+            db.session.commit()
+
         response = self.client.get('/portfolio')
         self.assertEqual(response.status_code, 200)
         self.assertIn('NOS RÉALISATIONS'.encode('utf-8'), response.data)

@@ -1,6 +1,7 @@
 from app import app
-from models import db, User
+from models import db, User, SiteSettings, SeoSettings, FounderRequest, StartupRequest, InvestorRequest, PortfolioProject
 import sys
+import os
 from sqlalchemy import inspect, text
 
 def check_and_migrate():
@@ -64,6 +65,7 @@ def check_and_migrate():
 def init_database():
     with app.app_context():
         try:
+            # Ensure all tables are created
             db.create_all()
             print("Database tables created.")
 
@@ -76,16 +78,20 @@ def init_database():
         try:
             inspector = inspect(db.engine)
             if inspector.has_table('user'):
-                admin = User.query.filter_by(username='admin').first()
+                # Get admin credentials from config (loaded from environment variables)
+                admin_username = app.config.get('ADMIN_USERNAME', 'admin')
+                admin_password = app.config.get('ADMIN_PASSWORD', 'ChangeMeNow!')
+
+                admin = User.query.filter_by(username=admin_username).first()
                 if not admin:
-                    print("Creating default admin user...")
-                    new_admin = User(username='admin')
-                    new_admin.set_password('admin')
+                    print(f"Creating default admin user '{admin_username}'...")
+                    new_admin = User(username=admin_username)
+                    new_admin.set_password(admin_password)
                     db.session.add(new_admin)
                     db.session.commit()
-                    print("Admin user created (admin/admin).")
+                    print(f"Admin user created ({admin_username}).")
                 else:
-                    print("Admin user already exists.")
+                    print(f"Admin user '{admin_username}' already exists.")
         except Exception as e:
             print(f"Error creating admin user: {e}", file=sys.stderr)
 
