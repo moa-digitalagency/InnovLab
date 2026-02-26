@@ -42,9 +42,8 @@ def create_app():
     login_manager.login_view = 'admin.login'
     login_manager.init_app(app)
 
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
+    from security.auth import load_user
+    login_manager.user_loader(load_user)
 
     # Import and register blueprints/routes
     from routes.main import main_bp
