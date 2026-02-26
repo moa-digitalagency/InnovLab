@@ -299,7 +299,7 @@
                         </svg>
                     </a>
                     <!-- Bouton Secondaire -->
-                    <a href="#about" class="px-8 py-3.5 rounded-xl bg-transparent border border-[#1d5865] text-[#1d5865] font-bold text-sm hover:bg-[#1d5865] hover:text-[#ffffff] hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2">
+                    <a href="{{ url_for('main.about') }}" class="px-8 py-3.5 rounded-xl bg-transparent border border-[#1d5865] text-[#1d5865] font-bold text-sm hover:border-[#076D6D] hover:text-[#076D6D] hover:bg-transparent hover:underline underline-offset-4 transition-all duration-300 flex items-center justify-center gap-2">
                         En savoir plus
                     </a>
                 </div>
@@ -452,7 +452,7 @@
                 </div>
 
                 <!-- CTA discret intégré -->
-                <a href="{{ url_for('main.startup') }}" class="inline-flex items-center gap-2 text-[#30a192] font-bold text-sm hover:text-[#1d5865] transition-colors group">
+                <a href="{{ url_for('main.startup') }}" class="inline-flex items-center gap-2 px-8 py-3 bg-[#076D6D] text-white font-bold rounded-full shadow-lg hover:bg-[#055050] transition-transform transform hover:-translate-y-1 group">
                     Postuler au programme d'incubation
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
@@ -638,7 +638,7 @@
 
             <!-- CTA pour découvrir l'infrastructure -->
             <div class="mt-16 text-center reveal delay-400">
-                <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-transparent border border-[#30a192] text-[#30a192] font-bold text-sm hover:bg-[#30a192]/10 hover:-translate-y-1 transition-all duration-300 group">
+                <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center gap-2 px-8 py-3 bg-white text-[#064060] font-bold rounded-full shadow-lg hover:bg-gray-100 transition-all group">
                     Planifier une visite de l'espace
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
@@ -929,6 +929,15 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8 reveal delay-500">
+            <a href="{{ url_for('main.contact_us') }}" class="px-8 py-3 bg-[#076D6D] text-white font-bold rounded-full shadow-lg hover:bg-[#055050] transition-transform transform hover:-translate-y-1 text-center">
+                Démarrer un Projet
+            </a>
+            <a href="{{ url_for('main.portfolio') }}" class="px-8 py-3 bg-white text-[#076D6D] border border-[#076D6D] font-bold rounded-full hover:bg-gray-50 transition-all text-center">
+                Explorer les Forteresses
+            </a>
         </div>
     </section>
 
