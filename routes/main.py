@@ -5,6 +5,7 @@ from models.forms import FounderRequest, StartupRequest, InvestorRequest
 from models.settings import SeoSettings
 from models import db
 from werkzeug.utils import secure_filename
+from utils.telegram_bot import send_telegram_notification
 import os
 
 main_bp = Blueprint('main', __name__)
@@ -146,6 +147,14 @@ def contact_us():
         )
         db.session.add(new_message)
         db.session.commit()
+
+        # Telegram Notification
+        try:
+            msg = f"📩 **Nouveau Message Contact !**\nNom: {name}\nSujet: {subject}\nEmail: {email}\nMessage: {message}"
+            send_telegram_notification(msg)
+        except Exception as e:
+            current_app.logger.error(f"Telegram Notification Error: {e}")
+
         flash('Votre message a été envoyé avec succès!', 'success')
         return redirect(url_for('main.contact_us'))
     return render_template('contact_page.html')
@@ -180,6 +189,14 @@ def founder():
         )
         db.session.add(new_founder)
         db.session.commit()
+
+        # Telegram Notification
+        try:
+            msg = f"🚀 **Nouvelle Candidature Founder !**\nNom: {nom}\nProjet: {projet_name}\nEmail: {email}\nBesoin: {primary_need}"
+            send_telegram_notification(msg)
+        except Exception as e:
+            current_app.logger.error(f"Telegram Notification Error: {e}")
+
         flash('Votre candidature a été envoyée avec succès!', 'success')
         return redirect(url_for('main.index'))
     return render_template('candidature/founder.html')
@@ -218,6 +235,14 @@ def startup():
         )
         db.session.add(new_startup)
         db.session.commit()
+
+        # Telegram Notification
+        try:
+            msg = f"🚀 **Nouvelle Candidature Startup !**\nNom Startup: {nom_startup}\nSecteur: {secteur}\nEmail: {email}\nStage: {stage}"
+            send_telegram_notification(msg)
+        except Exception as e:
+            current_app.logger.error(f"Telegram Notification Error: {e}")
+
         flash('Votre candidature a été envoyée avec succès!', 'success')
         return redirect(url_for('main.index'))
     return render_template('candidature/startup.html')
@@ -252,6 +277,14 @@ def investor():
         )
         db.session.add(new_investor)
         db.session.commit()
+
+        # Telegram Notification
+        try:
+            msg = f"🚀 **Nouvelle Demande Investisseur !**\nNom: {nom}\nType: {type_investisseur}\nEmail: {email}\nTicket: {ticket_moyen}"
+            send_telegram_notification(msg)
+        except Exception as e:
+            current_app.logger.error(f"Telegram Notification Error: {e}")
+
         flash('Votre demande a été envoyée avec succès!', 'success')
         return redirect(url_for('main.index'))
     return render_template('candidature/investor.html')
