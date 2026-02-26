@@ -6,3 +6,4 @@ Flask-Login
 Flask-Bcrypt
 gunicorn
 requests
+email-validator
