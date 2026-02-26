@@ -5,7 +5,7 @@ from models.forms import FounderRequest, StartupRequest, InvestorRequest
 from models.message import Message
 from datetime import datetime, date, timedelta
 
-admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
+admin_bp = Blueprint('admin', __name__, url_prefix='/admin', static_folder='../../statics', static_url_path='/static')
 
 @admin_bp.route('/dashboard')
 @admin_required
