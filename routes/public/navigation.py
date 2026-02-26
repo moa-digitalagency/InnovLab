@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, Respon
 from models.settings import SeoSettings
 from services.portfolio_service import PortfolioService
 
-main_bp = Blueprint('main', __name__)
+main_bp = Blueprint('main', __name__, static_folder='../../statics', static_url_path='/static')
 
 @main_bp.route('/', methods=['GET'])
 def index():
