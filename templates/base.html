@@ -84,6 +84,7 @@
                     Rejoindre l'Aventure
                 </a>
 
+                <!-- Mobile Menu IDs Verified -->
                 <button id="mobile-menu-btn" class="md:hidden text-[#1d5865] p-2 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
@@ -102,6 +103,22 @@
             </div>
         </div>
     </header>
+
+    <!-- Flash Messages (Toasts) -->
+    <div class="fixed top-24 right-4 z-[60] flex flex-col gap-3 w-full max-w-sm pointer-events-none px-4 md:px-0">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="pointer-events-auto transform transition-all duration-300 ease-in-out translate-x-0 opacity-100 flex items-start gap-3 p-4 rounded-xl shadow-lg border-l-4 {% if category == 'success' %}bg-green-50 border-green-500 text-green-800{% else %}bg-red-50 border-red-500 text-red-800{% endif %}" role="alert">
+                <div class="flex-grow text-sm font-medium leading-snug">{{ message }}</div>
+                <button onclick="this.parentElement.remove()" class="shrink-0 text-current opacity-50 hover:opacity-100 transition-opacity focus:outline-none p-0.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    </div>
 
     <main class="flex-grow">
         {% block content %}{% endblock %}
@@ -143,17 +160,6 @@
                     Le point de convergence de l'innovation, du capital et de l'industrie pour une Afrique souveraine.
                 </p>
 
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                  {% if messages %}
-                    <div class="mb-4">
-                      {% for category, message in messages %}
-                        <div class="text-sm {% if category == 'success' %}text-[#30a192]{% else %}text-red-400{% endif %} font-semibold">
-                          {{ message }}
-                        </div>
-                      {% endfor %}
-                    </div>
-                  {% endif %}
-                {% endwith %}
 
                 <form action="{{ url_for('forms.contact_submit') }}" method="POST" class="flex gap-2">
                     <input type="email" name="email" placeholder="Votre email" class="bg-[#1d5865]/30 border border-[#1d5865]/50 rounded-lg px-4 py-2.5 text-sm w-full focus:outline-none focus:border-[#30a192] text-[#ffffff] placeholder-[#8f8e8e] transition-colors" required>
