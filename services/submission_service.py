@@ -51,7 +51,7 @@ class SubmissionService:
 
         # Telegram Notification
         try:
-            msg = f"📩 **Nouveau Message Contact !**\nNom: {name}\nSujet: {subject}\nEmail: {email}\nMessage: {message}"
+            msg = f"🟢 NOUVEAU MESSAGE DE CONTACT\n\nNom: {name}\nEmail: {email}\nSujet: {subject}\n\nMessage: {message}"
             send_telegram_notification(msg)
         except Exception as e:
             current_app.logger.error(f"Telegram Notification Error: {e}")
