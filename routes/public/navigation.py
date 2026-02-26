@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, Response
-from models.settings import SeoSettings
+from models.settings import SeoSettings, SiteSettings
 from services.portfolio_service import PortfolioService
 
 main_bp = Blueprint('main', __name__, static_folder='../../statics', static_url_path='/static')
@@ -52,3 +52,15 @@ def robots_txt():
         content = "User-agent: *\nDisallow:"
 
     return Response(content, mimetype='text/plain')
+
+@main_bp.route('/privacy-policy', methods=['GET'])
+def privacy_policy():
+    settings = SiteSettings.query.first()
+    content = settings.privacy_policy if settings and settings.privacy_policy else "Contenu non disponible."
+    return render_template('legal.html', title="Politique de Confidentialité", content=content)
+
+@main_bp.route('/terms-conditions', methods=['GET'])
+def terms_conditions():
+    settings = SiteSettings.query.first()
+    content = settings.terms_conditions if settings and settings.terms_conditions else "Contenu non disponible."
+    return render_template('legal.html', title="Conditions Générales", content=content)
