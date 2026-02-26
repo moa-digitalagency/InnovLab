@@ -33,7 +33,7 @@ def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='statics')
     app.config.from_object(Config)
 
-    # Ensure upload directories exist
+    # Ensure upload directories exist (Anti-Crash 500)
     create_upload_directories(app)
 
     db.init_app(app)
