@@ -8,6 +8,10 @@ from datetime import datetime, date, timedelta
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin', static_folder='../../statics', static_url_path='/static')
 
+@admin_bp.route('/')
+def index():
+    return redirect(url_for('admin.dashboard'))
+
 @admin_bp.route('/dashboard')
 @login_required
 @admin_required
