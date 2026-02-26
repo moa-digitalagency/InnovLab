@@ -66,6 +66,7 @@ def init_database():
     with app.app_context():
         try:
             # Ensure all tables are created
+            db.drop_all()
             db.create_all()
             print("Database tables created.")
 
