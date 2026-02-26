@@ -40,5 +40,5 @@ def send_telegram_notification(message):
             return False
 
     except Exception as e:
-        current_app.logger.error(f"Telegram Notification Error: {str(e)}")
+        print(f"Telegram Error: {e}")
         return False

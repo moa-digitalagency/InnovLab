@@ -7,9 +7,34 @@ import os
 
 load_dotenv()
 
+def create_upload_directories(app):
+    """
+    Ensure that upload directories exist to prevent 500 errors.
+    """
+    upload_folder = app.config.get('UPLOAD_FOLDER')
+    if not upload_folder:
+        return
+
+    directories = [
+        upload_folder,
+        os.path.join(upload_folder, 'logos'),
+        os.path.join(upload_folder, 'resumes'),
+        os.path.join(upload_folder, 'pitch_decks')
+    ]
+
+    for directory in directories:
+        try:
+            os.makedirs(directory, exist_ok=True)
+        except Exception as e:
+            # Using print here as logger might not be fully configured or to ensure stdout visibility
+            print(f"Error creating directory {directory}: {e}")
+
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='statics')
     app.config.from_object(Config)
+
+    # Ensure upload directories exist
+    create_upload_directories(app)
 
     db.init_app(app)
 
@@ -58,6 +83,10 @@ def create_app():
     @app.errorhandler(403)
     def forbidden(e):
         return render_template('errors/403.html'), 403
+
+    @app.errorhandler(500)
+    def internal_server_error(e):
+        return render_template('errors/500.html'), 500
 
     return app
 
