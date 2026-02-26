@@ -30,6 +30,7 @@ def create_app():
 
     from models.settings import SiteSettings, SeoSettings
 
+    # Context Processor for injecting site and SEO settings into all templates
     @app.context_processor
     def inject_settings():
         site_settings = SiteSettings.query.first()

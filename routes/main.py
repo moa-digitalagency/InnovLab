@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, current_app
+from flask import Blueprint, render_template, request, flash, redirect, url_for, current_app, Response
 from models.contact import Contact
 from models.message import Message
 from models.forms import FounderRequest, StartupRequest, InvestorRequest
+from models.settings import SeoSettings
 from models import db
 from werkzeug.utils import secure_filename
 import os
@@ -254,3 +255,14 @@ def investor():
         flash('Votre demande a été envoyée avec succès!', 'success')
         return redirect(url_for('main.index'))
     return render_template('candidature/investor.html')
+
+@main_bp.route('/robots.txt')
+def robots_txt():
+    seo_entry = SeoSettings.query.filter_by(page_name='index').first()
+    content = ""
+    if seo_entry and seo_entry.robots_txt_content:
+        content = seo_entry.robots_txt_content
+    else:
+        content = "User-agent: *\nDisallow:"
+
+    return Response(content, mimetype='text/plain')

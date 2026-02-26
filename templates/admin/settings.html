@@ -4,57 +4,181 @@
 <div class="mb-8 flex items-center justify-between">
     <div>
         <h2 class="text-3xl font-bold text-white">Paramètres Généraux</h2>
-        <p class="text-gray-400 mt-1">Configuration du site et contact.</p>
+        <p class="text-gray-400 mt-1">Configuration du site, identité et contact.</p>
     </div>
 </div>
 
-<form method="POST" class="max-w-3xl pb-12">
-    <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-lg space-y-8">
+<div class="bg-gray-800 rounded-xl border border-gray-700 shadow-lg overflow-hidden">
+    <!-- Tabs Navigation -->
+    <nav class="flex border-b border-gray-700 overflow-x-auto">
+        <button onclick="switchTab('identity')" id="btn-identity" class="tab-btn px-6 py-4 text-sm font-medium text-teal-400 border-b-2 border-teal-400 focus:outline-none transition-colors whitespace-nowrap">
+            Identité Visuelle
+        </button>
+        <button onclick="switchTab('contact')" id="btn-contact" class="tab-btn px-6 py-4 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-200 focus:outline-none transition-colors whitespace-nowrap">
+            Contact
+        </button>
+        <button onclick="switchTab('telegram')" id="btn-telegram" class="tab-btn px-6 py-4 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-200 focus:outline-none transition-colors whitespace-nowrap">
+            Notifications Telegram
+        </button>
+        <button onclick="switchTab('social')" id="btn-social" class="tab-btn px-6 py-4 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-gray-200 focus:outline-none transition-colors whitespace-nowrap">
+            Réseaux Sociaux
+        </button>
+    </nav>
 
-        <div>
-            <label class="block text-sm font-medium text-gray-400 mb-2">Email de Contact (Notifications)</label>
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
-                    <span class="material-symbols-outlined text-lg">mail</span>
-                </span>
-                <input type="email" name="contact_email" value="{{ settings.contact_email }}" required
-                       class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+    <form method="POST" enctype="multipart/form-data" class="p-8">
+
+        <!-- IDENTITY SECTION -->
+        <div id="section-identity" class="tab-section space-y-6">
+            <h3 class="text-xl font-bold text-white mb-4">Logos du Site</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Header Logo -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Logo Header</label>
+                    <div class="flex items-center gap-4 mb-3">
+                        {% if settings.header_logo %}
+                        <div class="bg-white p-2 rounded-lg h-16 w-auto flex items-center justify-center">
+                            <img src="{{ url_for('static', filename=settings.header_logo) }}" class="max-h-full max-w-full" alt="Header Logo">
+                        </div>
+                        {% else %}
+                        <div class="h-16 w-16 bg-gray-700 rounded-lg flex items-center justify-center text-gray-500 text-xs">
+                            Aucun
+                        </div>
+                        {% endif %}
+                    </div>
+                    <input type="file" name="header_logo" accept="image/*"
+                           class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-600 file:text-white hover:file:bg-teal-500 cursor-pointer bg-gray-900 rounded-lg border border-gray-700">
+                    <p class="text-xs text-gray-500 mt-1">Format recommandé : SVG ou PNG transparent.</p>
+                </div>
+
+                <!-- Footer Logo -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-2">Logo Footer</label>
+                    <div class="flex items-center gap-4 mb-3">
+                        {% if settings.footer_logo %}
+                        <div class="bg-gray-700 p-2 rounded-lg h-16 w-auto flex items-center justify-center">
+                            <img src="{{ url_for('static', filename=settings.footer_logo) }}" class="max-h-full max-w-full" alt="Footer Logo">
+                        </div>
+                        {% else %}
+                        <div class="h-16 w-16 bg-gray-700 rounded-lg flex items-center justify-center text-gray-500 text-xs">
+                            Aucun
+                        </div>
+                        {% endif %}
+                    </div>
+                    <input type="file" name="footer_logo" accept="image/*"
+                           class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-600 file:text-white hover:file:bg-teal-500 cursor-pointer bg-gray-900 rounded-lg border border-gray-700">
+                    <p class="text-xs text-gray-500 mt-1">Format recommandé : Blanc ou couleur claire sur fond sombre.</p>
+                </div>
             </div>
-            <p class="text-xs text-gray-500 mt-2 flex items-center gap-1">
-                <span class="material-symbols-outlined text-sm">info</span>
-                Cet email recevra les nouvelles candidatures.
-            </p>
         </div>
 
-        <div>
-            <label class="block text-sm font-medium text-gray-400 mb-2">Numéro de Téléphone (Footer)</label>
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
-                    <span class="material-symbols-outlined text-lg">call</span>
-                </span>
-                <input type="text" name="phone" value="{{ settings.phone }}" required
-                       class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+        <!-- CONTACT SECTION -->
+        <div id="section-contact" class="tab-section hidden space-y-6">
+            <h3 class="text-xl font-bold text-white mb-4">Informations de Contact</h3>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Email de Contact</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
+                        <span class="material-symbols-outlined text-lg">mail</span>
+                    </span>
+                    <input type="email" name="contact_email" value="{{ settings.contact_email or '' }}"
+                           class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Numéro de Téléphone</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
+                        <span class="material-symbols-outlined text-lg">call</span>
+                    </span>
+                    <input type="text" name="phone" value="{{ settings.phone or '' }}"
+                           class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Adresse Physique</label>
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-3 pt-3 pointer-events-none text-gray-500">
+                        <span class="material-symbols-outlined text-lg">location_on</span>
+                    </span>
+                    <textarea name="address" rows="3"
+                              class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">{{ settings.address or '' }}</textarea>
+                </div>
             </div>
         </div>
 
-        <div>
-            <label class="block text-sm font-medium text-gray-400 mb-2">Adresse Physique (Footer)</label>
-            <div class="relative">
-                <span class="absolute inset-y-0 left-0 pl-3 pt-3 pointer-events-none text-gray-500">
-                    <span class="material-symbols-outlined text-lg">location_on</span>
-                </span>
-                <textarea name="address" rows="3" required
-                          class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">{{ settings.address }}</textarea>
+        <!-- TELEGRAM SECTION -->
+        <div id="section-telegram" class="tab-section hidden space-y-6">
+            <h3 class="text-xl font-bold text-white mb-4">Configuration Telegram</h3>
+            <p class="text-sm text-gray-400 mb-4">Ces informations permettent d'envoyer des notifications automatiques lors de nouvelles candidatures.</p>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Bot Token</label>
+                <input type="text" name="telegram_bot_token" value="{{ settings.telegram_bot_token or '' }}"
+                       class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600" placeholder="Ex: 123456789:AAF...">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Chat ID</label>
+                <input type="text" name="telegram_chat_id" value="{{ settings.telegram_chat_id or '' }}"
+                       class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600" placeholder="Ex: -100123456789">
             </div>
         </div>
 
-        <div class="pt-6 border-t border-gray-700 flex justify-end">
+        <!-- SOCIAL SECTION -->
+        <div id="section-social" class="tab-section hidden space-y-6">
+            <h3 class="text-xl font-bold text-white mb-4">Réseaux Sociaux</h3>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">LinkedIn URL</label>
+                <input type="url" name="linkedin_url" value="{{ settings.linkedin_url or '' }}"
+                       class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Twitter / X URL</label>
+                <input type="url" name="twitter_url" value="{{ settings.twitter_url or '' }}"
+                       class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-400 mb-2">Facebook URL</label>
+                <input type="url" name="facebook_url" value="{{ settings.facebook_url or '' }}"
+                       class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">
+            </div>
+        </div>
+
+        <!-- SUBMIT BUTTON -->
+        <div class="pt-8 mt-8 border-t border-gray-700 flex justify-end">
             <button type="submit" class="bg-teal-600 hover:bg-teal-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center gap-2">
                 <span class="material-symbols-outlined">save</span>
-                Sauvegarder
+                Enregistrer les modifications
             </button>
         </div>
+    </form>
+</div>
 
-    </div>
-</form>
+<script>
+    function switchTab(tabName) {
+        // Hide all sections
+        document.querySelectorAll('.tab-section').forEach(el => el.classList.add('hidden'));
+
+        // Show target section
+        document.getElementById('section-' + tabName).classList.remove('hidden');
+
+        // Reset all buttons
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('text-teal-400', 'border-teal-400');
+            btn.classList.add('text-gray-400', 'border-transparent');
+        });
+
+        // Activate target button
+        const activeBtn = document.getElementById('btn-' + tabName);
+        activeBtn.classList.remove('text-gray-400', 'border-transparent');
+        activeBtn.classList.add('text-teal-400', 'border-teal-400');
+    }
+</script>
 {% endblock %}
