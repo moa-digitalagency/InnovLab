@@ -1,176 +1,109 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shabaka InnovLab - Le Catalyseur de l'Innovation Africaine</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* --- STYLES DU HERO --- */
-        .hero-container {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-            overflow: hidden;
-            background: radial-gradient(circle at 50% 50%, #ffffff 0%, #30a19210 50%, #E2E8F0 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+{% extends "base.html" %}
 
-        .svg-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
+{% block styles %}
+<style>
+    /* --- STYLES DU HERO --- */
+    .hero-container {
+        position: relative;
+        width: 100%;
+        min-height: 100vh;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 50%, #ffffff 0%, #30a19210 50%, #E2E8F0 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .content-overlay {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 900px;
-            padding: 2rem;
-            margin-top: 2rem;
-        }
+    .svg-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+    }
 
-        /* --- ANIMATIONS SVG DU HERO --- */
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.1); opacity: 0.5; }
-        }
-        @keyframes pulse-tech-node {
-            0%, 100% { r: 4; fill: #1d5865; filter: drop-shadow(0 0 4px rgba(29, 88, 101, 0.6)); }
-            50% { r: 6.5; fill: #30a192; filter: drop-shadow(0 0 12px rgba(48, 161, 146, 1)); }
-        }
-        @keyframes heartbeat-ring {
-            0% { r: 0; opacity: 1; stroke-width: 4; }
-            100% { r: 150; opacity: 0; stroke-width: 0; }
-        }
-        @keyframes data-stream {
-            to { stroke-dashoffset: -200; }
-        }
-        @keyframes spin-watermark {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    .content-overlay {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        max-width: 900px;
+        padding: 2rem;
+        margin-top: 2rem;
+    }
 
-        .halo-breathe { animation: breathe 8s ease-in-out infinite; transform-origin: center; }
-        .halo-breathe-alt { animation: breathe 12s ease-in-out infinite reverse; transform-origin: center; }
-        .node { animation: pulse-tech-node 3s ease-in-out infinite; }
-        .node:nth-child(even) { animation-delay: 1.5s; }
-        .node:nth-child(3n) { animation-delay: 0.7s; }
-        .pulse-ring {
-            fill: none;
-            stroke: #30a192;
-            transform-origin: 700px 480px;
-            animation: heartbeat-ring 4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-        }
-        .pulse-ring:nth-child(2) { animation-delay: 2s; }
-        .data-flow-line { stroke-dasharray: 6 24; animation: data-stream 10s linear infinite; }
-        .data-flow-line-fast { stroke-dasharray: 4 30; animation: data-stream 6s linear infinite reverse; }
-        .watermark { transform-origin: 700px 450px; animation: spin-watermark 60s linear infinite; }
+    /* --- ANIMATIONS SVG DU HERO --- */
+    @keyframes breathe {
+        0%, 100% { transform: scale(1); opacity: 0.3; }
+        50% { transform: scale(1.1); opacity: 0.5; }
+    }
+    @keyframes pulse-tech-node {
+        0%, 100% { r: 4; fill: #1d5865; filter: drop-shadow(0 0 4px rgba(29, 88, 101, 0.6)); }
+        50% { r: 6.5; fill: #30a192; filter: drop-shadow(0 0 12px rgba(48, 161, 146, 1)); }
+    }
+    @keyframes heartbeat-ring {
+        0% { r: 0; opacity: 1; stroke-width: 4; }
+        100% { r: 150; opacity: 0; stroke-width: 0; }
+    }
+    @keyframes data-stream {
+        to { stroke-dashoffset: -200; }
+    }
+    @keyframes spin-watermark {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
+    .halo-breathe { animation: breathe 8s ease-in-out infinite; transform-origin: center; }
+    .halo-breathe-alt { animation: breathe 12s ease-in-out infinite reverse; transform-origin: center; }
+    .node { animation: pulse-tech-node 3s ease-in-out infinite; }
+    .node:nth-child(even) { animation-delay: 1.5s; }
+    .node:nth-child(3n) { animation-delay: 0.7s; }
+    .pulse-ring {
+        fill: none;
+        stroke: #30a192;
+        transform-origin: 700px 480px;
+        animation: heartbeat-ring 4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    }
+    .pulse-ring:nth-child(2) { animation-delay: 2s; }
+    .data-flow-line { stroke-dasharray: 6 24; animation: data-stream 10s linear infinite; }
+    .data-flow-line-fast { stroke-dasharray: 4 30; animation: data-stream 6s linear infinite reverse; }
+    .watermark { transform-origin: 700px 450px; animation: spin-watermark 60s linear infinite; }
 
-        /* --- CLASSES D'ANIMATION AU SCROLL --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
-        .delay-400 { transition-delay: 400ms; }
-        .delay-500 { transition-delay: 500ms; }
+    @keyframes gradient {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 200% 50%; }
+    }
 
-        /* Animation pour les barres de progression */
-        .bar-fill {
-            width: 0;
-            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .reveal.active .bar-fill {
-            width: var(--target-width);
-        }
-    </style>
-</head>
-<body class="font-sans antialiased bg-[#ffffff] scroll-smooth">
+    /* --- CLASSES D'ANIMATION AU SCROLL --- */
+    .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+    .delay-400 { transition-delay: 400ms; }
+    .delay-500 { transition-delay: 500ms; }
 
-    <!-- ========================================== -->
-    <!-- HEADER STICKY                              -->
-    <!-- ========================================== -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-[#ffffff]/80 backdrop-blur-lg border-b border-slate-100/50 transition-all duration-300" id="main-header">
-        <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+    /* Animation pour les barres de progression */
+    .bar-fill {
+        width: 0;
+        transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.active .bar-fill {
+        width: var(--target-width);
+    }
+</style>
+{% endblock %}
 
-            <!-- Logo -->
-            <a href="#" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 shrink-0">
-                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-sm group-hover:scale-105 transition-transform duration-300">
-                        <path d="M 10 30 L 50 7 L 90 30 L 90 50 L 50 27 L 30 38.5 L 30 60 L 10 48.5 Z" fill="#1d5865"/>
-                        <path d="M 90 70 L 50 93 L 10 70 L 10 50 L 50 73 L 70 61.5 L 70 40 L 90 51.5 Z" fill="#1d5865" opacity="0.8"/>
-                        <g stroke="#30a192" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="30" y1="65" x2="60" y2="35" />
-                            <line x1="40" y1="75" x2="70" y2="45" />
-                            <line x1="45" y1="50" x2="55" y2="60" />
-                            <circle cx="30" cy="65" r="6.5" fill="#30a192" stroke="none"/>
-                            <circle cx="60" cy="35" r="6.5" fill="#30a192" stroke="none"/>
-                            <circle cx="40" cy="75" r="6.5" fill="#30a192" stroke="none"/>
-                            <circle cx="70" cy="45" r="6.5" fill="#30a192" stroke="none"/>
-                        </g>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="font-bold text-xl text-[#1d5865] leading-none mb-0.5">Shabaka</h1>
-                    <p class="text-[#30a192] text-[10px] font-bold tracking-widest uppercase leading-none">InnovLab</p>
-                </div>
-            </a>
-
-            <!-- Navigation Desktop -->
-            <nav class="hidden md:flex items-center gap-8">
-                <a href="#about" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">À propos</a>
-                <a href="#journey" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Parcours</a>
-                <a href="#startups" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Startups</a>
-                <a href="#infrastructure" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Infrastructure</a>
-                <a href="#portfolio" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Portfolio</a>
-            </nav>
-
-            <!-- CTA & Menu Mobile Toggle -->
-            <div class="flex items-center gap-4">
-                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 rounded-xl bg-[#1d5865] text-[#ffffff] font-bold text-sm hover:bg-[#15344b] hover:-translate-y-0.5 transition-all duration-300 shadow-lg shadow-[#1d5865]/20">
-                    Nous contacter
-                </a>
-
-                <button id="mobile-menu-btn" class="md:hidden text-[#1d5865] p-2 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Menu Mobile Déroulant -->
-        <div id="mobile-menu" class="hidden md:hidden bg-[#ffffff] border-b border-slate-100 absolute w-full left-0 top-20 shadow-xl overflow-hidden transition-all duration-300">
-            <div class="flex flex-col px-4 py-6 gap-4">
-                <a href="#about" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">À propos</a>
-                <a href="#journey" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Parcours Fondateur</a>
-                <a href="#startups" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Offre Startups</a>
-                <a href="#infrastructure" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Infrastructure</a>
-                <a href="#portfolio" class="mobile-link text-[#1d5865] font-bold hover:text-[#30a192] px-4 py-2 bg-slate-50 rounded-lg">Portfolio Stratégique</a>
-                <a href="#contact" class="mobile-link inline-flex items-center justify-center px-6 py-3.5 mt-2 rounded-xl bg-[#30a192] text-[#ffffff] font-bold text-sm shadow-md">Nous contacter</a>
-            </div>
-        </div>
-    </header>
-
+{% block content %}
     <!-- ========================================== -->
     <!-- SECTION 1 : HERO ANIMÉ                     -->
     <!-- ========================================== -->
@@ -261,19 +194,6 @@
         </svg>
 
         <div class="content-overlay">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-              {% if messages %}
-                <div class="mb-6 max-w-md mx-auto">
-                  {% for category, message in messages %}
-                    <div class="p-4 rounded-xl border backdrop-blur-md shadow-lg text-sm font-semibold
-                                {% if category == 'success' %}bg-[#30a192]/20 border-[#30a192]/40 text-[#1d5865]{% else %}bg-red-500/20 border-red-500/40 text-red-700{% endif %}">
-                      {{ message }}
-                    </div>
-                  {% endfor %}
-                </div>
-              {% endif %}
-            {% endwith %}
-
             <div class="inline-block mb-6 px-5 py-2 rounded-full bg-white/70 border border-[#30a192]/40 backdrop-blur-md shadow-lg shadow-[#30a192]/10">
                 <span class="text-[#1d5865] font-bold tracking-widest text-xs uppercase flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full bg-[#30a192] animate-pulse"></span>
@@ -1069,153 +989,4 @@
             </div>
         </div>
     </section>
-
-    <!-- ========================================== -->
-    <!-- SECTION 11 : FOOTER                        -->
-    <!-- ========================================== -->
-    <footer class="bg-[#15344b] pt-20 pb-8 relative overflow-hidden" id="contact">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-
-            <div class="reveal delay-100">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-12 h-12 shrink-0">
-                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-md">
-                            <path d="M 10 30 L 50 7 L 90 30 L 90 50 L 50 27 L 30 38.5 L 30 60 L 10 48.5 Z" fill="#ffffff" opacity="0.95"/>
-                            <path d="M 90 70 L 50 93 L 10 70 L 10 50 L 50 73 L 70 61.5 L 70 40 L 90 51.5 Z" fill="#ffffff" opacity="0.6"/>
-                            <g stroke="#30a192" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="30" y1="65" x2="60" y2="35" />
-                                <line x1="40" y1="75" x2="70" y2="45" />
-                                <line x1="45" y1="50" x2="55" y2="60" />
-                                <circle cx="30" cy="65" r="6.5" fill="#30a192" stroke="none"/>
-                                <circle cx="60" cy="35" r="6.5" fill="#30a192" stroke="none"/>
-                                <circle cx="40" cy="75" r="6.5" fill="#30a192" stroke="none"/>
-                                <circle cx="70" cy="45" r="6.5" fill="#30a192" stroke="none"/>
-                            </g>
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-2xl text-[#ffffff] leading-none mb-1">Shabaka</h3>
-                        <p class="text-[#30a192] text-sm font-bold tracking-widest uppercase leading-none">InnovLab</p>
-                    </div>
-                </div>
-                <p class="text-[#8f8e8e] text-sm leading-relaxed mb-6 pr-4">
-                    Le point de convergence de l'innovation, du capital et de l'industrie pour une Afrique souveraine.
-                </p>
-                <form action="{{ url_for('main.contact') }}" method="POST" class="flex gap-2">
-                    <input type="email" name="email" placeholder="Votre email" class="bg-[#1d5865]/30 border border-[#1d5865]/50 rounded-lg px-4 py-2.5 text-sm w-full focus:outline-none focus:border-[#30a192] text-[#ffffff] placeholder-[#8f8e8e] transition-colors" required>
-                    <button type="submit" class="bg-[#30a192] hover:bg-[#258073] text-[#ffffff] rounded-lg px-4 py-2.5 transition-colors flex items-center justify-center shrink-0">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                    </button>
-                </form>
-            </div>
-
-            <div class="reveal delay-200">
-                <h4 class="font-bold text-lg text-[#ffffff] mb-6 pb-2 border-b border-[#30a192]/50 inline-block">Contact Direct</h4>
-                <ul class="space-y-4">
-                    <li class="flex items-start gap-3">
-                        <svg class="w-5 h-5 text-[#30a192] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                        <span class="text-[#8f8e8e] text-sm leading-relaxed">Centre d'affaires Gueliz, Bd My Rachid, Étage 1, Bureau 8, 40000 Marrakech</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <svg class="w-5 h-5 text-[#30a192] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        <span class="text-[#8f8e8e] text-sm">+212 699 14 00 01</span>
-                    </li>
-                    <li class="flex items-center gap-3">
-                        <svg class="w-5 h-5 text-[#30a192] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                        <span class="text-[#8f8e8e] text-sm">nticshabaka@gmail.com</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="reveal delay-300">
-                <h4 class="font-bold text-lg text-[#ffffff] mb-6 pb-2 border-b border-[#30a192]/50 inline-block">Navigation</h4>
-                <ul class="space-y-3">
-                    <li><a href="#journey" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Parcours Fondateur</a></li>
-                    <li><a href="#solutions-avancees" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Solutions Corporate</a></li>
-                    <li><a href="#portfolio" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Investisseurs</a></li>
-                    <li><a href="#startups" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Nos Produits</a></li>
-                </ul>
-            </div>
-
-            <div class="reveal delay-400">
-                <h4 class="font-bold text-lg text-[#ffffff] mb-6 pb-2 border-b border-[#30a192]/50 inline-block">Mentions Légales</h4>
-                <ul class="space-y-3 mb-6">
-                    <li class="text-[#8f8e8e] text-sm"><span class="font-bold text-[#ffffff]">RC :</span> 163795</li>
-                    <li class="text-[#8f8e8e] text-sm"><span class="font-bold text-[#ffffff]">ICE :</span> 003694652000069</li>
-                </ul>
-                <a href="https://www.shabakainvestgroup.com" target="_blank" class="inline-flex items-center gap-2 bg-[#ffffff]/5 border border-[#ffffff]/10 hover:bg-[#ffffff]/10 transition-colors text-[#8f8e8e] hover:text-[#ffffff] text-sm py-2 px-4 rounded-lg w-fit">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                    Site Corporate
-                </a>
-            </div>
-
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 mt-16 reveal delay-500">
-            <div class="border-t border-[#ffffff]/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-[#8f8e8e] text-xs text-center md:text-left">
-                    © 2024 Shabaka InnovLab. Tous droits réservés.
-                </p>
-                <div class="flex flex-wrap justify-center gap-6">
-                    <a href="#" class="text-[#8f8e8e] hover:text-[#ffffff] text-xs transition-colors">Politique de Confidentialité</a>
-                    <a href="#" class="text-[#8f8e8e] hover:text-[#ffffff] text-xs transition-colors">Conditions Générales</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Script pour déclencher l'animation au Scroll (Intersection Observer) -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.reveal').forEach(el => {
-                observer.observe(el);
-            });
-
-            // GESTION DU MENU MOBILE ET DU HEADER STICKY
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-            const header = document.getElementById('main-header');
-
-            // Toggle menu mobile
-            if (mobileMenuBtn && mobileMenu) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-
-                // Fermer le menu après un clic
-                mobileLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenu.classList.add('hidden');
-                    });
-                });
-            }
-
-            // Ajout d'ombre au header lors du défilement
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 20) {
-                    header.classList.add('shadow-sm');
-                } else {
-                    header.classList.remove('shadow-sm');
-                }
-            });
-        });
-    </script>
-
-</body>
-</html>
+{% endblock %}
