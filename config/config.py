@@ -16,3 +16,7 @@ class Config:
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024
     WHATSAPP_NUMBER = os.getenv('WHATSAPP_NUMBER', '243860493345')
     CONSULTATION_URL = os.getenv('CONSULTATION_URL', 'https://tidycal.com/moamyoneart/consultation-gratuite-15-min')
+
+    # Security Configuration
+    ADMIN_USERNAME = os.getenv('ADMIN_USERNAME', 'admin')
+    ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'ChangeMeNow!')

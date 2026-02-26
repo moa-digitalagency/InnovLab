@@ -3,5 +3,6 @@ Flask-SQLAlchemy
 psycopg2-binary
 python-dotenv
 Flask-Login
+Flask-Bcrypt
 gunicorn
 requests
