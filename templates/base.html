@@ -71,11 +71,11 @@
 
             <!-- Navigation Desktop -->
             <nav class="hidden md:flex items-center gap-8">
-                <a href="{{ url_for('main.index') }}" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Accueil</a>
-                <a href="{{ url_for('main.about') }}" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">L'ADN InnovLab</a>
-                <a href="{{ url_for('main.services') }}" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Notre Expertise</a>
-                <a href="{{ url_for('main.portfolio') }}" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Nos Forteresses</a>
-                <a href="{{ url_for('main.contact_us') }}" class="text-[#8f8e8e] hover:text-[#30a192] text-sm font-medium transition-colors">Contact</a>
+                <a href="{{ url_for('main.index') }}" class="text-[#064060]/80 hover:text-[#30a192] text-sm font-medium transition-colors">Accueil</a>
+                <a href="{{ url_for('main.about') }}" class="text-[#064060]/80 hover:text-[#30a192] text-sm font-medium transition-colors">L'ADN InnovLab</a>
+                <a href="{{ url_for('main.services') }}" class="text-[#064060]/80 hover:text-[#30a192] text-sm font-medium transition-colors">Notre Expertise</a>
+                <a href="{{ url_for('main.portfolio') }}" class="text-[#064060]/80 hover:text-[#30a192] text-sm font-medium transition-colors">Nos Forteresses</a>
+                <a href="{{ url_for('main.contact_us') }}" class="text-[#064060]/80 hover:text-[#30a192] text-sm font-medium transition-colors">Contact</a>
             </nav>
 
             <!-- CTA & Menu Mobile Toggle -->
@@ -156,7 +156,7 @@
                         <p class="text-[#30a192] text-sm font-bold tracking-widest uppercase leading-none">InnovLab</p>
                     </div>
                 </div>
-                <p class="text-[#8f8e8e] text-sm leading-relaxed mb-6 pr-4">
+                <p class="text-blue-100/80 text-sm leading-relaxed mb-6 pr-4">
                     Le point de convergence de l'innovation, du capital et de l'industrie pour une Afrique souveraine.
                 </p>
 
@@ -174,15 +174,15 @@
                 <ul class="space-y-4">
                     <li class="flex items-start gap-3">
                         <svg class="w-5 h-5 text-[#30a192] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                        <span class="text-[#8f8e8e] text-sm leading-relaxed">{{ site_settings.address if site_settings else "Centre d'affaires Gueliz, Bd My Rachid, Étage 1, Bureau 8, 40000 Marrakech" }}</span>
+                        <span class="text-blue-100/80 text-sm leading-relaxed">{{ site_settings.address if site_settings else "Centre d'affaires Gueliz, Bd My Rachid, Étage 1, Bureau 8, 40000 Marrakech" }}</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <svg class="w-5 h-5 text-[#30a192] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        <span class="text-[#8f8e8e] text-sm">{{ site_settings.phone if site_settings else "+212 699 14 00 01" }}</span>
+                        <span class="text-blue-100/80 text-sm">{{ site_settings.phone if site_settings else "+212 699 14 00 01" }}</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <svg class="w-5 h-5 text-[#30a192] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                        <span class="text-[#8f8e8e] text-sm">{{ site_settings.contact_email if site_settings else 'nticshabaka@gmail.com' }}</span>
+                        <span class="text-blue-100/80 text-sm">{{ site_settings.contact_email if site_settings else 'nticshabaka@gmail.com' }}</span>
                     </li>
                 </ul>
             </div>
@@ -190,21 +190,21 @@
             <div class="reveal delay-300">
                 <h4 class="font-bold text-lg text-[#ffffff] mb-6 pb-2 border-b border-[#30a192]/50 inline-block">Navigation</h4>
                 <ul class="space-y-3">
-                    <li><a href="{{ url_for('main.index') }}" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Accueil</a></li>
-                    <li><a href="{{ url_for('main.about') }}" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">L'ADN InnovLab</a></li>
-                    <li><a href="{{ url_for('main.services') }}" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Notre Expertise</a></li>
-                    <li><a href="{{ url_for('main.portfolio') }}" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Nos Forteresses</a></li>
-                    <li><a href="{{ url_for('main.contact_us') }}" class="text-[#8f8e8e] text-sm hover:text-[#30a192] transition-colors">Contact</a></li>
+                    <li><a href="{{ url_for('main.index') }}" class="text-blue-100/80 text-sm hover:text-[#30a192] transition-colors">Accueil</a></li>
+                    <li><a href="{{ url_for('main.about') }}" class="text-blue-100/80 text-sm hover:text-[#30a192] transition-colors">L'ADN InnovLab</a></li>
+                    <li><a href="{{ url_for('main.services') }}" class="text-blue-100/80 text-sm hover:text-[#30a192] transition-colors">Notre Expertise</a></li>
+                    <li><a href="{{ url_for('main.portfolio') }}" class="text-blue-100/80 text-sm hover:text-[#30a192] transition-colors">Nos Forteresses</a></li>
+                    <li><a href="{{ url_for('main.contact_us') }}" class="text-blue-100/80 text-sm hover:text-[#30a192] transition-colors">Contact</a></li>
                 </ul>
             </div>
 
             <div class="reveal delay-400">
                 <h4 class="font-bold text-lg text-[#ffffff] mb-6 pb-2 border-b border-[#30a192]/50 inline-block">Mentions Légales</h4>
                 <ul class="space-y-3 mb-6">
-                    <li class="text-[#8f8e8e] text-sm"><span class="font-bold text-[#ffffff]">RC :</span> 163795</li>
-                    <li class="text-[#8f8e8e] text-sm"><span class="font-bold text-[#ffffff]">ICE :</span> 003694652000069</li>
+                    <li class="text-blue-100/80 text-sm"><span class="font-bold text-[#ffffff]">RC :</span> 163795</li>
+                    <li class="text-blue-100/80 text-sm"><span class="font-bold text-[#ffffff]">ICE :</span> 003694652000069</li>
                 </ul>
-                <a href="https://www.shabakainvestgroup.com" target="_blank" class="inline-flex items-center gap-2 bg-[#ffffff]/5 border border-[#ffffff]/10 hover:bg-[#ffffff]/10 transition-colors text-[#8f8e8e] hover:text-[#ffffff] text-sm py-2 px-4 rounded-lg w-fit">
+                <a href="https://www.shabakainvestgroup.com" target="_blank" class="inline-flex items-center gap-2 bg-[#ffffff]/5 border border-[#ffffff]/10 hover:bg-[#ffffff]/10 transition-colors text-blue-100/80 hover:text-[#ffffff] text-sm py-2 px-4 rounded-lg w-fit">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                     Site Corporate
                 </a>
@@ -214,12 +214,12 @@
 
         <div class="max-w-7xl mx-auto px-4 mt-16 reveal delay-500">
             <div class="border-t border-[#ffffff]/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-[#8f8e8e] text-xs text-center md:text-left">
+                <p class="text-blue-100/60 text-xs text-center md:text-left">
                     © 2024 Shabaka InnovLab. Tous droits réservés.
                 </p>
                 <div class="flex flex-wrap justify-center gap-6">
-                    <a href="#" class="text-[#8f8e8e] hover:text-[#ffffff] text-xs transition-colors">Politique de Confidentialité</a>
-                    <a href="#" class="text-[#8f8e8e] hover:text-[#ffffff] text-xs transition-colors">Conditions Générales</a>
+                    <a href="#" class="text-blue-100/80 hover:text-[#ffffff] text-xs transition-colors">Politique de Confidentialité</a>
+                    <a href="#" class="text-blue-100/80 hover:text-[#ffffff] text-xs transition-colors">Conditions Générales</a>
                 </div>
             </div>
         </div>
