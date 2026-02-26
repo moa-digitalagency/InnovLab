@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen pt-32 pb-20 px-6 bg-[#f8fafc] flex flex-col items-center justify-center">
+    <div class="max-w-4xl w-full text-center space-y-8">
+
+        <div class="text-[#064060]">
+            <span class="material-symbols-outlined" style="font-size: 8rem;">dns</span>
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-bold text-[#064060]">Erreur Interne (500)</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            Une erreur inattendue s'est produite sur nos serveurs.
+            Nous avons été notifiés et travaillons à résoudre le problème.
+        </p>
+
+        <div class="pt-8 flex flex-col md:flex-row gap-4 justify-center">
+            <a href="{{ url_for('main.index') }}" class="inline-flex justify-center items-center py-3 px-8 bg-[#076D6D] hover:bg-[#064060] text-white font-bold rounded-lg transition-colors shadow-lg">
+                <span class="material-symbols-outlined mr-2">home</span>
+                Retour à l'accueil
+            </a>
+            <a href="{{ url_for('main.contact_us') }}" class="inline-flex justify-center items-center py-3 px-8 bg-white text-[#076D6D] border border-[#076D6D] hover:bg-gray-50 font-bold rounded-lg transition-colors shadow-sm">
+                <span class="material-symbols-outlined mr-2">mail</span>
+                Nous contacter
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
