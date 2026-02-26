@@ -3,8 +3,9 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.utils import secure_filename
 from models import db, User
 from models.forms import FounderRequest, StartupRequest, InvestorRequest
+from models.message import Message
 from models.settings import SiteSettings, SeoSettings
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import os
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
@@ -39,18 +40,37 @@ def dashboard():
     startups_count = StartupRequest.query.count()
     investors_count = InvestorRequest.query.count()
 
+    # Unread messages
+    unread_messages_count = Message.query.filter_by(read=False).count()
+
+    # Chart Data (Last 7 days)
+    chart_labels = []
+    chart_data = []
+
     today = date.today()
-    leads_today = (
-        FounderRequest.query.filter(db.func.date(FounderRequest.created_at) == today).count() +
-        StartupRequest.query.filter(db.func.date(StartupRequest.created_at) == today).count() +
-        InvestorRequest.query.filter(db.func.date(InvestorRequest.created_at) == today).count()
-    )
+    for i in range(6, -1, -1):
+        day = today - timedelta(days=i)
+        day_str = day.strftime('%Y-%m-%d')
+        chart_labels.append(day_str)
+
+        # Calculate start and end of the day for filtering
+        day_start = datetime.combine(day, datetime.min.time())
+        day_end = datetime.combine(day, datetime.max.time())
+
+        # Query counts for each model
+        f_count = FounderRequest.query.filter(FounderRequest.created_at >= day_start, FounderRequest.created_at <= day_end).count()
+        s_count = StartupRequest.query.filter(StartupRequest.created_at >= day_start, StartupRequest.created_at <= day_end).count()
+        i_count = InvestorRequest.query.filter(InvestorRequest.created_at >= day_start, InvestorRequest.created_at <= day_end).count()
+
+        chart_data.append(f_count + s_count + i_count)
 
     return render_template('admin/dashboard.html',
                            founders_count=founders_count,
                            startups_count=startups_count,
                            investors_count=investors_count,
-                           leads_today=leads_today)
+                           unread_messages_count=unread_messages_count,
+                           chart_labels=chart_labels,
+                           chart_data=chart_data)
 
 @admin_bp.route('/founders')
 @login_required
