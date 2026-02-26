@@ -43,8 +43,14 @@
                         <select id="subject" name="subject" required
                                 class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#076D6D] focus:ring focus:ring-[#076D6D]/20 transition-colors bg-white/50 backdrop-blur-sm">
                             <option value="" disabled selected>Choisir un sujet...</option>
-                            <option value="Partenariat">Partenariat</option>
-                            <option value="Presse">Presse</option>
+                            <option value="Renseignement général">Renseignement général</option>
+                            <option value="Demande de partenariat">Demande de partenariat</option>
+                            <option value="Relation Presse / Médias">Relation Presse / Médias</option>
+                            <option value="Opportunité d'investissement">Opportunité d'investissement</option>
+                            <option value="Opportunité d'emploi">Opportunité d'emploi</option>
+                            <option value="Stage">Stage</option>
+                            <option value="Candidature Spontanée">Candidature Spontanée</option>
+                            <option value="Support Technique">Support Technique</option>
                             <option value="Autre">Autre</option>
                         </select>
                     </div>
@@ -102,7 +108,7 @@
                 <!-- Google Map -->
                 <div class="h-80 w-full rounded-3xl overflow-hidden shadow-sm border border-slate-100 relative bg-slate-100">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3397.045339634863!2d-8.0083!3d31.6346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDM4JzA0LjYiTiA4wrAwMCc4My4zIlc!5e0!3m2!1sen!2sma!4v1620000000000!5m2!1sen!2sma"
+                        src="https://maps.google.com/maps?q={{ site_settings.map_latitude|default('31.6295') }},{{ site_settings.map_longitude|default('-8.0063') }}&z=15&output=embed"
                         width="100%"
                         height="100%"
                         style="border:0;"
