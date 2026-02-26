@@ -4,6 +4,7 @@ from werkzeug.utils import secure_filename
 from models import db, User
 from models.forms import FounderRequest, StartupRequest, InvestorRequest
 from models.message import Message
+from models.portfolio import PortfolioProject
 from models.settings import SiteSettings, SeoSettings
 from datetime import datetime, date, timedelta
 import os
@@ -282,3 +283,82 @@ def toggle_status(request_type, request_id):
 
     db.session.commit()
     return redirect(url_for('admin.view_request', request_type=request_type, request_id=request_id))
+
+@admin_bp.route('/portfolio')
+@login_required
+def portfolio():
+    projects = PortfolioProject.query.order_by(PortfolioProject.created_at.desc()).all()
+    return render_template('admin/portfolio.html', projects=projects)
+
+@admin_bp.route('/portfolio/add', methods=['GET', 'POST'])
+@login_required
+def add_portfolio():
+    if request.method == 'POST':
+        title = request.form.get('title')
+        category = request.form.get('category')
+        description = request.form.get('description')
+        project_url = request.form.get('project_url')
+        is_active = True if request.form.get('is_active') else False
+
+        image_url = None
+        file = request.files.get('image')
+        if file and file.filename:
+            filename = secure_filename(file.filename)
+            static_folder = current_app.static_folder if current_app.static_folder else 'static'
+            upload_folder = os.path.join(current_app.root_path, static_folder, 'uploads', 'portfolio')
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+            file.save(os.path.join(upload_folder, filename))
+            # Store relative path
+            image_url = f"uploads/portfolio/{filename}"
+
+        new_project = PortfolioProject(
+            title=title,
+            category=category,
+            description=description,
+            project_url=project_url,
+            is_active=is_active,
+            image_url=image_url
+        )
+        db.session.add(new_project)
+        db.session.commit()
+        flash('Projet ajouté avec succès.', 'success')
+        return redirect(url_for('admin.portfolio'))
+
+    return render_template('admin/portfolio_form.html', project=None)
+
+@admin_bp.route('/portfolio/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_portfolio(id):
+    project = PortfolioProject.query.get_or_404(id)
+    if request.method == 'POST':
+        project.title = request.form.get('title')
+        project.category = request.form.get('category')
+        project.description = request.form.get('description')
+        project.project_url = request.form.get('project_url')
+        project.is_active = True if request.form.get('is_active') else False
+
+        file = request.files.get('image')
+        if file and file.filename:
+            filename = secure_filename(file.filename)
+            static_folder = current_app.static_folder if current_app.static_folder else 'static'
+            upload_folder = os.path.join(current_app.root_path, static_folder, 'uploads', 'portfolio')
+            if not os.path.exists(upload_folder):
+                os.makedirs(upload_folder)
+            file.save(os.path.join(upload_folder, filename))
+            project.image_url = f"uploads/portfolio/{filename}"
+
+        db.session.commit()
+        flash('Projet mis à jour avec succès.', 'success')
+        return redirect(url_for('admin.portfolio'))
+
+    return render_template('admin/portfolio_form.html', project=project)
+
+@admin_bp.route('/portfolio/delete/<int:id>', methods=['POST'])
+@login_required
+def delete_portfolio(id):
+    project = PortfolioProject.query.get_or_404(id)
+    db.session.delete(project)
+    db.session.commit()
+    flash('Projet supprimé.', 'success')
+    return redirect(url_for('admin.portfolio'))
