@@ -23,6 +23,14 @@ class SiteSettings(db.Model):
     twitter_url = db.Column(db.String(256))
     facebook_url = db.Column(db.String(256))
 
+    # Map Coordinates
+    map_latitude = db.Column(db.String(20), default='31.6295')
+    map_longitude = db.Column(db.String(20), default='-8.0063')
+
+    # Legal Pages
+    privacy_policy = db.Column(db.Text)
+    terms_conditions = db.Column(db.Text)
+
     def __repr__(self):
         return f'<SiteSettings {self.site_title}>'
 
