@@ -1,13 +1,14 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_login import login_user, logout_user, login_required, current_user
-from werkzeug.utils import secure_filename
 from models import db, User
 from models.forms import FounderRequest, StartupRequest, InvestorRequest
 from models.message import Message
-from models.portfolio import PortfolioProject
 from models.settings import SiteSettings, SeoSettings
 from datetime import datetime, date, timedelta
-import os
+from services.portfolio_service import PortfolioService
+from services.file_service import save_file
+from security.auth import verify_user_credentials
+from security.decorators import admin_required
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -19,9 +20,10 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        user = User.query.filter_by(username=username).first()
 
-        if user and user.check_password(password):
+        user = verify_user_credentials(username, password)
+
+        if user:
             login_user(user)
             return redirect(url_for('admin.dashboard'))
         flash('Invalid username or password', 'error')
@@ -35,7 +37,7 @@ def logout():
     return redirect(url_for('admin.login'))
 
 @admin_bp.route('/dashboard')
-@login_required
+@admin_required
 def dashboard():
     founders_count = FounderRequest.query.count()
     startups_count = StartupRequest.query.count()
@@ -74,25 +76,25 @@ def dashboard():
                            chart_data=chart_data)
 
 @admin_bp.route('/founders')
-@login_required
+@admin_required
 def founders():
     founders = FounderRequest.query.order_by(FounderRequest.created_at.desc()).all()
     return render_template('admin/founders.html', founders=founders)
 
 @admin_bp.route('/startups')
-@login_required
+@admin_required
 def startups():
     startups = StartupRequest.query.order_by(StartupRequest.created_at.desc()).all()
     return render_template('admin/startups.html', startups=startups)
 
 @admin_bp.route('/investors')
-@login_required
+@admin_required
 def investors():
     investors = InvestorRequest.query.order_by(InvestorRequest.created_at.desc()).all()
     return render_template('admin/investors.html', investors=investors)
 
 @admin_bp.route('/founders/delete/<int:id>', methods=['POST'])
-@login_required
+@admin_required
 def delete_founder(id):
     founder = FounderRequest.query.get_or_404(id)
     db.session.delete(founder)
@@ -101,7 +103,7 @@ def delete_founder(id):
     return redirect(url_for('admin.founders'))
 
 @admin_bp.route('/startups/delete/<int:id>', methods=['POST'])
-@login_required
+@admin_required
 def delete_startup(id):
     startup = StartupRequest.query.get_or_404(id)
     db.session.delete(startup)
@@ -110,7 +112,7 @@ def delete_startup(id):
     return redirect(url_for('admin.startups'))
 
 @admin_bp.route('/investors/delete/<int:id>', methods=['POST'])
-@login_required
+@admin_required
 def delete_investor(id):
     investor = InvestorRequest.query.get_or_404(id)
     db.session.delete(investor)
@@ -119,7 +121,7 @@ def delete_investor(id):
     return redirect(url_for('admin.investors'))
 
 @admin_bp.route('/seo', methods=['GET', 'POST'])
-@login_required
+@admin_required
 def seo():
     pages = ['index', 'founder', 'startup', 'investor']
 
@@ -142,7 +144,7 @@ def seo():
         db.session.commit()
 
     if request.method == 'POST':
-        # Handle Global SEO Settings (stored in 'index' page entry or specific global entry)
+        # Handle Global SEO Settings
         global_seo = SeoSettings.query.filter_by(page_name='index').first()
         if global_seo:
             ga_id = request.form.get('google_analytics_id')
@@ -171,13 +173,12 @@ def seo():
         return redirect(url_for('admin.seo'))
 
     seo_entries = SeoSettings.query.all()
-    # Map entries for easier access in template
     seo_map = {e.page_name: e for e in seo_entries}
 
     return render_template('admin/seo.html', seo_map=seo_map, pages=pages)
 
 @admin_bp.route('/settings', methods=['GET', 'POST'])
-@login_required
+@admin_required
 def settings():
     settings_obj = SiteSettings.query.first()
     if not settings_obj:
@@ -219,22 +220,14 @@ def settings():
         if custom_head_code is not None: settings_obj.custom_head_code = custom_head_code
 
         # File Uploads (Logos)
-        # Ensure we use the configured static folder
-        static_folder = current_app.static_folder if current_app.static_folder else 'static'
-        upload_folder = os.path.join(current_app.root_path, static_folder, 'uploads', 'logos')
-
-        if not os.path.exists(upload_folder):
-            os.makedirs(upload_folder)
-
         def save_logo(file_key, db_field):
             file = request.files.get(file_key)
             if file and file.filename:
-                filename = secure_filename(file.filename)
-                final_name = filename
-
-                file.save(os.path.join(upload_folder, final_name))
-                # Store path relative to static folder for url_for
-                setattr(settings_obj, db_field, f"uploads/logos/{final_name}")
+                # Use FileService
+                filename = save_file(file, subfolder='logos')
+                if filename:
+                    # Store path relative to static folder for url_for
+                    setattr(settings_obj, db_field, f"uploads/logos/{filename}")
 
         save_logo('header_logo', 'header_logo')
         save_logo('footer_logo', 'footer_logo')
@@ -247,7 +240,7 @@ def settings():
     return render_template('admin/settings.html', settings=settings_obj)
 
 @admin_bp.route('/view/<request_type>/<int:request_id>')
-@login_required
+@admin_required
 def view_request(request_type, request_id):
     if request_type == 'founder':
         request_obj = FounderRequest.query.get_or_404(request_id)
@@ -262,7 +255,7 @@ def view_request(request_type, request_id):
     return render_template('admin/request_detail.html', request_obj=request_obj, request_type=request_type)
 
 @admin_bp.route('/toggle_status/<request_type>/<int:request_id>', methods=['POST'])
-@login_required
+@admin_required
 def toggle_status(request_type, request_id):
     if request_type == 'founder':
         request_obj = FounderRequest.query.get_or_404(request_id)
@@ -285,80 +278,35 @@ def toggle_status(request_type, request_id):
     return redirect(url_for('admin.view_request', request_type=request_type, request_id=request_id))
 
 @admin_bp.route('/portfolio')
-@login_required
+@admin_required
 def portfolio():
-    projects = PortfolioProject.query.order_by(PortfolioProject.created_at.desc()).all()
+    projects = PortfolioService.get_all_projects()
     return render_template('admin/portfolio.html', projects=projects)
 
 @admin_bp.route('/portfolio/add', methods=['GET', 'POST'])
-@login_required
+@admin_required
 def add_portfolio():
     if request.method == 'POST':
-        title = request.form.get('title')
-        category = request.form.get('category')
-        description = request.form.get('description')
-        project_url = request.form.get('project_url')
-        is_active = True if request.form.get('is_active') else False
-
-        image_url = None
-        file = request.files.get('image')
-        if file and file.filename:
-            filename = secure_filename(file.filename)
-            static_folder = current_app.static_folder if current_app.static_folder else 'static'
-            upload_folder = os.path.join(current_app.root_path, static_folder, 'uploads', 'portfolio')
-            if not os.path.exists(upload_folder):
-                os.makedirs(upload_folder)
-            file.save(os.path.join(upload_folder, filename))
-            # Store relative path
-            image_url = f"uploads/portfolio/{filename}"
-
-        new_project = PortfolioProject(
-            title=title,
-            category=category,
-            description=description,
-            project_url=project_url,
-            is_active=is_active,
-            image_url=image_url
-        )
-        db.session.add(new_project)
-        db.session.commit()
+        PortfolioService.create_project(request.form, request.files.get('image'))
         flash('Projet ajouté avec succès.', 'success')
         return redirect(url_for('admin.portfolio'))
 
     return render_template('admin/portfolio_form.html', project=None)
 
 @admin_bp.route('/portfolio/edit/<int:id>', methods=['GET', 'POST'])
-@login_required
+@admin_required
 def edit_portfolio(id):
-    project = PortfolioProject.query.get_or_404(id)
     if request.method == 'POST':
-        project.title = request.form.get('title')
-        project.category = request.form.get('category')
-        project.description = request.form.get('description')
-        project.project_url = request.form.get('project_url')
-        project.is_active = True if request.form.get('is_active') else False
-
-        file = request.files.get('image')
-        if file and file.filename:
-            filename = secure_filename(file.filename)
-            static_folder = current_app.static_folder if current_app.static_folder else 'static'
-            upload_folder = os.path.join(current_app.root_path, static_folder, 'uploads', 'portfolio')
-            if not os.path.exists(upload_folder):
-                os.makedirs(upload_folder)
-            file.save(os.path.join(upload_folder, filename))
-            project.image_url = f"uploads/portfolio/{filename}"
-
-        db.session.commit()
+        PortfolioService.update_project(id, request.form, request.files.get('image'))
         flash('Projet mis à jour avec succès.', 'success')
         return redirect(url_for('admin.portfolio'))
 
+    project = PortfolioService.get_project_by_id(id)
     return render_template('admin/portfolio_form.html', project=project)
 
 @admin_bp.route('/portfolio/delete/<int:id>', methods=['POST'])
-@login_required
+@admin_required
 def delete_portfolio(id):
-    project = PortfolioProject.query.get_or_404(id)
-    db.session.delete(project)
-    db.session.commit()
+    PortfolioService.delete_project(id)
     flash('Projet supprimé.', 'success')
     return redirect(url_for('admin.portfolio'))
