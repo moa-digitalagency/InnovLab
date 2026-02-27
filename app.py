@@ -77,7 +77,9 @@ def create_app():
     # Security Configuration
     csrf = CSRFProtect(app)
     # Enable HTTPS force only if not in debug mode
-    Talisman(app, content_security_policy=None, force_https=not app.debug)
+    # NOTE: Force HTTPS set to False for tests to avoid 302 redirects
+    force_https = not app.debug and not app.testing
+    Talisman(app, content_security_policy=None, force_https=force_https)
 
     limiter = Limiter(
         key_func=get_remote_address,

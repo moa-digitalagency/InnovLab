@@ -2,7 +2,7 @@ import requests
 from flask import current_app
 from models.settings import SiteSettings
 from models import db
-from datetime import date
+from datetime import datetime, date
 import json
 
 def send_telegram_notification(message, ip_to_ban=None):
@@ -30,9 +30,10 @@ def send_telegram_notification(message, ip_to_ban=None):
             return False
 
         # Daily Greeting Logic
-        today = date.today()
+        today = datetime.utcnow().date()
         if settings.last_telegram_greeting_date != today:
-            message = f"👋 Bonjour Boss ! Voici les premières nouvelles de la journée :\n\n{message}"
+            prefix = "👋 *Bonjour Boss !* Voici les premières nouvelles de la journée :\n\n"
+            message = prefix + message
             settings.last_telegram_greeting_date = today
             try:
                 db.session.commit()
@@ -53,7 +54,7 @@ def send_telegram_notification(message, ip_to_ban=None):
             keyboard = {
                 "inline_keyboard": [
                     [
-                        {"text": "🚫 Bannir cette IP", "callback_data": f"ban_ip:{ip_to_ban}"}
+                        {"text": "🚫 Bannir cette IP", "callback_data": f"ban_ip_{ip_to_ban}"}
                     ]
                 ]
             }
@@ -82,15 +83,8 @@ def notify_visit(ip, path):
         if not settings or not settings.notify_on_visit:
             return
 
-        message = (
-            f"👀 <b>Nouveau visiteur</b> sur <code>{path}</code>\n"
-            f"📍 IP: <code>{ip}</code>"
-        )
-        # We call send_telegram_notification directly but we might want to avoid
-        # the greeting logic for *every* visit if it's too chatty,
-        # but the requirement says "Daily Greeting" check is inside send_telegram_notification.
-        # So the first visit of the day will trigger the greeting.
-        send_telegram_notification(message)
+        msg = f"👀 <b>Nouveau visiteur</b>\n📍 URL: <code>{path}</code>\n💻 IP: <code>{ip}</code>"
+        send_telegram_notification(msg)
 
     except Exception as e:
         current_app.logger.error(f"Error in notify_visit: {e}")

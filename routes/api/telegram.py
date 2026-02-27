@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify, current_app
 from models import db
 from models.settings import SiteSettings
 from models.security_logs import BannedIP
+from services.notification_service import send_telegram_notification
 import requests
 import hashlib
 
@@ -57,20 +58,22 @@ def process_callback_query(callback_query):
         current_app.logger.error("Telegram Token not found in settings")
         return
 
-    if data.startswith('ban_ip:'):
-        ip_to_ban = data.split(':')[1]
+    if data.startswith('ban_ip_'):
+        ip_to_ban = data.replace('ban_ip_', '')
 
         # Check if already banned
         existing_ban = BannedIP.query.filter_by(ip_address=ip_to_ban).first()
 
+        response_text = ""
+
         if existing_ban:
-            response_text = f"⚠️ L'IP {ip_to_ban} est déjà bannie."
+            response_text = f"⚠️ L'IP `{ip_to_ban}` est déjà bannie."
         else:
             try:
-                new_ban = BannedIP(ip_address=ip_to_ban, reason="Banned via Telegram Bot")
+                new_ban = BannedIP(ip_address=ip_to_ban, reason="Banni via Telegram")
                 db.session.add(new_ban)
                 db.session.commit()
-                response_text = f"✅ L'IP {ip_to_ban} a été bannie avec succès."
+                response_text = f"✅ L'IP `{ip_to_ban}` a été bannie avec succès."
             except Exception as e:
                 db.session.rollback()
                 current_app.logger.error(f"Failed to ban IP {ip_to_ban}: {e}")
@@ -80,12 +83,8 @@ def process_callback_query(callback_query):
         answer_url = f"https://api.telegram.org/bot{token}/answerCallbackQuery"
         requests.post(answer_url, json={
             "callback_query_id": callback_query_id,
-            "text": response_text
+            "text": "Traitement en cours..."
         })
 
-        # Send a confirmation message
-        send_url = f"https://api.telegram.org/bot{token}/sendMessage"
-        requests.post(send_url, json={
-            "chat_id": chat_id,
-            "text": response_text
-        })
+        # Send a confirmation message via existing service (consistent styling)
+        send_telegram_notification(response_text)
