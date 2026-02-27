@@ -243,6 +243,33 @@
         </div>
     </footer>
 
+    <!-- Language Selector Floating Div -->
+    <div class="fixed bottom-6 left-6 z-50 group">
+        <!-- Main Button -->
+        <button class="bg-[#ffffff]/90 backdrop-blur-md shadow-lg border border-slate-100 rounded-xl px-4 py-2.5 flex items-center gap-2 text-[#1d5865] font-semibold text-sm hover:bg-slate-50 hover:scale-105 transition-all duration-300">
+            {% set current_lang = get_locale() %}
+            {% set flags = {'fr': '🇫🇷 FR', 'en': '🇬🇧 EN', 'es': '🇪🇸 ES', 'pt': '🇵🇹 PT', 'it': '🇮🇹 IT', 'de': '🇩🇪 DE', 'ar': '🇸🇦 AR', 'zh': '🇨🇳 ZH', 'ja': '🇯🇵 JA', 'ko': '🇰🇷 KO'} %}
+            <span>{{ flags.get(current_lang, '🇫🇷 FR') }}</span>
+            <svg class="w-4 h-4 text-[#30a192] group-hover:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+        </button>
+
+        <!-- Dropup Menu -->
+        <div class="absolute bottom-full left-0 mb-2 w-32 bg-[#ffffff]/95 backdrop-blur-lg border border-slate-100 shadow-xl rounded-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+            <div class="flex flex-col">
+                <a href="{{ url_for('main.set_language', lang_code='fr') }}" class="px-4 py-2 text-sm text-[#1d5865] hover:bg-slate-50 hover:text-[#30a192] transition-colors {% if current_lang == 'fr' %}font-bold bg-slate-50{% endif %}">🇫🇷 FR</a>
+                <a href="{{ url_for('main.set_language', lang_code='en') }}" class="px-4 py-2 text-sm text-[#1d5865] hover:bg-slate-50 hover:text-[#30a192] transition-colors {% if current_lang == 'en' %}font-bold bg-slate-50{% endif %}">🇬🇧 EN</a>
+                <a href="{{ url_for('main.set_language', lang_code='es') }}" class="px-4 py-2 text-sm text-[#1d5865] hover:bg-slate-50 hover:text-[#30a192] transition-colors {% if current_lang == 'es' %}font-bold bg-slate-50{% endif %}">🇪🇸 ES</a>
+                <a href="{{ url_for('main.set_language', lang_code='pt') }}" class="px-4 py-2 text-sm text-[#1d5865] hover:bg-slate-50 hover:text-[#30a192] transition-colors {% if current_lang == 'pt' %}font-bold bg-slate-50{% endif %}">🇵🇹 PT</a>
+                <a href="{{ url_for('main.set_language', lang_code='it') }}" class="px-4 py-2 text-sm text-[#1d5865] hover:bg-slate-50 hover:text-[#30a192] transition-colors {% if current_lang == 'it' %}font-bold bg-slate-50{% endif %}">🇮🇹 IT</a>
+                <a href="{{ url_for('main.set_language', lang_code='de') }}" class="px-4 py-2 text-sm text-[#1d5865] hover:bg-slate-50 hover:text-[#30a192] transition-colors {% if current_lang == 'de' %}font-bold bg-slate-50{% endif %}">🇩🇪 DE</a>
+                <a href="{{ url_for('main.set_language', lang_code='ar') }}" class="px-4 py-2 text-sm text-[#1d5865] hover:bg-slate-50 hover:text-[#30a192] transition-colors {% if current_lang == 'ar' %}font-bold bg-slate-50{% endif %}">🇸🇦 AR</a>
+                <a href="{{ url_for('main.set_language', lang_code='zh') }}" class="px-4 py-2 text-sm text-[#1d5865] hover:bg-slate-50 hover:text-[#30a192] transition-colors {% if current_lang == 'zh' %}font-bold bg-slate-50{% endif %}">🇨🇳 ZH</a>
+                <a href="{{ url_for('main.set_language', lang_code='ja') }}" class="px-4 py-2 text-sm text-[#1d5865] hover:bg-slate-50 hover:text-[#30a192] transition-colors {% if current_lang == 'ja' %}font-bold bg-slate-50{% endif %}">🇯🇵 JA</a>
+                <a href="{{ url_for('main.set_language', lang_code='ko') }}" class="px-4 py-2 text-sm text-[#1d5865] hover:bg-slate-50 hover:text-[#30a192] transition-colors {% if current_lang == 'ko' %}font-bold bg-slate-50{% endif %}">🇰🇷 KO</a>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </body>
 </html>
