@@ -120,6 +120,11 @@
                     <textarea name="desc_{{ page }}" rows="2"
                               class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600">{{ seo_map[page].meta_desc if page in seo_map else '' }}</textarea>
                 </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-blue-100/80 mb-2">Mots-clés (Keywords)</label>
+                    <input type="text" name="keywords_{{ page }}" value="{{ seo_map[page].keywords if page in seo_map and seo_map[page].keywords else '' }}"
+                           class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors placeholder-gray-600" placeholder="mot-clé1, mot-clé2, mot-clé3">
+                </div>
             </div>
         </div>
         {% endfor %}
