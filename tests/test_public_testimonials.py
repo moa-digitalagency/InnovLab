@@ -2,6 +2,7 @@ import pytest
 from app import create_app
 from models import db
 from models.testimonial import Testimonial
+from sqlalchemy.pool import StaticPool
 
 @pytest.fixture
 def client():
@@ -11,6 +12,12 @@ def client():
     app.config['TALISMAN_FORCE_HTTPS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
     app.config['WTF_CSRF_ENABLED'] = False
+
+    # Use StaticPool to share SQLite memory DB across connections
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+        'connect_args': {'check_same_thread': False},
+        'poolclass': StaticPool
+    }
 
     with app.test_client() as client:
         with app.app_context():
