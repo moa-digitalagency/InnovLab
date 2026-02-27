@@ -82,6 +82,12 @@
                         <span>Témoignages</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ url_for('portfolio.portfolio') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'portfolio.portfolio' else '' }}">
+                        <span class="material-symbols-outlined">image</span>
+                        <span>Portfolio</span>
+                    </a>
+                </li>
                 <li class="pt-4 pb-2 text-xs font-semibold text-blue-100/60 uppercase tracking-wider px-4">Configuration</li>
                 <li>
                     <a href="{{ url_for('settings.settings') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'settings.settings' else '' }}">
@@ -93,12 +99,6 @@
                     <a href="{{ url_for('settings.seo') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'settings.seo' else '' }}">
                         <span class="material-symbols-outlined">search</span>
                         <span>SEO Avancé</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ url_for('portfolio.portfolio') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'portfolio.portfolio' else '' }}">
-                        <span class="material-symbols-outlined">image</span>
-                        <span>Portfolio</span>
                     </a>
                 </li>
             </ul>
