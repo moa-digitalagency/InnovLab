@@ -54,7 +54,7 @@
                 <span class="material-symbols-outlined text-red-500">block</span>
                 Bannir une IP
             </h3>
-            <form action="{{ url_for('security.ban_ip') }}" method="POST" class="space-y-4">
+            <form action="{{ url_for('admin.ban_ip') }}" method="POST" class="space-y-4">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                 <div>
                     <label for="ip_address" class="block text-sm font-medium text-blue-100/80 mb-1">Adresse IP</label>
@@ -94,7 +94,7 @@
                                 <div class="text-xs text-blue-100/60 mt-0.5">{{ ban.reason or 'Non spécifié' }}</div>
                             </td>
                             <td class="py-3 px-4 text-right">
-                                <form action="{{ url_for('security.unban_ip', id=ban.id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir débannir cette IP ?');">
+                                <form action="{{ url_for('admin.unban_ip', id=ban.id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir débannir cette IP ?');">
                                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                     <button type="submit" class="text-green-400 hover:text-green-300 transition-colors p-1" title="Débannir">
                                         <span class="material-symbols-outlined">check_circle</span>
