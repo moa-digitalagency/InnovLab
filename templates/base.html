@@ -3,9 +3,24 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    {% set current_page = request.endpoint.split('.')[-1] if request.endpoint else 'index' %}
-    <title>{{ seo_settings[current_page].title_tag if seo_settings and current_page in seo_settings else 'Shabaka InnovLab' }}</title>
-    <meta name="description" content="{{ seo_settings[current_page].meta_desc if seo_settings and current_page in seo_settings else 'Shabaka InnovLab - Le Catalyseur de la Souveraineté Technologique' }}">
+
+    <title>{% block title %}{{ page_seo.title_tag if page_seo and page_seo.title_tag else seo_settings.meta_title_default }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ page_seo.meta_desc if page_seo and page_seo.meta_desc else seo_settings.meta_description_default }}{% endblock %}">
+    <meta name="keywords" content="{{ seo_settings.meta_keywords_default }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ self.meta_description() }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ request.url_root[:-1] }}{{ seo_settings.og_image_default }}{% endblock %}">
+    <meta property="og:site_name" content="{{ seo_settings.og_site_name }}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="{{ seo_settings.twitter_handle }}">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ self.title() }}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{{ self.meta_description() }}{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ self.og_image() }}{% endblock %}">
+
     <link rel="icon" type="image/png" href="{{ url_for('static', filename=site_settings.favicon) if site_settings and site_settings.favicon else url_for('static', filename='img/favicon.ico') }}">
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -15,13 +30,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <!-- Google Analytics -->
-    {% if seo_settings and seo_settings.get('index') and seo_settings['index'].google_analytics_id %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ seo_settings['index'].google_analytics_id }}"></script>
+    {% if seo_settings.google_analytics_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ seo_settings.google_analytics_id }}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', '{{ seo_settings['index'].google_analytics_id }}');
+      gtag('config', '{{ seo_settings.google_analytics_id }}');
     </script>
     {% endif %}
 
