@@ -29,7 +29,13 @@ def check_honeypot():
             db.session.rollback()
 
         # Send alert
-        send_telegram_notification(f"🚨 **SPAM DETECTED**\nHoneypot triggered by IP: `{ip}`\nUser-Agent: {request.user_agent.string}\nAction: Block proposed.")
+        send_telegram_notification(
+            f"🚨 <b>SPAM DETECTED</b>\n"
+            f"Honeypot triggered by IP: <code>{ip}</code>\n"
+            f"User-Agent: {request.user_agent.string}\n"
+            f"Action: Block proposed.",
+            ip_to_ban=ip
+        )
 
         return True
     return False
