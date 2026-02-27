@@ -34,7 +34,10 @@ def check_and_migrate():
             ('meta_description_default', 'VARCHAR(512)'),
             ('meta_keywords_default', 'VARCHAR(256)'),
             ('google_analytics_id', 'VARCHAR(64)'),
-            ('robots_txt_content', 'TEXT')
+            ('robots_txt_content', 'TEXT'),
+            ('og_site_name', "VARCHAR(128) DEFAULT 'Shabaka InnovLab'"),
+            ('og_image_default', "VARCHAR(256) DEFAULT '/statics/uploads/logos/og-default.jpg'"),
+            ('twitter_handle', "VARCHAR(64) DEFAULT '@ShabakaInnov'")
         ],
         'founder_request': [
             ('status', "VARCHAR(20) DEFAULT 'new'")
