@@ -1,12 +1,15 @@
 from flask import Blueprint, render_template, request, redirect, url_for, Response
 from models.settings import SeoSettings, SiteSettings
+from models.testimonial import Testimonial
 from services.portfolio_service import PortfolioService
 
 main_bp = Blueprint('main', __name__, static_folder='../../statics', static_url_path='/static')
 
 @main_bp.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    featured_test = Testimonial.query.filter_by(is_featured=True).first()
+    standard_tests = Testimonial.query.filter_by(is_featured=False).order_by(Testimonial.created_at.desc()).limit(2).all()
+    return render_template('index.html', featured_test=featured_test, standard_tests=standard_tests)
 
 @main_bp.route('/about', methods=['GET'])
 def about():
