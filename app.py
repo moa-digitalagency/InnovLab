@@ -8,6 +8,7 @@ from config.settings import Config
 from models import db, User
 from dotenv import load_dotenv
 import os
+from datetime import datetime
 from sqlalchemy.exc import OperationalError
 
 load_dotenv()
@@ -78,7 +79,10 @@ def create_app():
     csrf = CSRFProtect(app)
     # Enable HTTPS force only if not in debug mode
     # NOTE: Force HTTPS set to False for tests to avoid 302 redirects
-    force_https = not app.debug and not app.testing
+    # When testing locally with pytest, we need to ensure force_https is False
+    # Use environment variable to detect testing if app.config doesn't have it yet
+    is_testing = app.testing or app.config.get('TESTING', False) or os.environ.get('FLASK_TESTING') == 'True'
+    force_https = not app.debug and not is_testing
     Talisman(app, content_security_policy=None, force_https=force_https)
 
     limiter = Limiter(
@@ -147,31 +151,34 @@ def create_app():
     # 2. Analytics Tracking Middleware
     @app.before_request
     def track_visitor():
-        # Ignorer les fichiers statiques et l'espace admin
-        if request.path.startswith('/static') or request.path.startswith('/admin'):
-            return
-
         try:
-            ua_string = request.user_agent.string
-            user_agent = parse(ua_string)
-            device = 'mobile' if user_agent.is_mobile else 'desktop'
+            # Ignorer les requêtes statiques et l'admin pour ne pas polluer les stats
+            if request.path.startswith('/static') or request.path.startswith('/admin'):
+                return
+
             ip = request.remote_addr
+            user_agent_string = request.headers.get('User-Agent', '')
+            user_agent = parse(user_agent_string)
+            device_type = 'mobile' if user_agent.is_mobile else ('tablet' if user_agent.is_tablet else 'desktop')
 
-            # Enregistrer en base
-            visit = VisitAnalytics(
-                ip_address=ip,
-                user_agent=ua_string,
-                path=request.path,
-                referrer=request.referrer or 'Direct',
-                device_type=device
-            )
-            db.session.add(visit)
-            db.session.commit()
+            # Vérifier si on a déjà enregistré cette IP pour ce chemin dans les 5 dernières minutes (éviter le spam)
+            recent_visit = VisitAnalytics.query.filter_by(ip_address=ip, path=request.path).order_by(VisitAnalytics.timestamp.desc()).first()
+            if not recent_visit or (datetime.utcnow() - recent_visit.timestamp).total_seconds() > 300:
+                visit = VisitAnalytics(
+                    ip_address=ip,
+                    user_agent=user_agent.browser.family,
+                    path=request.path,
+                    referrer=request.referrer,
+                    device_type=device_type
+                )
+                db.session.add(visit)
+                db.session.commit()
 
-            # Notification optionnelle
-            settings = SiteSettings.query.first()
-            if settings and getattr(settings, 'notify_on_visit', False):
-                notify_visit(ip, request.path)
+                # Optionnel : Notification Telegram
+                notify_visit(ip, request.path, device_type)
+
+        except OperationalError:
+            db.session.rollback()
         except Exception as e:
             app.logger.error(f"Tracking error: {e}")
             db.session.rollback()
