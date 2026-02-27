@@ -1,121 +1,17 @@
- * Serving Flask app 'app.py'
- * Debug mode: off
+ * Serving Flask app 'app'
+ * Debug mode: on
 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:3000
- * Running on http://192.168.0.2:3000
+ * Running on http://127.0.0.1:5000
 [33mPress CTRL+C to quit[0m
-[2026-02-26 23:57:52,113] ERROR in app: Database Error in inject_settings: (sqlite3.OperationalError) no such table: site_settings
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 410-907-091
+[2026-02-27 08:23:33,447] ERROR in app: Database Error in inject_settings: (sqlite3.OperationalError) no such table: site_settings
 [SQL: SELECT site_settings.id AS site_settings_id, site_settings.site_title AS site_settings_site_title, site_settings.meta_description AS site_settings_meta_description, site_settings.contact_email AS site_settings_contact_email, site_settings.phone AS site_settings_phone, site_settings.address AS site_settings_address, site_settings.header_logo AS site_settings_header_logo, site_settings.footer_logo AS site_settings_footer_logo, site_settings.favicon AS site_settings_favicon, site_settings.custom_head_code AS site_settings_custom_head_code, site_settings.telegram_bot_token AS site_settings_telegram_bot_token, site_settings.telegram_chat_id AS site_settings_telegram_chat_id, site_settings.linkedin_url AS site_settings_linkedin_url, site_settings.twitter_url AS site_settings_twitter_url, site_settings.facebook_url AS site_settings_facebook_url, site_settings.map_latitude AS site_settings_map_latitude, site_settings.map_longitude AS site_settings_map_longitude, site_settings.privacy_policy AS site_settings_privacy_policy, site_settings.terms_conditions AS site_settings_terms_conditions
 FROM site_settings
  LIMIT ? OFFSET ?]
 [parameters: (1, 0)]
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
-127.0.0.1 - - [26/Feb/2026 23:57:52] "GET /admin/login HTTP/1.1" 200 -
-[2026-02-26 23:57:52,615] ERROR in app: Exception on /admin/login [POST]
-Traceback (most recent call last):
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
-    self.dialect.do_execute(
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
-    cursor.execute(statement, parameters)
-sqlite3.OperationalError: no such table: user
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/app/routes/admin/auth.py", line 16, in login
-    user = verify_user_credentials(username, password)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/app/security/auth.py", line 15, in verify_user_credentials
-    user = User.query.filter_by(username=username).first()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2759, in first
-    return self.limit(1)._iter().first()  # type: ignore
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2857, in _iter
-    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
-                                                  ^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2351, in execute
-    return self._execute_internal(
-           ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2249, in _execute_internal
-    result: Result[Any] = compile_state_cls.orm_execute_statement(
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
-    result = conn.execute(
-             ^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1419, in execute
-    return meth(
-           ^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 527, in _execute_on_connection
-    return connection._execute_clauseelement(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1641, in _execute_clauseelement
-    ret = self._execute_context(
-          ^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
-    return self._exec_single_context(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
-    self._handle_dbapi_exception(
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2363, in _handle_dbapi_exception
-    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
-    self.dialect.do_execute(
-  File "/home/jules/.pyenv/versions/3.12.12/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
-    cursor.execute(statement, parameters)
-sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: user
-[SQL: SELECT user.id AS user_id, user.username AS user_username, user.password_hash AS user_password_hash
-FROM user
-WHERE user.username = ?
- LIMIT ? OFFSET ?]
-[parameters: ('admin', 1, 0)]
-(Background on this error at: https://sqlalche.me/e/20/e3q8)
-[2026-02-26 23:57:52,626] ERROR in app: Database Error in inject_settings: (sqlite3.OperationalError) no such table: site_settings
-[SQL: SELECT site_settings.id AS site_settings_id, site_settings.site_title AS site_settings_site_title, site_settings.meta_description AS site_settings_meta_description, site_settings.contact_email AS site_settings_contact_email, site_settings.phone AS site_settings_phone, site_settings.address AS site_settings_address, site_settings.header_logo AS site_settings_header_logo, site_settings.footer_logo AS site_settings_footer_logo, site_settings.favicon AS site_settings_favicon, site_settings.custom_head_code AS site_settings_custom_head_code, site_settings.telegram_bot_token AS site_settings_telegram_bot_token, site_settings.telegram_chat_id AS site_settings_telegram_chat_id, site_settings.linkedin_url AS site_settings_linkedin_url, site_settings.twitter_url AS site_settings_twitter_url, site_settings.facebook_url AS site_settings_facebook_url, site_settings.map_latitude AS site_settings_map_latitude, site_settings.map_longitude AS site_settings_map_longitude, site_settings.privacy_policy AS site_settings_privacy_policy, site_settings.terms_conditions AS site_settings_terms_conditions
-FROM site_settings
- LIMIT ? OFFSET ?]
-[parameters: (1, 0)]
-(Background on this error at: https://sqlalche.me/e/20/e3q8)
-127.0.0.1 - - [26/Feb/2026 23:57:52] "[35m[1mPOST /admin/login HTTP/1.1[0m" 500 -
-127.0.0.1 - - [26/Feb/2026 23:57:52] "[32mGET /admin/seo HTTP/1.1[0m" 302 -
-127.0.0.1 - - [26/Feb/2026 23:57:52] "GET /statics/css/style.css HTTP/1.1" 200 -
-[2026-02-26 23:57:52,679] ERROR in app: Database Error in inject_settings: (sqlite3.OperationalError) no such table: site_settings
-[SQL: SELECT site_settings.id AS site_settings_id, site_settings.site_title AS site_settings_site_title, site_settings.meta_description AS site_settings_meta_description, site_settings.contact_email AS site_settings_contact_email, site_settings.phone AS site_settings_phone, site_settings.address AS site_settings_address, site_settings.header_logo AS site_settings_header_logo, site_settings.footer_logo AS site_settings_footer_logo, site_settings.favicon AS site_settings_favicon, site_settings.custom_head_code AS site_settings_custom_head_code, site_settings.telegram_bot_token AS site_settings_telegram_bot_token, site_settings.telegram_chat_id AS site_settings_telegram_chat_id, site_settings.linkedin_url AS site_settings_linkedin_url, site_settings.twitter_url AS site_settings_twitter_url, site_settings.facebook_url AS site_settings_facebook_url, site_settings.map_latitude AS site_settings_map_latitude, site_settings.map_longitude AS site_settings_map_longitude, site_settings.privacy_policy AS site_settings_privacy_policy, site_settings.terms_conditions AS site_settings_terms_conditions
-FROM site_settings
- LIMIT ? OFFSET ?]
-[parameters: (1, 0)]
-(Background on this error at: https://sqlalche.me/e/20/e3q8)
-127.0.0.1 - - [26/Feb/2026 23:57:52] "GET /admin/login?next=/admin/seo HTTP/1.1" 200 -
-127.0.0.1 - - [26/Feb/2026 23:57:52] "GET /statics/js/script.js HTTP/1.1" 200 -
-[2026-02-26 23:58:49,313] ERROR in app: Database Error in inject_settings: SiteSettings table is empty
-127.0.0.1 - - [26/Feb/2026 23:58:49] "GET /admin/login HTTP/1.1" 200 -
-127.0.0.1 - - [26/Feb/2026 23:58:50] "[32mPOST /admin/login HTTP/1.1[0m" 302 -
-[2026-02-26 23:58:50,079] ERROR in app: Database Error in inject_settings: SiteSettings table is empty
-127.0.0.1 - - [26/Feb/2026 23:58:50] "GET /admin/dashboard HTTP/1.1" 200 -
-[2026-02-26 23:58:50,134] ERROR in app: Database Error in inject_settings: SiteSettings table is empty
-127.0.0.1 - - [26/Feb/2026 23:58:50] "GET /admin/seo HTTP/1.1" 200 -
-127.0.0.1 - - [26/Feb/2026 23:58:50] "[32mGET /statics//statics/uploads/logos/og-default.jpg HTTP/1.1[0m" 308 -
-[2026-02-26 23:58:50,168] ERROR in app: Database Error in inject_settings: SiteSettings table is empty
-127.0.0.1 - - [26/Feb/2026 23:58:50] "[33mGET /statics/statics/uploads/logos/og-default.jpg HTTP/1.1[0m" 404 -
-127.0.0.1 - - [26/Feb/2026 23:58:50] "[32mPOST /admin/seo HTTP/1.1[0m" 302 -
-[2026-02-26 23:58:50,832] ERROR in app: Database Error in inject_settings: SiteSettings table is empty
-127.0.0.1 - - [26/Feb/2026 23:58:50] "GET /admin/seo HTTP/1.1" 200 -
-[2026-02-26 23:58:50,850] ERROR in app: Database Error in inject_settings: SiteSettings table is empty
-127.0.0.1 - - [26/Feb/2026 23:58:50] "GET /admin/seo HTTP/1.1" 200 -
-[2026-02-26 23:58:50,852] ERROR in app: Database Error in inject_settings: SiteSettings table is empty
-127.0.0.1 - - [26/Feb/2026 23:58:50] "[33mGET /statics/statics/uploads/logos/og-default.jpg HTTP/1.1[0m" 404 -
-[2026-02-26 23:58:51,048] ERROR in app: Database Error in inject_settings: SiteSettings table is empty
-127.0.0.1 - - [26/Feb/2026 23:58:51] "[33mGET /statics/statics/uploads/logos/og-default.jpg HTTP/1.1[0m" 404 -
+127.0.0.1 - - [27/Feb/2026 08:23:33] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [27/Feb/2026 08:23:33] "GET /statics/css/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [27/Feb/2026 08:23:33] "GET /statics/js/script.js HTTP/1.1" 200 -
