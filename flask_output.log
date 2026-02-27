@@ -1,17 +1,14 @@
- * Serving Flask app 'app'
- * Debug mode: on
+ * Serving Flask app 'app.py'
+ * Debug mode: off
 [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:5000
 [33mPress CTRL+C to quit[0m
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 410-907-091
-[2026-02-27 08:23:33,447] ERROR in app: Database Error in inject_settings: (sqlite3.OperationalError) no such table: site_settings
+[2026-02-27 08:41:40,413] ERROR in app: Database Error in inject_settings: (sqlite3.OperationalError) no such table: site_settings
 [SQL: SELECT site_settings.id AS site_settings_id, site_settings.site_title AS site_settings_site_title, site_settings.meta_description AS site_settings_meta_description, site_settings.contact_email AS site_settings_contact_email, site_settings.phone AS site_settings_phone, site_settings.address AS site_settings_address, site_settings.header_logo AS site_settings_header_logo, site_settings.footer_logo AS site_settings_footer_logo, site_settings.favicon AS site_settings_favicon, site_settings.custom_head_code AS site_settings_custom_head_code, site_settings.telegram_bot_token AS site_settings_telegram_bot_token, site_settings.telegram_chat_id AS site_settings_telegram_chat_id, site_settings.linkedin_url AS site_settings_linkedin_url, site_settings.twitter_url AS site_settings_twitter_url, site_settings.facebook_url AS site_settings_facebook_url, site_settings.map_latitude AS site_settings_map_latitude, site_settings.map_longitude AS site_settings_map_longitude, site_settings.privacy_policy AS site_settings_privacy_policy, site_settings.terms_conditions AS site_settings_terms_conditions
 FROM site_settings
  LIMIT ? OFFSET ?]
 [parameters: (1, 0)]
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
-127.0.0.1 - - [27/Feb/2026 08:23:33] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - [27/Feb/2026 08:23:33] "GET /statics/css/style.css HTTP/1.1" 200 -
-127.0.0.1 - - [27/Feb/2026 08:23:33] "GET /statics/js/script.js HTTP/1.1" 200 -
+127.0.0.1 - - [27/Feb/2026 08:41:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [27/Feb/2026 08:41:40] "GET /statics/css/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [27/Feb/2026 08:41:40] "GET /statics/js/script.js HTTP/1.1" 200 -
