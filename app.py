@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, current_app
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
@@ -139,6 +139,16 @@ def create_app():
     from flask import abort
     from flask_login import current_user
     from user_agents import parse
+    from utils.i18n import get_locale, setup_i18n
+
+    # Set up i18n
+    setup_i18n(app)
+
+    @app.before_request
+    def handle_language():
+        # Call get_locale to ensure session gets updated on every request
+        # if there's a lang parameter
+        get_locale()
 
     # 1. Banned IP Middleware
     @app.before_request

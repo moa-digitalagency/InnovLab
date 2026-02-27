@@ -1,0 +1,16 @@
+{
+    "welcome": "Welcome",
+    "home": "Home",
+    "about": "Our DNA",
+    "services": "Our Expertise",
+    "portfolio": "Our Fortresses",
+    "contact": "Contact",
+    "join": "Join the Adventure",
+    "admin_panel": "Admin Panel",
+    "login": "Login",
+    "logout": "Logout",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "success_message": "Operation successful",
+    "error_message": "An error occurred"
+}
