@@ -952,50 +952,59 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- CARTE GAUCHE (Standard 1) -->
+            {% if standard_tests and standard_tests|length > 0 %}
             <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col relative reveal delay-100">
                 <div class="absolute top-6 right-8 text-slate-100 font-serif text-8xl leading-none opacity-50 select-none group-hover:scale-110 group-hover:text-[#30a192]/10 transition-all duration-500">"</div>
                 <div class="relative z-10 mb-8 flex-grow">
-                    <span class="inline-block px-3 py-1 rounded-full bg-[#30a192]/10 text-[#30a192] text-[10px] font-bold tracking-widest uppercase mb-6 border border-[#30a192]/20">Founder</span>
-                    <p class="text-[#064060]/80 italic leading-relaxed md:text-lg">"L'infrastructure de Shabaka nous a permis de passer de l'idée au produit en 4 mois. C'est l'accélérateur ultime pour tout fondateur tech en Afrique."</p>
+                    <span class="inline-block px-3 py-1 rounded-full bg-[#30a192]/10 text-[#30a192] text-[10px] font-bold tracking-widest uppercase mb-6 border border-[#30a192]/20">Témoignage</span>
+                    <p class="text-[#064060]/80 italic leading-relaxed md:text-lg">"{{ standard_tests[0].content }}"</p>
                 </div>
                 <div class="mt-auto pt-6 border-t border-slate-100 flex items-center gap-4 relative z-10">
-                    <div class="w-12 h-12 rounded-full bg-[#1d5865] text-[#ffffff] flex items-center justify-center font-bold text-sm shrink-0 shadow-md">DK</div>
+                    <div class="w-12 h-12 rounded-full bg-[#1d5865] text-[#ffffff] flex items-center justify-center font-bold text-sm shrink-0 shadow-md">{{ standard_tests[0].author_name[:2] | upper }}</div>
                     <div>
-                        <h4 class="font-bold text-[#1d5865]">Dr. Kalonji</h4>
-                        <p class="text-xs text-[#076D6D]">Founder, AAPCMLU AI</p>
+                        <h4 class="font-bold text-[#1d5865]">{{ standard_tests[0].author_name }}</h4>
+                        <p class="text-xs text-[#076D6D]">{{ standard_tests[0].author_title }}</p>
                     </div>
                 </div>
             </div>
+            {% endif %}
 
-            <div class="bg-gradient-to-br from-[#1d5865] to-[#15344b] rounded-[24px] p-8 shadow-2xl hover:shadow-[#1d5865]/30 transition-all duration-300 group hover:-translate-y-2 flex flex-col relative md:-mt-4 md:mb-4 reveal delay-200">
+            <!-- CARTE CENTRALE (Featured - Bleu) -->
+            {% if featured_test %}
+            <div class="bg-[#064060] rounded-[24px] p-8 shadow-xl transform hover:-translate-y-2 transition-all duration-300 group flex flex-col relative md:-mt-4 md:mb-4 reveal delay-200">
                 <div class="absolute top-6 right-8 text-[#ffffff]/5 font-serif text-8xl leading-none select-none group-hover:scale-110 group-hover:text-[#ffffff]/10 transition-all duration-500">"</div>
                 <div class="relative z-10 mb-8 flex-grow">
-                    <span class="inline-block px-3 py-1 rounded-full bg-[#ffffff]/10 text-[#ffffff] text-[10px] font-bold tracking-widest uppercase mb-6 border border-[#ffffff]/20 backdrop-blur-sm">Corporate</span>
-                    <p class="text-[#ffffff]/90 italic leading-relaxed md:text-lg font-light">"Une collaboration fluide. Shabaka nous a connectés aux technologies de rupture dont nous avions besoin pour moderniser nos processus internes."</p>
+                    <span class="inline-block px-3 py-1 rounded-full bg-[#ffffff]/10 text-[#ffffff] text-[10px] font-bold tracking-widest uppercase mb-6 border border-[#ffffff]/20 backdrop-blur-sm">À la une</span>
+                    <p class="text-blue-100 italic leading-relaxed md:text-lg font-light">"{{ featured_test.content }}"</p>
                 </div>
                 <div class="mt-auto pt-6 border-t border-[#ffffff]/10 flex items-center gap-4 relative z-10">
-                    <div class="w-12 h-12 rounded-full bg-[#ffffff] text-[#1d5865] flex items-center justify-center font-bold text-sm shrink-0 shadow-lg">CT</div>
+                    <div class="w-12 h-12 rounded-full bg-[#ffffff] text-[#1d5865] flex items-center justify-center font-bold text-sm shrink-0 shadow-lg">{{ featured_test.author_name[:2] | upper }}</div>
                     <div>
-                        <h4 class="font-bold text-[#ffffff]">Directeur CTO</h4>
-                        <p class="text-xs text-[#ffffff]/60">Grand Groupe Industriel</p>
+                        <h4 class="font-bold text-[#ffffff]">{{ featured_test.author_name }}</h4>
+                        <p class="text-xs text-[#ffffff]/60">{{ featured_test.author_title }}</p>
                     </div>
                 </div>
             </div>
+            {% endif %}
 
+            <!-- CARTE DROITE (Standard 2) -->
+            {% if standard_tests and standard_tests|length > 1 %}
             <div class="bg-[#ffffff] rounded-[24px] p-8 border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-xl hover:shadow-[#30a192]/10 transition-all duration-300 group hover:-translate-y-2 flex flex-col relative reveal delay-300">
                 <div class="absolute top-6 right-8 text-slate-100 font-serif text-8xl leading-none opacity-50 select-none group-hover:scale-110 group-hover:text-[#30a192]/10 transition-all duration-500">"</div>
                 <div class="relative z-10 mb-8 flex-grow">
-                    <span class="inline-block px-3 py-1 rounded-full bg-[#30a192]/10 text-[#30a192] text-[10px] font-bold tracking-widest uppercase mb-6 border border-[#30a192]/20">Startup CEO</span>
-                    <p class="text-[#064060]/80 italic leading-relaxed md:text-lg">"Le plus précieux ? La communauté. Être entouré de fondateurs qui font face aux mêmes défis change tout. On grandit ensemble."</p>
+                    <span class="inline-block px-3 py-1 rounded-full bg-[#30a192]/10 text-[#30a192] text-[10px] font-bold tracking-widest uppercase mb-6 border border-[#30a192]/20">Témoignage</span>
+                    <p class="text-[#064060]/80 italic leading-relaxed md:text-lg">"{{ standard_tests[1].content }}"</p>
                 </div>
                 <div class="mt-auto pt-6 border-t border-slate-100 flex items-center gap-4 relative z-10">
-                    <div class="w-12 h-12 rounded-full bg-[#30a192] text-[#ffffff] flex items-center justify-center font-bold text-sm shrink-0 shadow-md">SL</div>
+                    <div class="w-12 h-12 rounded-full bg-[#30a192] text-[#ffffff] flex items-center justify-center font-bold text-sm shrink-0 shadow-md">{{ standard_tests[1].author_name[:2] | upper }}</div>
                     <div>
-                        <h4 class="font-bold text-[#1d5865]">Sarah L.</h4>
-                        <p class="text-xs text-[#076D6D]">CEO, LexIA Solutions</p>
+                        <h4 class="font-bold text-[#1d5865]">{{ standard_tests[1].author_name }}</h4>
+                        <p class="text-xs text-[#076D6D]">{{ standard_tests[1].author_title }}</p>
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
     </section>
 {% endblock %}
