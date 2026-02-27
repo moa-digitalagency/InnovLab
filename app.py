@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, current_app
 from flask_login import LoginManager
+from flask_babel import Babel
 from flask_wtf.csrf import CSRFProtect
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -71,9 +72,24 @@ class MockSeoSettings:
     meta_desc = None
     keywords = None
 
+def get_locale():
+    lang = request.args.get('lang')
+    if lang and lang in current_app.config['LANGUAGES']:
+        session['lang'] = lang
+        return lang
+
+    if 'lang' in session and session['lang'] in current_app.config['LANGUAGES']:
+        return session['lang']
+
+    return request.accept_languages.best_match(current_app.config['LANGUAGES']) or 'fr'
+
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='statics')
     app.config.from_object(Config)
+
+    # i18n Configuration
+    babel = Babel()
+    babel.init_app(app, locale_selector=get_locale)
 
     # Security Configuration
     csrf = CSRFProtect(app)
@@ -221,7 +237,8 @@ def create_app():
             seo_settings=seo_settings,
             page_seo=page_seo,
             whatsapp_number=app.config.get('WHATSAPP_NUMBER', ''),
-            consultation_url=app.config.get('CONSULTATION_URL', '')
+            consultation_url=app.config.get('CONSULTATION_URL', ''),
+            get_locale=get_locale
         )
 
     @app.errorhandler(404)
