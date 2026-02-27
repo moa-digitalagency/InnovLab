@@ -9,6 +9,7 @@
 </div>
 
 <form method="POST" enctype="multipart/form-data" class="pb-12 space-y-8">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
     <!-- GLOBAL SEO CONFIGURATION -->
     <div class="bg-gray-800 rounded-xl p-8 border border-gray-700 shadow-lg relative overflow-hidden">

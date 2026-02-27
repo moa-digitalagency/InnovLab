@@ -19,6 +19,8 @@
                 </div>
 
                 <form action="{{ url_for('forms.founder_submit') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input type="text" name="website_url_check" class="hidden" autocomplete="off" tabindex="-1">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Nom complet -->
                         <div class="space-y-2">

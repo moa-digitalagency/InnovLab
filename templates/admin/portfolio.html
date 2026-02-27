@@ -61,6 +61,7 @@
                                 <span class="material-symbols-outlined">edit</span>
                             </a>
                             <form action="{{ url_for('portfolio.delete_portfolio', id=project.id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');" class="inline-block">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                 <button type="submit" class="p-2 text-red-400 hover:bg-red-900/30 rounded-lg transition-colors" title="Supprimer">
                                     <span class="material-symbols-outlined">delete</span>
                                 </button>

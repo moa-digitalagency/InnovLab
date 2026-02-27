@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request
 from flask_login import LoginManager
+from flask_wtf.csrf import CSRFProtect
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+from flask_talisman import Talisman
 from config.settings import Config
 from models import db, User
 from dotenv import load_dotenv
@@ -68,6 +72,18 @@ def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='statics')
     app.config.from_object(Config)
 
+    # Security Configuration
+    csrf = CSRFProtect(app)
+    # Enable HTTPS force only if not in debug mode
+    Talisman(app, content_security_policy=None, force_https=not app.debug)
+
+    limiter = Limiter(
+        key_func=get_remote_address,
+        app=app,
+        default_limits=["200 per day", "50 per hour"],
+        storage_uri="memory://"
+    )
+
     # Ensure upload directories exist (Anti-Crash 500)
     create_upload_directories(app)
 
@@ -85,6 +101,8 @@ def create_app():
     app.register_blueprint(main_bp)
 
     from routes.public.forms import forms_bp
+    # Apply stricter limits to forms
+    limiter.limit("5 per minute")(forms_bp)
     app.register_blueprint(forms_bp)
 
     from routes.admin.auth import auth_bp
@@ -100,14 +118,29 @@ def create_app():
     app.register_blueprint(settings_bp)
 
     from models.settings import SiteSettings, SeoSettings
+    from models.security_logs import BannedIP
+    from flask import abort
+
+    # Banned IP Middleware
+    @app.before_request
+    def block_banned_ips():
+        try:
+            ip = request.remote_addr
+            if ip and BannedIP.query.filter_by(ip_address=ip).first():
+                abort(403)
+        except OperationalError:
+            # Database might not be ready
+            pass
 
     # Context Processor for injecting site and SEO settings into all templates
     @app.context_processor
     def inject_settings():
         try:
             site_settings = SiteSettings.query.first()
+            # If table exists but empty, provide mock.
+            # If table doesn't exist (e.g. init db issues in some envs), catch OpError.
             if site_settings is None:
-                raise ValueError("SiteSettings table is empty")
+                site_settings = MockSiteSettings()
 
             # Fetch Global SEO Settings (index page acts as global)
             global_seo = SeoSettings.query.filter_by(page_name='index').first()

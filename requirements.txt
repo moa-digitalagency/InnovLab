@@ -7,3 +7,6 @@ Flask-Bcrypt
 gunicorn
 requests
 email-validator
+Flask-WTF
+Flask-Limiter
+Flask-Talisman

@@ -179,6 +179,8 @@
 
 
                 <form action="{{ url_for('forms.contact_submit') }}" method="POST" class="flex gap-2">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input type="text" name="website_url_check" class="hidden" autocomplete="off" tabindex="-1">
                     <input type="email" name="email" placeholder="Votre email" class="bg-[#1d5865]/30 border border-[#1d5865]/50 rounded-lg px-4 py-2.5 text-sm w-full focus:outline-none focus:border-[#30a192] text-[#ffffff] placeholder-[#8f8e8e] transition-colors" required>
                     <button type="submit" class="bg-[#30a192] hover:bg-[#258073] text-[#ffffff] rounded-lg px-4 py-2.5 transition-colors flex items-center justify-center shrink-0">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
