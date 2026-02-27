@@ -52,7 +52,9 @@ def sitemap_xml():
         ('main.contact_us', 0.6),
         ('main.startup', 0.9),
         ('main.founder', 0.9),
-        ('main.investor', 0.9)
+        ('main.investor', 0.9),
+        ('main.privacy_policy', 0.5),
+        ('main.terms_conditions', 0.5)
     ]
 
     sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>']

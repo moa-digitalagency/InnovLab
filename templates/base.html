@@ -6,7 +6,7 @@
 
     <title>{% block title %}{{ page_seo.title_tag if page_seo and page_seo.title_tag else seo_settings.meta_title_default }}{% endblock %}</title>
     <meta name="description" content="{% block meta_description %}{{ page_seo.meta_desc if page_seo and page_seo.meta_desc else seo_settings.meta_description_default }}{% endblock %}">
-    <meta name="keywords" content="{{ seo_settings.meta_keywords_default }}">
+    <meta name="keywords" content="{{ page_seo.keywords if page_seo and page_seo.keywords else seo_settings.meta_keywords_default }}">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.url }}">

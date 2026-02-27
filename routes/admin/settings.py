@@ -11,7 +11,10 @@ settings_bp = Blueprint('settings', __name__, url_prefix='/admin')
 @login_required
 @admin_required
 def seo():
-    pages = ['index', 'founder', 'startup', 'investor']
+    pages = [
+        'index', 'about', 'services', 'portfolio', 'contact_us',
+        'founder', 'startup', 'investor', 'privacy_policy', 'terms_conditions'
+    ]
 
     # Ensure defaults exist
     entries = SeoSettings.query.all()
@@ -22,8 +25,9 @@ def seo():
         if page not in existing_pages:
             new_seo = SeoSettings(
                 page_name=page,
-                title_tag=f'Shabaka - {page.capitalize()}',
-                meta_desc='Shabaka InnovLab - Le Catalyseur de la Souveraineté Technologique'
+                title_tag=f'Shabaka - {page.replace("_", " ").capitalize()}',
+                meta_desc='Shabaka InnovLab - Le Catalyseur de la Souveraineté Technologique',
+                keywords=''
             )
             db.session.add(new_seo)
             needs_commit = True
@@ -66,8 +70,11 @@ def seo():
             if seo_entry:
                 title = request.form.get(f'title_{page}')
                 desc = request.form.get(f'desc_{page}')
-                if title: seo_entry.title_tag = title
-                if desc: seo_entry.meta_desc = desc
+                keywords = request.form.get(f'keywords_{page}')
+
+                if title is not None: seo_entry.title_tag = title
+                if desc is not None: seo_entry.meta_desc = desc
+                if keywords is not None: seo_entry.keywords = keywords
 
         db.session.commit()
         flash('Paramètres SEO mis à jour.', 'success')
