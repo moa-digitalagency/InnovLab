@@ -30,8 +30,16 @@ class SiteSettings(db.Model):
     map_longitude = db.Column(db.String(20), default='-8.0063')
 
     # Legal Pages
-    privacy_policy = db.Column(db.Text)
-    terms_conditions = db.Column(db.Text)
+    privacy_policy = db.Column(db.JSON)
+    terms_conditions = db.Column(db.JSON)
+
+    def get_legal_text(self, field, lang):
+        value = getattr(self, field)
+        if not value:
+            return ""
+        if isinstance(value, dict):
+            return value.get(lang) or value.get('fr', "")
+        return value
 
     def __repr__(self):
         return f'<SiteSettings {self.site_title}>'

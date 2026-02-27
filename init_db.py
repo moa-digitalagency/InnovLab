@@ -26,10 +26,16 @@ def check_and_migrate():
             ('facebook_url', 'VARCHAR(256)'),
             ('map_latitude', "VARCHAR(20) DEFAULT '31.6295'"),
             ('map_longitude', "VARCHAR(20) DEFAULT '-8.0063'"),
-            ('privacy_policy', 'TEXT'),
-            ('terms_conditions', 'TEXT'),
+            ('privacy_policy', 'JSON'),
+            ('terms_conditions', 'JSON'),
             ('notify_on_visit', f"BOOLEAN {bool_default}"),
             ('last_telegram_greeting_date', 'DATE')
+        ],
+        'portfolio_project': [
+            ('title', 'JSON'),
+            ('short_desc', 'JSON'),
+            ('full_desc', 'JSON'),
+            ('category', 'JSON')
         ],
         'seo_settings': [
             ('meta_title_default', 'VARCHAR(256)'),
