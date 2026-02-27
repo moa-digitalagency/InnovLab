@@ -3,6 +3,7 @@ from services.submission_service import SubmissionService
 from services.notification_service import send_telegram_notification
 from models import db
 from models.security_logs import SecurityLog
+import json
 
 forms_bp = Blueprint('forms', __name__)
 
@@ -28,13 +29,22 @@ def check_honeypot():
             current_app.logger.error(f"Failed to log security event: {e}")
             db.session.rollback()
 
+        # Construct Reply Markup for Ban
+        reply_markup = {
+            "inline_keyboard": [
+                [
+                    {"text": "🚫 Bannir cette IP", "callback_data": f"ban_ip_{ip}"}
+                ]
+            ]
+        }
+
         # Send alert
         send_telegram_notification(
-            f"🚨 <b>SPAM DETECTED</b>\n"
-            f"Honeypot triggered by IP: <code>{ip}</code>\n"
+            f"🚨 *SPAM DETECTED*\n"
+            f"Honeypot triggered by IP: `{ip}`\n"
             f"User-Agent: {request.user_agent.string}\n"
             f"Action: Block proposed.",
-            ip_to_ban=ip
+            reply_markup=reply_markup
         )
 
         return True
