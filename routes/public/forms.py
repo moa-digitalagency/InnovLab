@@ -1,11 +1,46 @@
 from flask import Blueprint, request, flash, redirect, url_for, current_app
 from services.submission_service import SubmissionService
+from services.notification_service import send_telegram_notification
 from models import db
+from models.security_logs import SecurityLog
 
 forms_bp = Blueprint('forms', __name__)
 
+def check_honeypot():
+    """
+    Checks if the honeypot field 'website_url_check' is filled.
+    If it is, logs the attempt, sends a Telegram alert, and returns True.
+    """
+    if request.form.get('website_url_check'):
+        ip = request.remote_addr
+
+        # Log incident
+        log = SecurityLog(
+            ip_address=ip,
+            event_type='spam_honeypot',
+            description='Honeypot field filled in form submission',
+            user_agent=request.user_agent.string
+        )
+        try:
+            db.session.add(log)
+            db.session.commit()
+        except Exception as e:
+            current_app.logger.error(f"Failed to log security event: {e}")
+            db.session.rollback()
+
+        # Send alert
+        send_telegram_notification(f"🚨 **SPAM DETECTED**\nHoneypot triggered by IP: `{ip}`\nUser-Agent: {request.user_agent.string}\nAction: Block proposed.")
+
+        return True
+    return False
+
 @forms_bp.route('/contact', methods=['POST'])
 def contact_submit():
+    # Honeypot Check
+    if check_honeypot():
+        flash('Merci pour votre inscription!', 'success') # Fake success
+        return redirect(url_for('main.index'))
+
     email = request.form.get('email')
     if email:
         try:
@@ -22,6 +57,11 @@ def contact_submit():
 
 @forms_bp.route('/contact-us', methods=['POST'])
 def contact_us_submit():
+    # Honeypot Check
+    if check_honeypot():
+        flash('Votre message a été envoyé avec succès!', 'success') # Fake success
+        return redirect(url_for('main.contact_us'))
+
     try:
         result = SubmissionService.process_contact_message(request.form)
         if result is None:
@@ -36,6 +76,11 @@ def contact_us_submit():
 
 @forms_bp.route('/candidature/founder', methods=['POST'])
 def founder_submit():
+    # Honeypot Check
+    if check_honeypot():
+        flash('Votre candidature a été envoyée avec succès!', 'success') # Fake success
+        return redirect(url_for('main.index'))
+
     try:
         file_pitch = request.files.get('file_pitch')
         result = SubmissionService.process_founder_application(request.form, file_pitch)
@@ -51,6 +96,11 @@ def founder_submit():
 
 @forms_bp.route('/candidature/startup', methods=['POST'])
 def startup_submit():
+    # Honeypot Check
+    if check_honeypot():
+        flash('Votre candidature a été envoyée avec succès!', 'success') # Fake success
+        return redirect(url_for('main.index'))
+
     try:
         file_pitch = request.files.get('file_pitch')
         result = SubmissionService.process_startup_application(request.form, file_pitch)
@@ -66,6 +116,11 @@ def startup_submit():
 
 @forms_bp.route('/candidature/investor', methods=['POST'])
 def investor_submit():
+    # Honeypot Check
+    if check_honeypot():
+        flash('Votre demande a été envoyée avec succès!', 'success') # Fake success
+        return redirect(url_for('main.index'))
+
     try:
         file_intent = request.files.get('file_intent')
         result = SubmissionService.process_investor_application(request.form, file_intent)
