@@ -52,6 +52,8 @@ class MockSiteSettings:
     facebook_url = None
     map_latitude = '31.6295'
     map_longitude = '-8.0063'
+    notify_on_visit = False
+    last_telegram_greeting_date = None
 
 class MockSeoSettings:
     meta_title_default = "Shabaka InnovLab"
@@ -130,14 +132,14 @@ def create_app():
     from models.settings import SiteSettings, SeoSettings
     from models.security_logs import BannedIP
     from models.analytics import VisitAnalytics
+    from services.notification_service import notify_visit
     from flask import abort
     from flask_login import current_user
-    import user_agents
+    from user_agents import parse
 
-    # Banned IP and Analytics Middleware
+    # 1. Banned IP Middleware
     @app.before_request
-    def handle_request_security_and_analytics():
-        # 1. Banned IP Check
+    def block_banned_ips():
         try:
             ip = request.remote_addr
             if ip and BannedIP.query.filter_by(ip_address=ip).first():
@@ -146,41 +148,36 @@ def create_app():
             # Database might not be ready
             pass
 
-        # 2. Analytics Tracking
+    # 2. Analytics Tracking Middleware
+    @app.before_request
+    def track_visitor():
+        # Ignorer les fichiers statiques et l'espace admin
+        if request.path.startswith('/static') or request.path.startswith('/admin'):
+            return
+
         try:
-            # Skip for static files and admin pages
-            if request.path.startswith('/static') or request.path.startswith('/admin'):
-                return
+            ua_string = request.user_agent.string
+            user_agent = parse(ua_string)
+            device = 'mobile' if user_agent.is_mobile else 'desktop'
+            ip = request.remote_addr
 
-            # Skip for authenticated admin users
-            if current_user.is_authenticated:
-                return
-
-            # Parse User Agent
-            ua_string = request.headers.get('User-Agent', '')
-            user_agent = user_agents.parse(ua_string)
-
-            # Determine Device Type
-            device_type = 'desktop'
-            if user_agent.is_mobile:
-                device_type = 'mobile'
-            elif user_agent.is_tablet:
-                device_type = 'tablet'
-
-            # Create Visit Record
+            # Enregistrer en base
             visit = VisitAnalytics(
-                ip_address=request.remote_addr,
+                ip_address=ip,
                 user_agent=ua_string,
                 path=request.path,
-                referrer=request.referrer,
-                device_type=device_type
+                referrer=request.referrer or 'Direct',
+                device_type=device
             )
             db.session.add(visit)
             db.session.commit()
 
+            # Notification optionnelle
+            settings = SiteSettings.query.first()
+            if settings and getattr(settings, 'notify_on_visit', False):
+                notify_visit(ip, request.path)
         except Exception as e:
-            # Silently fail analytics to not disrupt user experience
-            app.logger.error(f"Analytics Error: {e}")
+            app.logger.error(f"Tracking error: {e}")
             db.session.rollback()
 
     # Context Processor for injecting site and SEO settings into all templates
