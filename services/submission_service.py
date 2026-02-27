@@ -5,7 +5,6 @@ from models import db
 from services.file_service import save_file
 from services.notification_service import send_telegram_notification
 from flask import current_app
-import html
 
 class SubmissionService:
     @staticmethod
@@ -53,11 +52,11 @@ class SubmissionService:
         # Telegram Notification
         try:
             msg = (
-                f"🟢 <b>NOUVEAU MESSAGE DE CONTACT</b>\n\n"
-                f"👤 <b>Nom:</b> {html.escape(name)}\n"
-                f"📧 <b>Email:</b> {html.escape(email)}\n"
-                f"📝 <b>Sujet:</b> {html.escape(subject)}\n\n"
-                f"💬 <b>Message:</b>\n{html.escape(message)}"
+                f"🟢 *NOUVEAU MESSAGE DE CONTACT*\n\n"
+                f"👤 *Nom:* {name}\n"
+                f"📧 *Email:* {email}\n"
+                f"📝 *Sujet:* {subject}\n\n"
+                f"💬 *Message:*\n{message}"
             )
             send_telegram_notification(msg)
         except Exception as e:
@@ -102,11 +101,11 @@ class SubmissionService:
         # Telegram Notification
         try:
             msg = (
-                f"🚀 <b>Nouvelle Candidature Founder !</b>\n\n"
-                f"👤 <b>Nom:</b> {html.escape(nom)}\n"
-                f"💡 <b>Projet:</b> {html.escape(projet_name)}\n"
-                f"📧 <b>Email:</b> {html.escape(email)}\n"
-                f"🎯 <b>Besoin:</b> {html.escape(primary_need)}"
+                f"🚀 *Nouvelle Candidature Founder !*\n\n"
+                f"👤 *Nom:* {nom}\n"
+                f"💡 *Projet:* {projet_name}\n"
+                f"📧 *Email:* {email}\n"
+                f"🎯 *Besoin:* {primary_need}"
             )
             send_telegram_notification(msg)
         except Exception as e:
@@ -160,11 +159,11 @@ class SubmissionService:
         # Telegram Notification
         try:
             msg = (
-                f"🚀 <b>Nouvelle Candidature Startup !</b>\n\n"
-                f"🏢 <b>Startup:</b> {html.escape(nom_startup)}\n"
-                f"🏭 <b>Secteur:</b> {html.escape(secteur)}\n"
-                f"📧 <b>Email:</b> {html.escape(email)}\n"
-                f"📈 <b>Stage:</b> {html.escape(stage)}"
+                f"🚀 *Nouvelle Candidature Startup !*\n\n"
+                f"🏢 *Startup:* {nom_startup}\n"
+                f"🏭 *Secteur:* {secteur}\n"
+                f"📧 *Email:* {email}\n"
+                f"📈 *Stage:* {stage}"
             )
             send_telegram_notification(msg)
         except Exception as e:
@@ -214,11 +213,11 @@ class SubmissionService:
         # Telegram Notification
         try:
             msg = (
-                f"💰 <b>Nouvelle Demande Investisseur !</b>\n\n"
-                f"👤 <b>Nom:</b> {html.escape(nom)}\n"
-                f"🏷️ <b>Type:</b> {html.escape(type_investisseur)}\n"
-                f"📧 <b>Email:</b> {html.escape(email)}\n"
-                f"💵 <b>Ticket:</b> {html.escape(ticket_moyen)}"
+                f"💰 *Nouvelle Demande Investisseur !*\n\n"
+                f"👤 *Nom:* {nom}\n"
+                f"🏷️ *Type:* {type_investisseur}\n"
+                f"📧 *Email:* {email}\n"
+                f"💵 *Ticket:* {ticket_moyen}"
             )
             send_telegram_notification(msg)
         except Exception as e:
