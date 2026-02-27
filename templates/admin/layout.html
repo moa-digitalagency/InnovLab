@@ -45,6 +45,18 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ url_for('analytics.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'analytics.index' else '' }}">
+                        <span class="material-symbols-outlined">show_chart</span>
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('security.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'security.index' else '' }}">
+                        <span class="material-symbols-outlined">security</span>
+                        <span>Sécurité</span>
+                    </a>
+                </li>
                 <li class="pt-4 pb-2 text-xs font-semibold text-blue-100/60 uppercase tracking-wider px-4">Gestion</li>
                 <li>
                     <a href="{{ url_for('admin.founders') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'admin.founders' else '' }}">
