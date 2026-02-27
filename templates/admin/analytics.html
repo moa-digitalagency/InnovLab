@@ -1,0 +1,201 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="mb-8 flex items-center justify-between">
+    <div>
+        <h2 class="text-3xl font-bold text-white">Analytics</h2>
+        <p class="text-blue-100/80 mt-1">Statistiques de visite et comportement des utilisateurs.</p>
+    </div>
+
+    <!-- Period Filter -->
+    <div class="flex items-center gap-2 bg-gray-800 p-1 rounded-lg border border-gray-700">
+        <a href="{{ url_for('analytics.index', period=1) }}" class="px-4 py-2 rounded-md text-sm font-medium transition-colors {{ 'bg-teal-600 text-white shadow-lg' if period == 1 else 'text-blue-100/60 hover:text-white hover:bg-gray-700' }}">Aujourd'hui</a>
+        <a href="{{ url_for('analytics.index', period=7) }}" class="px-4 py-2 rounded-md text-sm font-medium transition-colors {{ 'bg-teal-600 text-white shadow-lg' if period == 7 else 'text-blue-100/60 hover:text-white hover:bg-gray-700' }}">7 jours</a>
+        <a href="{{ url_for('analytics.index', period=30) }}" class="px-4 py-2 rounded-md text-sm font-medium transition-colors {{ 'bg-teal-600 text-white shadow-lg' if period == 30 else 'text-blue-100/60 hover:text-white hover:bg-gray-700' }}">30 jours</a>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+    <!-- Visits Over Time Chart -->
+    <div class="lg:col-span-2 bg-gray-800 rounded-xl border border-gray-700 shadow-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-teal-500">show_chart</span>
+            Évolution des Visites
+        </h3>
+        <div class="relative h-80 w-full">
+            <canvas id="visitsChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Device Distribution Chart -->
+    <div class="bg-gray-800 rounded-xl border border-gray-700 shadow-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-teal-500">devices</span>
+            Répartition Appareils
+        </h3>
+        <div class="relative h-64 w-full flex items-center justify-center">
+            <canvas id="devicesChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+    <!-- Top Pages Table -->
+    <div class="bg-gray-800 rounded-xl border border-gray-700 shadow-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-teal-500">pages</span>
+            Top 10 Pages Visitées
+        </h3>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+                <thead>
+                    <tr class="border-b border-gray-700 text-blue-100/60">
+                        <th class="py-3 px-4 font-medium">Page</th>
+                        <th class="py-3 px-4 font-medium text-right">Vues</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-700">
+                    {% for page in top_pages %}
+                    <tr class="hover:bg-gray-700/50 transition-colors">
+                        <td class="py-3 px-4 text-white truncate max-w-xs">{{ page[0] }}</td>
+                        <td class="py-3 px-4 text-right font-mono text-teal-400">{{ page[1] }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="2" class="py-8 text-center text-blue-100/40">Aucune donnée disponible</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Top Referrers Table -->
+    <div class="bg-gray-800 rounded-xl border border-gray-700 shadow-lg p-6">
+        <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-teal-500">link</span>
+            Top Referrers
+        </h3>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+                <thead>
+                    <tr class="border-b border-gray-700 text-blue-100/60">
+                        <th class="py-3 px-4 font-medium">Source</th>
+                        <th class="py-3 px-4 font-medium text-right">Visites</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-700">
+                    {% for ref in top_referrers %}
+                    <tr class="hover:bg-gray-700/50 transition-colors">
+                        <td class="py-3 px-4 text-white truncate max-w-xs">{{ ref[0] }}</td>
+                        <td class="py-3 px-4 text-right font-mono text-teal-400">{{ ref[1] }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="2" class="py-8 text-center text-blue-100/40">Aucune donnée disponible</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Visits Chart
+    const ctxVisits = document.getElementById('visitsChart').getContext('2d');
+    new Chart(ctxVisits, {
+        type: 'line',
+        data: {
+            labels: {{ chart_labels | tojson }},
+            datasets: [{
+                label: 'Visites',
+                data: {{ chart_values | tojson }},
+                borderColor: '#0d9488', // Teal-600
+                backgroundColor: 'rgba(13, 148, 136, 0.1)',
+                borderWidth: 2,
+                tension: 0.4,
+                fill: true,
+                pointBackgroundColor: '#0f766e',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#0f766e'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false,
+                    backgroundColor: 'rgba(17, 24, 39, 0.9)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    borderColor: '#374151',
+                    borderWidth: 1
+                }
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(75, 85, 99, 0.2)', drawBorder: false },
+                    ticks: { color: '#9ca3af', maxTicksLimit: 10 }
+                },
+                y: {
+                    grid: { color: 'rgba(75, 85, 99, 0.2)', drawBorder: false },
+                    ticks: { color: '#9ca3af', precision: 0 },
+                    beginAtZero: true
+                }
+            },
+            interaction: { mode: 'nearest', axis: 'x', intersect: false }
+        }
+    });
+
+    // Devices Chart
+    const ctxDevices = document.getElementById('devicesChart').getContext('2d');
+    const deviceLabels = {{ device_labels | tojson }};
+    const deviceValues = {{ device_values | tojson }};
+
+    // Fallback if no data
+    if (deviceValues.length === 0) {
+        ctxDevices.font = "14px Inter";
+        ctxDevices.fillStyle = "#9ca3af";
+        ctxDevices.textAlign = "center";
+        ctxDevices.fillText("Aucune donnée", ctxDevices.canvas.width/2, ctxDevices.canvas.height/2);
+    } else {
+        new Chart(ctxDevices, {
+            type: 'doughnut',
+            data: {
+                labels: deviceLabels,
+                datasets: [{
+                    data: deviceValues,
+                    backgroundColor: [
+                        '#0d9488', // Desktop (Teal)
+                        '#3b82f6', // Mobile (Blue)
+                        '#8b5cf6', // Tablet (Purple)
+                        '#f97316'  // Other (Orange)
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#9ca3af', padding: 20, usePointStyle: true }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    }
+});
+</script>
+{% endblock %}
