@@ -21,3 +21,6 @@ class Config:
     # Security Configuration
     ADMIN_USERNAME = os.getenv('ADMIN_USERNAME', 'admin')
     ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'ChangeMeNow!')
+
+    # Language Configuration
+    LANGUAGES = ['fr', 'en', 'es', 'pt', 'it', 'de', 'ar', 'zh', 'ja', 'ko']
