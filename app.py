@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_login import LoginManager
 from config.settings import Config
 from models import db, User
@@ -49,6 +49,21 @@ class MockSiteSettings:
     map_latitude = '31.6295'
     map_longitude = '-8.0063'
 
+class MockSeoSettings:
+    meta_title_default = "Shabaka InnovLab"
+    meta_description_default = "Le Catalyseur de la Souveraineté Technologique"
+    meta_keywords_default = "innovation, startup, investissement, afrique, technologie"
+    og_site_name = "Shabaka InnovLab"
+    og_image_default = "/img/logo.png"
+    twitter_handle = "@ShabakaInnov"
+    google_analytics_id = None
+    robots_txt_content = "User-agent: *\nDisallow:"
+
+    # Page specific fields (defaults empty)
+    title_tag = None
+    meta_desc = None
+    keywords = None
+
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='statics')
     app.config.from_object(Config)
@@ -94,17 +109,30 @@ def create_app():
             if site_settings is None:
                 raise ValueError("SiteSettings table is empty")
 
-            seo_settings_list = SeoSettings.query.all()
-            seo_settings = {s.page_name: s for s in seo_settings_list}
+            # Fetch Global SEO Settings (index page acts as global)
+            global_seo = SeoSettings.query.filter_by(page_name='index').first()
+            if not global_seo:
+                 seo_settings = MockSeoSettings()
+            else:
+                 seo_settings = global_seo
+
+            # Fetch Page Specific SEO Settings
+            page_seo = None
+            if request.endpoint:
+                # Extract page name from endpoint (e.g. 'main.about' -> 'about')
+                current_page = request.endpoint.split('.')[-1]
+                page_seo = SeoSettings.query.filter_by(page_name=current_page).first()
 
         except (OperationalError, Exception) as e:
             app.logger.error(f"Database Error in inject_settings: {e}")
             site_settings = MockSiteSettings()
-            seo_settings = {}
+            seo_settings = MockSeoSettings()
+            page_seo = None
 
         return dict(
             site_settings=site_settings,
             seo_settings=seo_settings,
+            page_seo=page_seo,
             whatsapp_number=app.config.get('WHATSAPP_NUMBER', ''),
             consultation_url=app.config.get('CONSULTATION_URL', '')
         )
