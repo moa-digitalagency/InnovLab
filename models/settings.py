@@ -17,6 +17,8 @@ class SiteSettings(db.Model):
     # Telegram
     telegram_bot_token = db.Column(db.String(256))
     telegram_chat_id = db.Column(db.String(128))
+    notify_on_visit = db.Column(db.Boolean, default=False)
+    last_telegram_greeting_date = db.Column(db.Date)
 
     # Social Media
     linkedin_url = db.Column(db.String(256))
