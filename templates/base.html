@@ -62,7 +62,7 @@
                     <img src="{{ url_for('static', filename=site_settings.header_logo) }}" alt="Shabaka Logo" class="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-300">
                 </div>
                 {% else %}
-                <div class="w-10 h-10 shrink-0 flex items-center justify-center">
+                <div class="w-16 h-16 shrink-0 flex items-center justify-center">
                     <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-sm group-hover:scale-105 transition-transform duration-300">
                         <path d="M 10 30 L 50 7 L 90 30 L 90 50 L 50 27 L 30 38.5 L 30 60 L 10 48.5 Z" fill="#1d5865"/>
                         <path d="M 90 70 L 50 93 L 10 70 L 10 50 L 50 73 L 70 61.5 L 70 40 L 90 51.5 Z" fill="#1d5865" opacity="0.8"/>
@@ -147,7 +147,7 @@
 
             <div class="reveal delay-100">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="w-12 h-12 shrink-0 flex items-center justify-center">
+                    <div class="w-16 h-16 shrink-0 flex items-center justify-center">
                         {% if site_settings and site_settings.footer_logo %}
                         <img src="{{ url_for('static', filename=site_settings.footer_logo) }}" alt="Shabaka Logo" class="w-full h-full object-contain drop-shadow-md">
                         {% else %}
@@ -217,10 +217,9 @@
 
             <div class="reveal delay-400">
                 <h4 class="font-bold text-lg text-[#ffffff] mb-6 pb-2 border-b border-[#30a192]/50 inline-block">Mentions Légales</h4>
-                <ul class="space-y-3 mb-6">
-                    <li class="text-blue-100/80 text-sm"><span class="font-bold text-[#ffffff]">RC :</span> 163795</li>
-                    <li class="text-blue-100/80 text-sm"><span class="font-bold text-[#ffffff]">ICE :</span> 003694652000069</li>
-                </ul>
+                <p class="text-blue-100/80 text-sm leading-relaxed mb-6">
+                    SHABAKA InnovLab SARL, Filiale de SHABAKA Invest Group est une entreprise de droit marocain domiciliée à Marrakech
+                </p>
                 <a href="https://www.shabakainvestgroup.com" target="_blank" class="inline-flex items-center gap-2 bg-[#ffffff]/5 border border-[#ffffff]/10 hover:bg-[#ffffff]/10 transition-colors text-blue-100/80 hover:text-[#ffffff] text-sm py-2 px-4 rounded-lg w-fit">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
                     Site Corporate
