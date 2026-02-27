@@ -9,9 +9,9 @@
 
     <!-- Period Filter -->
     <div class="flex items-center gap-2 bg-gray-800 p-1 rounded-lg border border-gray-700">
-        <a href="{{ url_for('analytics.index', period=1) }}" class="px-4 py-2 rounded-md text-sm font-medium transition-colors {{ 'bg-teal-600 text-white shadow-lg' if period == 1 else 'text-blue-100/60 hover:text-white hover:bg-gray-700' }}">Aujourd'hui</a>
-        <a href="{{ url_for('analytics.index', period=7) }}" class="px-4 py-2 rounded-md text-sm font-medium transition-colors {{ 'bg-teal-600 text-white shadow-lg' if period == 7 else 'text-blue-100/60 hover:text-white hover:bg-gray-700' }}">7 jours</a>
-        <a href="{{ url_for('analytics.index', period=30) }}" class="px-4 py-2 rounded-md text-sm font-medium transition-colors {{ 'bg-teal-600 text-white shadow-lg' if period == 30 else 'text-blue-100/60 hover:text-white hover:bg-gray-700' }}">30 jours</a>
+        <a href="{{ url_for('admin.analytics', period=1) }}" class="px-4 py-2 rounded-md text-sm font-medium transition-colors {{ 'bg-teal-600 text-white shadow-lg' if period == 1 else 'text-blue-100/60 hover:text-white hover:bg-gray-700' }}">Aujourd'hui</a>
+        <a href="{{ url_for('admin.analytics', period=7) }}" class="px-4 py-2 rounded-md text-sm font-medium transition-colors {{ 'bg-teal-600 text-white shadow-lg' if period == 7 else 'text-blue-100/60 hover:text-white hover:bg-gray-700' }}">7 jours</a>
+        <a href="{{ url_for('admin.analytics', period=30) }}" class="px-4 py-2 rounded-md text-sm font-medium transition-colors {{ 'bg-teal-600 text-white shadow-lg' if period == 30 else 'text-blue-100/60 hover:text-white hover:bg-gray-700' }}">30 jours</a>
     </div>
 </div>
 
