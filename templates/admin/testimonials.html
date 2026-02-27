@@ -63,18 +63,18 @@
                             {{ testimonial.content }}
                         </td>
                         <td class="px-6 py-4 text-center">
-                            {% if testimonial.is_featured %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-900/50 text-amber-200 border border-amber-800">
-                                <span class="material-symbols-outlined text-[16px] mr-1">star</span> Vedette
-                            </span>
-                            {% else %}
                             <form action="{{ url_for('testimonials_admin.feature', id=testimonial.id) }}" method="POST" class="inline-block">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <button type="submit" class="text-gray-500 hover:text-amber-400 transition-colors" title="Mettre en vedette">
+                                {% if testimonial.is_featured %}
+                                <button type="submit" class="text-yellow-400 hover:text-yellow-300 transition-colors" title="Déjà en vedette">
+                                    <span class="material-symbols-outlined">star</span>
+                                </button>
+                                {% else %}
+                                <button type="submit" class="text-gray-400 hover:text-yellow-400 transition-colors" title="Mettre en vedette">
                                     <span class="material-symbols-outlined">star_outline</span>
                                 </button>
+                                {% endif %}
                             </form>
-                            {% endif %}
                         </td>
                         <td class="px-6 py-4 text-right">
                             <form action="{{ url_for('testimonials_admin.delete', id=testimonial.id) }}" method="POST" class="inline-block" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce témoignage ?');">
