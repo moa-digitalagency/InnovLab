@@ -1,5 +1,5 @@
 from app import app
-from models import db, User, SiteSettings, SeoSettings, FounderRequest, StartupRequest, InvestorRequest, PortfolioProject, Contact, Message, VisitAnalytics, SecurityLog, BannedIP
+from models import db, User, SiteSettings, SeoSettings, FounderRequest, StartupRequest, InvestorRequest, PortfolioProject, Contact, Message, VisitAnalytics, SecurityLog, BannedIP, Testimonial
 import sys
 import os
 from sqlalchemy import inspect, text
@@ -80,6 +80,32 @@ def init_database():
             print("Database tables verified.")
 
             check_and_migrate()
+
+            # Mock Testimonials
+            if not Testimonial.query.first():
+                print("Seeding mock testimonials...")
+                t1 = Testimonial(
+                    author_name="Sarah Benjelloun",
+                    author_title="CEO de TechSolutions",
+                    content="Shabaka InnovLab a transformé notre vision en réalité. Leur expertise technique et leur accompagnement stratégique ont été déterminants pour notre lancement.",
+                    is_featured=True
+                )
+                t2 = Testimonial(
+                    author_name="Karim El Amrani",
+                    author_title="Fondateur de GreenStart",
+                    content="Une équipe dévouée et professionnelle. Ils ont su comprendre nos enjeux et nous proposer des solutions sur mesure.",
+                    is_featured=False
+                )
+                t3 = Testimonial(
+                    author_name="Nadia Idrissi",
+                    author_title="Directrice Innovation, Groupe Horizon",
+                    content="Un partenaire de confiance pour nos projets d'innovation. La qualité de leur livrable est impressionnante.",
+                    is_featured=False
+                )
+                db.session.add_all([t1, t2, t3])
+                db.session.commit()
+                print("Mock testimonials seeded.")
+
 
         except Exception as e:
             print(f"Error creating/migrating tables: {e}", file=sys.stderr)
