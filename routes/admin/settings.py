@@ -134,12 +134,6 @@ def settings():
         if map_lat is not None: settings_obj.map_latitude = map_lat
         if map_lon is not None: settings_obj.map_longitude = map_lon
 
-        # Legal Pages
-        privacy = request.form.get('privacy_policy')
-        terms = request.form.get('terms_conditions')
-        if privacy is not None: settings_obj.privacy_policy = privacy
-        if terms is not None: settings_obj.terms_conditions = terms
-
         # File Uploads (Logos)
         def save_logo(file_key, db_field):
             file = request.files.get(file_key)
@@ -159,3 +153,46 @@ def settings():
         return redirect(url_for('settings.settings'))
 
     return render_template('admin/settings.html', settings=settings_obj)
+
+
+@settings_bp.route('/privacy-policy', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def privacy_policy():
+    settings_obj = SiteSettings.query.first()
+    if not settings_obj:
+        # Should not happen if initialized, but safe fallback
+        settings_obj = SiteSettings()
+        db.session.add(settings_obj)
+        db.session.commit()
+
+    if request.method == 'POST':
+        privacy = request.form.get('privacy_policy')
+        if privacy is not None:
+            settings_obj.privacy_policy = privacy
+            db.session.commit()
+            flash('Politique de confidentialité mise à jour.', 'success')
+            return redirect(url_for('settings.privacy_policy'))
+
+    return render_template('admin/privacy_policy.html', settings=settings_obj)
+
+
+@settings_bp.route('/terms-conditions', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def terms_conditions():
+    settings_obj = SiteSettings.query.first()
+    if not settings_obj:
+        settings_obj = SiteSettings()
+        db.session.add(settings_obj)
+        db.session.commit()
+
+    if request.method == 'POST':
+        terms = request.form.get('terms_conditions')
+        if terms is not None:
+            settings_obj.terms_conditions = terms
+            db.session.commit()
+            flash('Conditions générales mises à jour.', 'success')
+            return redirect(url_for('settings.terms_conditions'))
+
+    return render_template('admin/terms_conditions.html', settings=settings_obj)

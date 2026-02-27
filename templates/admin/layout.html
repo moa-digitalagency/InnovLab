@@ -101,6 +101,18 @@
                         <span>SEO Avancé</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ url_for('settings.privacy_policy') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'settings.privacy_policy' else '' }}">
+                        <span class="material-symbols-outlined">policy</span>
+                        <span>Politique de Confidentialité</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('settings.terms_conditions') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-100/80 hover:bg-gray-700 hover:text-white transition-colors {{ 'bg-gray-700 text-white' if request.endpoint == 'settings.terms_conditions' else '' }}">
+                        <span class="material-symbols-outlined">gavel</span>
+                        <span>Conditions Générales</span>
+                    </a>
+                </li>
             </ul>
         </nav>
 
