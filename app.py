@@ -125,6 +125,9 @@ def create_app():
     from routes.admin.settings import settings_bp
     app.register_blueprint(settings_bp)
 
+    from routes.admin.testimonials import testimonials_admin_bp
+    app.register_blueprint(testimonials_admin_bp)
+
     from routes.api.telegram import telegram_bp
     csrf.exempt(telegram_bp) # Webhook needs to be exempt from CSRF
     app.register_blueprint(telegram_bp, url_prefix='/api/telegram')

@@ -1,0 +1,100 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="text-2xl font-bold text-white">Témoignages</h1>
+            <p class="text-blue-100/60 text-sm mt-1">Gérez les témoignages clients et partenaires.</p>
+        </div>
+    </div>
+
+    <!-- Add Form -->
+    <div class="bg-gray-800 rounded-xl border border-gray-700 p-6">
+        <h2 class="text-lg font-semibold text-white mb-4">Ajouter un témoignage</h2>
+        <form action="{{ url_for('testimonials_admin.add') }}" method="POST" class="space-y-4">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-blue-100/80 mb-1">Nom de l'auteur</label>
+                    <input type="text" name="author_name" required
+                           class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-600">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-blue-100/80 mb-1">Titre / Fonction</label>
+                    <input type="text" name="author_title" required
+                           class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-600">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-blue-100/80 mb-1">Contenu</label>
+                <textarea name="content" rows="3" required
+                          class="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-gray-600"></textarea>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-6 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-sm">add</span>
+                    Ajouter
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- List -->
+    <div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+                <thead class="bg-gray-900/50 text-blue-100/60 uppercase text-xs font-semibold">
+                    <tr>
+                        <th class="px-6 py-4">Auteur</th>
+                        <th class="px-6 py-4">Titre</th>
+                        <th class="px-6 py-4">Contenu</th>
+                        <th class="px-6 py-4 text-center">Vedette</th>
+                        <th class="px-6 py-4 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-700/50">
+                    {% for testimonial in testimonials %}
+                    <tr class="hover:bg-gray-700/30 transition-colors">
+                        <td class="px-6 py-4 font-medium text-white">{{ testimonial.author_name }}</td>
+                        <td class="px-6 py-4 text-blue-100/80">{{ testimonial.author_title }}</td>
+                        <td class="px-6 py-4 text-blue-100/60 max-w-xs truncate" title="{{ testimonial.content }}">
+                            {{ testimonial.content }}
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                            {% if testimonial.is_featured %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-900/50 text-amber-200 border border-amber-800">
+                                <span class="material-symbols-outlined text-[16px] mr-1">star</span> Vedette
+                            </span>
+                            {% else %}
+                            <form action="{{ url_for('testimonials_admin.feature', id=testimonial.id) }}" method="POST" class="inline-block">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="text-gray-500 hover:text-amber-400 transition-colors" title="Mettre en vedette">
+                                    <span class="material-symbols-outlined">star_outline</span>
+                                </button>
+                            </form>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <form action="{{ url_for('testimonials_admin.delete', id=testimonial.id) }}" method="POST" class="inline-block" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce témoignage ?');">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="text-red-400 hover:text-red-300 transition-colors p-1 hover:bg-red-900/20 rounded">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="px-6 py-8 text-center text-blue-100/40">
+                            Aucun témoignage pour le moment.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
