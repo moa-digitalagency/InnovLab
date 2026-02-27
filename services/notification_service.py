@@ -74,7 +74,7 @@ def send_telegram_notification(message, ip_to_ban=None):
         current_app.logger.error(f"Telegram Error: {e}")
         return False
 
-def notify_visit(ip, path):
+def notify_visit(ip, path, device_type=None):
     """
     Sends a notification about a new visit if enabled in settings.
     """
@@ -83,7 +83,8 @@ def notify_visit(ip, path):
         if not settings or not settings.notify_on_visit:
             return
 
-        msg = f"👀 <b>Nouveau visiteur</b>\n📍 URL: <code>{path}</code>\n💻 IP: <code>{ip}</code>"
+        device_info = f" ({device_type})" if device_type else ""
+        msg = f"👀 <b>Nouveau visiteur{device_info}</b>\n📍 URL: <code>{path}</code>\n💻 IP: <code>{ip}</code>"
         send_telegram_notification(msg)
 
     except Exception as e:

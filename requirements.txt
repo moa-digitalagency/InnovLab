@@ -10,4 +10,4 @@ email-validator
 Flask-WTF
 Flask-Limiter
 Flask-Talisman
-user-agents
+user-agents==2.2.0
