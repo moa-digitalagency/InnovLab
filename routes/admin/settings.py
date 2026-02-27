@@ -41,11 +41,24 @@ def seo():
             def_desc = request.form.get('meta_description_default')
             def_keywords = request.form.get('meta_keywords_default')
 
+            # Open Graph & Twitter Cards
+            og_site_name = request.form.get('og_site_name')
+            twitter_handle = request.form.get('twitter_handle')
+
             if ga_id is not None: global_seo.google_analytics_id = ga_id
             if robots is not None: global_seo.robots_txt_content = robots
             if def_title is not None: global_seo.meta_title_default = def_title
             if def_desc is not None: global_seo.meta_description_default = def_desc
             if def_keywords is not None: global_seo.meta_keywords_default = def_keywords
+            if og_site_name is not None: global_seo.og_site_name = og_site_name
+            if twitter_handle is not None: global_seo.twitter_handle = twitter_handle
+
+            # Image OG Upload
+            og_image = request.files.get('og_image_default')
+            if og_image and og_image.filename:
+                filename = save_file(og_image, subfolder='logos')
+                if filename:
+                    global_seo.og_image_default = f"uploads/logos/{filename}"
 
         # Handle Per-Page SEO Settings
         for page in pages:

@@ -48,5 +48,10 @@ class SeoSettings(db.Model):
     google_analytics_id = db.Column(db.String(64))
     robots_txt_content = db.Column(db.Text)
 
+    # Open Graph & Twitter Cards
+    og_site_name = db.Column(db.String(128), default='Shabaka InnovLab')
+    og_image_default = db.Column(db.String(256), default='/statics/uploads/logos/og-default.jpg')
+    twitter_handle = db.Column(db.String(64), default='@ShabakaInnov')
+
     def __repr__(self):
         return f'<SeoSettings {self.page_name}>'
