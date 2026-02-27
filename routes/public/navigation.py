@@ -42,6 +42,33 @@ def startup():
 def investor():
     return render_template('candidature/investor.html')
 
+@main_bp.route('/sitemap.xml', methods=['GET'])
+def sitemap_xml():
+    pages = [
+        ('main.index', 1.0),
+        ('main.about', 0.8),
+        ('main.services', 0.8),
+        ('main.portfolio', 0.8),
+        ('main.contact_us', 0.6),
+        ('main.startup', 0.9),
+        ('main.founder', 0.9),
+        ('main.investor', 0.9)
+    ]
+
+    sitemap_content = ['<?xml version="1.0" encoding="UTF-8"?>']
+    sitemap_content.append('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+
+    for endpoint, priority in pages:
+        url = url_for(endpoint, _external=True)
+        sitemap_content.append('  <url>')
+        sitemap_content.append(f'    <loc>{url}</loc>')
+        sitemap_content.append(f'    <priority>{priority}</priority>')
+        sitemap_content.append('  </url>')
+
+    sitemap_content.append('</urlset>')
+
+    return Response('\n'.join(sitemap_content), mimetype='application/xml')
+
 @main_bp.route('/robots.txt')
 def robots_txt():
     seo_entry = SeoSettings.query.filter_by(page_name='index').first()
@@ -49,7 +76,7 @@ def robots_txt():
     if seo_entry and seo_entry.robots_txt_content:
         content = seo_entry.robots_txt_content
     else:
-        content = "User-agent: *\nDisallow:"
+        content = f"User-agent: *\nDisallow: /admin/\nAllow: /\nSitemap: {request.url_root}sitemap.xml"
 
     return Response(content, mimetype='text/plain')
 
