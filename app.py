@@ -139,7 +139,7 @@ def create_app():
     from flask import abort
     from flask_login import current_user
     from user_agents import parse
-    from utils.i18n import get_locale, setup_i18n
+    from services.i18n_service import get_locale, setup_i18n
 
     # Set up i18n
     setup_i18n(app)
