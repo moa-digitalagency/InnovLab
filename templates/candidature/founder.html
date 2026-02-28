@@ -13,9 +13,9 @@
             <!-- Glassmorphism Card -->
             <div class="bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl rounded-3xl p-8 md:p-12">
                 <div class="text-center mb-10">
-                    <span class="inline-block py-1 px-3 rounded-full bg-[#076D6D]/10 text-[#076D6D] text-sm font-semibold mb-4">Programme Fondateurs</span>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#064060] mb-4">Concrétisez votre Vision</h1>
-                    <p class="text-[#064060]/80 text-lg">Rejoignez l'écosystème et transformez votre idée en startup viable.</p>
+                    <span class="inline-block py-1 px-3 rounded-full bg-[#076D6D]/10 text-[#076D6D] text-sm font-semibold mb-4">{{ _('candidature.founder_badge') }}</span>
+                    <h1 class="text-3xl md:text-4xl font-bold text-[#064060] mb-4">{{ _('candidature.founder_title') }}</h1>
+                    <p class="text-[#064060]/80 text-lg">{{ _('candidature.founder_subtitle') }}</p>
                 </div>
 
                 <form action="{{ url_for('forms.founder_submit') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
@@ -24,33 +24,33 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Nom complet -->
                         <div class="space-y-2">
-                            <label for="nom" class="block text-sm font-semibold text-[#064060]/90">Nom complet</label>
+                            <label for="nom" class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.form_labels.last_name') }}</label>
                             <input type="text" name="nom" id="nom" required
                                 class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50"
-                                placeholder="Votre nom">
+                                placeholder="{{ _('candidature.placeholders.founder_name') }}">
                         </div>
 
                         <!-- Email -->
                         <div class="space-y-2">
-                            <label for="email" class="block text-sm font-semibold text-[#064060]/90">Email professionnel</label>
+                            <label for="email" class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.form_labels.email') }}</label>
                             <input type="email" name="email" id="email" required
                                 class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50"
-                                placeholder="vous@exemple.com">
+                                placeholder="{{ _('candidature.placeholders.founder_email') }}">
                         </div>
                     </div>
 
                     <!-- Nom du projet -->
                     <div class="space-y-2">
-                        <label for="projet_name" class="block text-sm font-semibold text-[#064060]/90">Nom du projet</label>
+                        <label for="projet_name" class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.form_labels.startup_name') }}</label>
                         <input type="text" name="projet_name" id="projet_name" required
                             class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50"
-                            placeholder="Nom de votre startup ou projet">
+                            placeholder="{{ _('candidature.placeholders.founder_startup_name') }}">
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Stade du projet -->
                         <div class="space-y-2">
-                            <label for="project_stage" class="block text-sm font-semibold text-[#064060]/90">Stade du projet</label>
+                            <label for="project_stage" class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.form_labels.development_stage') }}</label>
                             <select name="project_stage" id="project_stage" required
                                 class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all appearance-none cursor-pointer">
                                 <option value="" disabled selected>{{ _('candidature.options.stage_select') }}</option>
@@ -62,7 +62,7 @@
 
                         <!-- Besoin principal -->
                         <div class="space-y-2">
-                            <label for="primary_need" class="block text-sm font-semibold text-[#064060]/90">Besoin principal</label>
+                            <label for="primary_need" class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.options.need_select') }}</label>
                             <select name="primary_need" id="primary_need" required
                                 class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all appearance-none cursor-pointer">
                                 <option value="" disabled selected>{{ _('candidature.options.need_select') }}</option>
@@ -75,19 +75,19 @@
 
                     <!-- Description -->
                     <div class="space-y-2">
-                        <label for="description" class="block text-sm font-semibold text-[#064060]/90">Description du projet</label>
+                        <label for="description" class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.form_labels.project_description') }}</label>
                         <textarea name="description" id="description" rows="4" required
                             class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50"
-                            placeholder="Décrivez votre vision, votre marché cible et votre proposition de valeur..."></textarea>
+                            placeholder="{{ _('candidature.placeholders.founder_desc') }}"></textarea>
                     </div>
 
                     <!-- Upload Pitch Deck -->
                     <div class="space-y-2">
-                        <label class="block text-sm font-semibold text-[#064060]/90">Pitch Deck / Présentation</label>
+                        <label class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.pitch_deck') }}</label>
                         <div class="relative group">
                             <input type="file" name="file_pitch" id="file_pitch" accept=".pdf,.pptx,.ppt"
                                 class="w-full text-sm text-[#064060]/70 bg-white/50 border border-slate-200 rounded-xl file:mr-4 file:py-3 file:px-6 file:rounded-l-xl file:border-0 file:text-sm file:font-semibold file:bg-[#076D6D]/10 file:text-[#076D6D] hover:file:bg-[#076D6D]/20 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#076D6D]">
-                            <p class="mt-2 text-xs text-[#064060]/70">Formats acceptés : PDF, PPTX (Max 16Mo)</p>
+                            <p class="mt-2 text-xs text-[#064060]/70">{{ _('candidature.formats_accepted') }}</p>
                         </div>
                     </div>
 
@@ -95,7 +95,7 @@
                     <div class="pt-4 flex justify-center">
                         <button type="submit"
                             class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit gap-2">
-                            <span>Soumettre ma candidature</span>
+                            <span>{{ _('candidature.founder_btn') }}</span>
                             <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                         </button>
                     </div>
