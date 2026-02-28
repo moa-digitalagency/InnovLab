@@ -189,7 +189,7 @@
     "title": "Contact",
     "subtitle": "Contactez notre équipe",
     "description": "Prêt à transformer votre vision en réalité ? Notre équipe est à votre disposition pour discuter de vos projets et ambitions.",
-    "contact_info": "Informations de Contact",
+    "contact_info": "Coordonnées",
     "email_us": "Écrivez-nous",
     "call_us": "Appelez-nous",
     "visit_us": "Rendez-nous visite",
@@ -205,7 +205,26 @@
     "placeholder_phone": "+212 600 000 000",
     "placeholder_subject": "Comment pouvons-nous vous aider ?",
     "placeholder_message": "Détaillez votre projet ou votre demande ici...",
-    "btn_submit": "Envoyer le Message"
+    "btn_submit": "Envoyer le Message",
+    "send_message": "Envoyez-nous un message",
+    "full_name": "Nom complet",
+    "email_address": "Adresse Email",
+    "subject": "Sujet",
+    "subject_choose": "Choisir un sujet...",
+    "subject_general": "Renseignement général",
+    "subject_partnership": "Demande de partenariat",
+    "subject_press": "Relation Presse / Médias",
+    "subject_investment": "Opportunité d'investissement",
+    "subject_job": "Opportunité d'emploi",
+    "subject_internship": "Stage",
+    "subject_spontaneous": "Candidature Spontanée",
+    "subject_support": "Support Technique",
+    "subject_other": "Autre",
+    "message": "Message",
+    "submit_message": "Envoyer le message",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "Email"
   },
   "candidature": {
     "founder_badge": "Programme Fondateurs",
@@ -426,6 +445,30 @@
     "workshops_desc": "Formations certifiantes en nouvelles technologies, Pitch Investisseur et Management.",
     "main_intro": "L'offre de Shabaka InnovLab s'articule autour de cinq piliers fondamentaux pour sécuriser le parcours de l'entrepreneur et offrir des services technologiques de haut niveau.",
     "dev_pole_desc": "InnovLab dispose d'un pôle de développement complet agissant à la fois comme support technique pour les startups incubées et comme agence digitale pour les clients externes.",
-    "cta": "Démarrer un projet"
+    "cta": "Démarrer un projet",
+    "title_expertises": "NOS EXPERTISES"
+  },
+  "errors": {
+    "404": {
+      "title": "Oups ! Page Introuvable",
+      "description": "Il semble que vous ayez atteint les limites de notre galaxie numérique.",
+      "lost_title": "Perdu ?",
+      "lost_desc": "Ne repartez pas les mains vides. Découvrez nos projets innovants et nos solutions technologiques.",
+      "lost_button": "Voir le Portfolio",
+      "help_title": "Besoin d'aide ?",
+      "help_desc": "Une question urgente ? Notre équipe est disponible immédiatement sur WhatsApp pour vous guider.",
+      "help_button": "Discuter maintenant",
+      "gift_title": "Pour nous faire pardonner",
+      "gift_desc": "Profitez d'une consultation de 30 minutes offerte pour discuter de votre stratégie digitale.",
+      "gift_button": "Réclamer mon cadeau",
+      "back_home": "Retour à la base"
+    },
+    "500": {
+      "title": "Erreur Interne (500)",
+      "description1": "Une erreur inattendue s'est produite sur nos serveurs.",
+      "description2": "Nous avons été notifiés et travaillons à résoudre le problème.",
+      "back_home": "Retour à l'accueil",
+      "contact_us": "Nous contacter"
+    }
   }
 }

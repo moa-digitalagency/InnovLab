@@ -13,8 +13,8 @@
         </div>
 
         <div class="space-y-4">
-            <h1 class="text-4xl md:text-6xl font-bold text-[#064060]">Oups ! Page Introuvable</h1>
-            <p class="text-xl text-[#064060]/80">Il semble que vous ayez atteint les limites de notre galaxie numérique.</p>
+            <h1 class="text-4xl md:text-6xl font-bold text-[#064060]">{{ _('errors.404.title') }}</h1>
+            <p class="text-xl text-[#064060]/80">{{ _('errors.404.description') }}</p>
         </div>
 
         <!-- The 3 Pillars of Retention -->
@@ -25,10 +25,10 @@
                 <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#064060] transition-colors">
                     <span class="material-symbols-outlined text-[#064060] group-hover:text-white text-2xl">explore</span>
                 </div>
-                <h3 class="text-xl font-bold text-[#064060] mb-4">Perdu ?</h3>
-                <p class="text-[#064060]/70 mb-8 text-sm flex-grow">Ne repartez pas les mains vides. Découvrez nos projets innovants et nos solutions technologiques.</p>
+                <h3 class="text-xl font-bold text-[#064060] mb-4">{{ _('errors.404.lost_title') }}</h3>
+                <p class="text-[#064060]/70 mb-8 text-sm flex-grow">{{ _('errors.404.lost_desc') }}</p>
                 <a href="{{ url_for('main.portfolio') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-transparent border-2 border-[#076D6D] text-[#076D6D] font-bold text-sm hover:bg-[#076D6D] hover:text-white hover:-translate-y-1 transition-all duration-300 group w-fit">
-                    Voir le Portfolio
+                    {{ _('errors.404.lost_button') }}
                 </a>
             </div>
 
@@ -37,11 +37,11 @@
                 <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#25D366] transition-colors">
                     <span class="material-symbols-outlined text-[#25D366] group-hover:text-white text-2xl">chat</span>
                 </div>
-                <h3 class="text-xl font-bold text-[#064060] mb-4">Besoin d'aide ?</h3>
-                <p class="text-[#064060]/70 mb-8 text-sm flex-grow">Une question urgente ? Notre équipe est disponible immédiatement sur WhatsApp pour vous guider.</p>
+                <h3 class="text-xl font-bold text-[#064060] mb-4">{{ _('errors.404.help_title') }}</h3>
+                <p class="text-[#064060]/70 mb-8 text-sm flex-grow">{{ _('errors.404.help_desc') }}</p>
                 <a href="https://wa.me/{{ whatsapp_number }}" target="_blank" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#25D366] text-white font-bold text-sm hover:bg-[#128C7E] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#25D366]/25 group w-fit gap-2">
                     <span class="material-symbols-outlined text-lg">call</span>
-                    Discuter maintenant
+                    {{ _('errors.404.help_button') }}
                 </a>
             </div>
 
@@ -53,10 +53,10 @@
                 <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6 backdrop-blur-sm border border-white/20">
                     <span class="material-symbols-outlined text-white text-2xl">card_giftcard</span>
                 </div>
-                <h3 class="text-xl font-bold mb-4">Pour nous faire pardonner</h3>
-                <p class="text-blue-100 mb-8 text-sm flex-grow">Profitez d'une consultation de 30 minutes offerte pour discuter de votre stratégie digitale.</p>
+                <h3 class="text-xl font-bold mb-4">{{ _('errors.404.gift_title') }}</h3>
+                <p class="text-blue-100 mb-8 text-sm flex-grow">{{ _('errors.404.gift_desc') }}</p>
                 <a href="{{ consultation_url }}" target="_blank" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-white text-[#076D6D] font-bold text-sm hover:bg-gray-50 hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-white/25 group w-fit">
-                    Réclamer mon cadeau
+                    {{ _('errors.404.gift_button') }}
                 </a>
             </div>
 
@@ -65,7 +65,7 @@
         <div class="pt-8">
             <a href="{{ url_for('main.index') }}" class="text-[#076D6D] hover:text-[#064060] font-medium flex items-center justify-center gap-2 transition-colors group">
                 <span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
-                Retour à la base
+                {{ _('errors.404.back_home') }}
             </a>
         </div>
     </div>

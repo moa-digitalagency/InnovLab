@@ -8,20 +8,20 @@
             <span class="material-symbols-outlined" style="font-size: 8rem;">dns</span>
         </div>
 
-        <h1 class="text-4xl md:text-6xl font-bold text-[#064060]">Erreur Interne (500)</h1>
+        <h1 class="text-4xl md:text-6xl font-bold text-[#064060]">{{ _('errors.500.title') }}</h1>
         <p class="text-xl text-[#064060]/80 max-w-2xl mx-auto">
-            Une erreur inattendue s'est produite sur nos serveurs.
-            Nous avons été notifiés et travaillons à résoudre le problème.
+            {{ _('errors.500.description1') }}
+            {{ _('errors.500.description2') }}
         </p>
 
         <div class="pt-8 flex flex-col md:flex-row gap-4 justify-center">
             <a href="{{ url_for('main.index') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit">
                 <span class="material-symbols-outlined mr-2">home</span>
-                Retour à l'accueil
+                {{ _('errors.500.back_home') }}
             </a>
             <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-transparent border-2 border-[#076D6D] text-[#076D6D] font-bold text-sm hover:bg-[#076D6D] hover:text-white hover:-translate-y-1 transition-all duration-300 group w-fit">
                 <span class="material-symbols-outlined mr-2">mail</span>
-                Nous contacter
+                {{ _('errors.500.contact_us') }}
             </a>
         </div>
     </div>
