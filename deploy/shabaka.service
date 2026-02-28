@@ -1,0 +1,14 @@
+[Unit]
+Description=Gunicorn instance to serve Shabaka
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/app
+Environment="PATH=/app/venv/bin"
+EnvironmentFile=/app/.env
+ExecStart=/app/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:8000 app:app
+
+[Install]
+WantedBy=multi-user.target

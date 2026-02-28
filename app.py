@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 import os
 from datetime import datetime
 from sqlalchemy.exc import OperationalError
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 load_dotenv()
 
@@ -91,6 +92,9 @@ def create_app():
         default_limits=["200 per day", "50 per hour"],
         storage_uri="memory://"
     )
+
+    # Tell Flask it is behind a proxy
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
     # Ensure upload directories exist (Anti-Crash 500)
     create_upload_directories(app)
