@@ -1,6 +1,7 @@
 from flask import Blueprint, request, flash, redirect, url_for, current_app
 from services.submission_service import SubmissionService
 from services.notification_service import send_telegram_notification
+from services.i18n_service import get_translation as _
 from models import db
 from models.security_logs import SecurityLog
 import json
@@ -48,7 +49,7 @@ def check_honeypot():
         )
 
         # Tromper le bot avec un faux succès
-        flash("Votre message a été envoyé avec succès.", "success")
+        flash(_("form.success_msg_contact"), "success")
         return redirect(url_for('main.index'))
     return None
 
@@ -63,13 +64,13 @@ def contact_submit():
         try:
             result = SubmissionService.process_quick_contact(email)
             if result is None:
-                flash("Une erreur interne est survenue, veuillez réessayer plus tard.", "error")
+                flash(_("form.error_msg_internal"), "error")
             else:
-                flash('Merci pour votre inscription!', 'success')
+                flash(_("form.success_msg_newsletter"), 'success')
         except Exception as e:
             db.session.rollback()
             current_app.logger.error(f"Error in contact_submit: {e}")
-            flash("Une erreur interne est survenue, veuillez réessayer plus tard.", "error")
+            flash(_("form.error_msg_internal"), "error")
     return redirect(url_for('main.index'))
 
 @forms_bp.route('/contact-us', methods=['POST'])
@@ -81,13 +82,13 @@ def contact_us_submit():
     try:
         result = SubmissionService.process_contact_message(request.form)
         if result is None:
-            flash("Une erreur interne est survenue, veuillez réessayer plus tard.", "error")
+            flash(_("form.error_msg_internal"), "error")
         else:
-            flash('Votre message a été envoyé avec succès!', 'success')
+            flash(_("form.success_msg_contact"), 'success')
     except Exception as e:
         db.session.rollback()
         current_app.logger.error(f"Error in contact_us_submit: {e}")
-        flash("Une erreur interne est survenue, veuillez réessayer plus tard.", "error")
+        flash(_("form.error_msg_internal"), "error")
     return redirect(url_for('main.contact_us'))
 
 @forms_bp.route('/candidature/founder', methods=['POST'])
@@ -100,13 +101,13 @@ def founder_submit():
         file_pitch = request.files.get('file_pitch')
         result = SubmissionService.process_founder_application(request.form, file_pitch)
         if result is None:
-            flash("Une erreur interne est survenue, veuillez réessayer plus tard.", "error")
+            flash(_("form.error_msg_internal"), "error")
         else:
-            flash('Votre candidature a été envoyée avec succès!', 'success')
+            flash(_("form.success_msg_candidature"), 'success')
     except Exception as e:
         db.session.rollback()
         current_app.logger.error(f"Error in founder_submit: {e}")
-        flash("Une erreur interne est survenue, veuillez réessayer plus tard.", "error")
+        flash(_("form.error_msg_internal"), "error")
     return redirect(url_for('main.index'))
 
 @forms_bp.route('/candidature/startup', methods=['POST'])
@@ -119,13 +120,13 @@ def startup_submit():
         file_pitch = request.files.get('file_pitch')
         result = SubmissionService.process_startup_application(request.form, file_pitch)
         if result is None:
-            flash("Une erreur interne est survenue, veuillez réessayer plus tard.", "error")
+            flash(_("form.error_msg_internal"), "error")
         else:
-            flash('Votre candidature a été envoyée avec succès!', 'success')
+            flash(_("form.success_msg_candidature"), 'success')
     except Exception as e:
         db.session.rollback()
         current_app.logger.error(f"Error in startup_submit: {e}")
-        flash("Une erreur interne est survenue, veuillez réessayer plus tard.", "error")
+        flash(_("form.error_msg_internal"), "error")
     return redirect(url_for('main.index'))
 
 @forms_bp.route('/candidature/investor', methods=['POST'])
@@ -138,11 +139,11 @@ def investor_submit():
         file_intent = request.files.get('file_intent')
         result = SubmissionService.process_investor_application(request.form, file_intent)
         if result is None:
-            flash("Une erreur interne est survenue, veuillez réessayer plus tard.", "error")
+            flash(_("form.error_msg_internal"), "error")
         else:
-            flash('Votre demande a été envoyée avec succès!', 'success')
+            flash(_("form.success_msg_investor"), 'success')
     except Exception as e:
         db.session.rollback()
         current_app.logger.error(f"Error in investor_submit: {e}")
-        flash("Une erreur interne est survenue, veuillez réessayer plus tard.", "error")
+        flash(_("form.error_msg_internal"), "error")
     return redirect(url_for('main.index'))

@@ -13,9 +13,9 @@
             <!-- Glassmorphism Card -->
             <div class="bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl rounded-3xl p-8 md:p-12">
                 <div class="text-center mb-10">
-                    <span class="inline-block py-1 px-3 rounded-full bg-[#064060]/10 text-[#064060] text-sm font-semibold mb-4">Réseau Investisseurs</span>
-                    <h1 class="text-3xl md:text-4xl font-bold text-[#064060] mb-4">Investissez dans le Futur</h1>
-                    <p class="text-[#064060]/80 text-lg">Découvrez des opportunités exclusives et à fort impact.</p>
+                    <span class="inline-block py-1 px-3 rounded-full bg-[#064060]/10 text-[#064060] text-sm font-semibold mb-4">{{ _('candidature.investor_badge') }}</span>
+                    <h1 class="text-3xl md:text-4xl font-bold text-[#064060] mb-4">{{ _('candidature.investor_title') }}</h1>
+                    <p class="text-[#064060]/80 text-lg">{{ _('candidature.investor_subtitle') }}</p>
                 </div>
 
                 <form action="{{ url_for('forms.investor_submit') }}" method="POST" enctype="multipart/form-data" class="space-y-8">
@@ -24,30 +24,30 @@
 
                     <!-- Section 1: Identité -->
                     <div class="space-y-6">
-                        <h3 class="text-xl font-bold text-[#064060] border-b border-gray-200 pb-2">Votre Profil</h3>
+                        <h3 class="text-xl font-bold text-[#064060] border-b border-gray-200 pb-2">{{ _('candidature.investor_profile') }}</h3>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label for="nom" class="block text-sm font-semibold text-[#064060]/90">Nom complet / Organisation</label>
+                                <label for="nom" class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.investor_name') }}</label>
                                 <input type="text" name="nom" id="nom" required
                                     class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50">
                             </div>
 
                             <div class="space-y-2">
-                                <label for="email" class="block text-sm font-semibold text-[#064060]/90">Email professionnel</label>
+                                <label for="email" class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.form_labels.email') }}</label>
                                 <input type="email" name="email" id="email" required
                                     class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50">
                             </div>
 
                             <div class="space-y-2 md:col-span-2">
-                                <label for="linkedin_profile" class="block text-sm font-semibold text-[#064060]/90">Profil LinkedIn / Site Web</label>
+                                <label for="linkedin_profile" class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.form_labels.linkedin') }}</label>
                                 <div class="relative">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <span class="material-symbols-outlined text-[#064060]/50 text-lg">link</span>
                                     </div>
                                     <input type="url" name="linkedin_profile" id="linkedin_profile" required
                                         class="w-full pl-10 bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all placeholder:text-[#064060]/50"
-                                        placeholder="https://linkedin.com/in/...">
+                                        placeholder="{{ _('candidature.placeholders.investor_linkedin') }}">
                                 </div>
                             </div>
                         </div>
@@ -55,53 +55,53 @@
 
                     <!-- Section 2: Stratégie -->
                     <div class="space-y-6">
-                        <h3 class="text-xl font-bold text-[#064060] border-b border-gray-200 pb-2">Thèse d'Investissement</h3>
+                        <h3 class="text-xl font-bold text-[#064060] border-b border-gray-200 pb-2">{{ _('candidature.investor_thesis') }}</h3>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
-                                <label for="type_investisseur" class="block text-sm font-semibold text-[#064060]/90">Type d'investisseur</label>
+                                <label for="type_investisseur" class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.investor_type') }}</label>
                                 <select name="type_investisseur" id="type_investisseur" required
                                     class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all appearance-none cursor-pointer">
                                     <option value="" disabled selected>{{ _('candidature.options.choose') }}</option>
-                                    <option value="BA">Business Angel</option>
-                                    <option value="VC">Venture Capital</option>
-                                    <option value="Corporate">Corporate</option>
-                                    <option value="Institutional">Institutionnel</option>
+                                    <option value="BA">{{ _('candidature.types.ba') }}</option>
+                                    <option value="VC">{{ _('candidature.types.vc') }}</option>
+                                    <option value="Corporate">{{ _('candidature.types.corporate') }}</option>
+                                    <option value="Institutional">{{ _('candidature.types.institutional') }}</option>
                                 </select>
                             </div>
 
                             <div class="space-y-2">
-                                <label for="ticket_moyen" class="block text-sm font-semibold text-[#064060]/90">Ticket Moyen</label>
+                                <label for="ticket_moyen" class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.investor_ticket') }}</label>
                                 <select name="ticket_moyen" id="ticket_moyen" required
                                     class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all appearance-none cursor-pointer">
-                                    <option value="" disabled selected>Plage d'investissement...</option>
-                                    <option value="<50k">< 50k €</option>
-                                    <option value="50k-200k">50k € - 200k €</option>
-                                    <option value="200k-1M">200k € - 1M €</option>
-                                    <option value=">1M">> 1M €</option>
+                                    <option value="" disabled selected>{{ _('candidature.investor_ticket_placeholder') }}</option>
+                                    <option value="<50k">{{ _('candidature.ticket_ranges.tier0') }}</option>
+                                    <option value="50k-200k">{{ _('candidature.ticket_ranges.tier1') }}</option>
+                                    <option value="200k-1M">{{ _('candidature.ticket_ranges.tier2') }}</option>
+                                    <option value="1M+">{{ _('candidature.ticket_ranges.tier3') }}</option>
                                 </select>
                             </div>
                         </div>
 
                         <!-- Secteurs d'intérêt (Checkboxes) -->
                         <div class="space-y-3">
-                            <label class="block text-sm font-semibold text-[#064060]/90 mb-2">Secteurs de prédilection</label>
+                            <label class="block text-sm font-semibold text-[#064060]/90 mb-2">{{ _('candidature.investor_sectors') }}</label>
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                                 <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
                                     <input type="checkbox" name="sectors_interest" value="FinTech" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
-                                    <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">FinTech</span>
+                                    <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">{{ _('candidature.sectors.fintech') }}</span>
                                 </label>
                                 <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
                                     <input type="checkbox" name="sectors_interest" value="AgriTech" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
-                                    <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">AgriTech</span>
+                                    <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">{{ _('candidature.sectors.agritech') }}</span>
                                 </label>
                                 <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
                                     <input type="checkbox" name="sectors_interest" value="HealthTech" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
-                                    <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">HealthTech</span>
+                                    <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">{{ _('candidature.sectors.healthtech') }}</span>
                                 </label>
                                 <label class="relative flex items-center p-4 rounded-xl border border-slate-200 bg-white/50 cursor-pointer hover:bg-[#076D6D]/5 transition-colors group">
                                     <input type="checkbox" name="sectors_interest" value="GovTech" class="peer h-5 w-5 text-[#076D6D] border-gray-300 rounded focus:ring-[#076D6D]">
-                                    <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">GovTech</span>
+                                    <span class="ml-3 text-sm font-medium text-[#064060]/90 group-hover:text-[#064060]">{{ _('candidature.sectors.govtech') }}</span>
                                 </label>
                             </div>
                         </div>
@@ -109,11 +109,11 @@
 
                     <!-- Upload (Optional) -->
                     <div class="space-y-2">
-                        <label class="block text-sm font-semibold text-[#064060]/90">Lettre d'intérêt / Thèse (Optionnel)</label>
+                        <label class="block text-sm font-semibold text-[#064060]/90">{{ _('candidature.investor_letter') }}</label>
                         <div class="relative group">
                             <input type="file" name="file_intent" id="file_intent" accept=".pdf"
                                 class="w-full text-sm text-[#064060]/70 bg-white/50 border border-slate-200 rounded-xl file:mr-4 file:py-3 file:px-6 file:rounded-l-xl file:border-0 file:text-sm file:font-semibold file:bg-[#064060]/10 file:text-[#064060] hover:file:bg-[#064060]/20 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#076D6D]">
-                            <p class="mt-2 text-xs text-[#064060]/70">Pour mieux comprendre vos attentes.</p>
+                            <p class="mt-2 text-xs text-[#064060]/70">{{ _('candidature.investor_letter_desc') }}</p>
                         </div>
                     </div>
 
@@ -121,7 +121,7 @@
                     <div class="pt-6 flex justify-center">
                         <button type="submit"
                             class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit gap-2">
-                            <span>Rejoindre le réseau</span>
+                            <span>{{ _('candidature.investor_btn') }}</span>
                             <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">handshake</span>
                         </button>
                     </div>

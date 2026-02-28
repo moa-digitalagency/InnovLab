@@ -16,7 +16,7 @@
         </h1>
         <div class="w-24 h-1 bg-[#30a192] mx-auto mb-8"></div>
         <p class="text-xl md:text-2xl text-[#064060]/80 font-light max-w-4xl mx-auto leading-relaxed">
-            L'offre de Shabaka InnovLab s'articule autour de cinq piliers fondamentaux pour sécuriser le parcours de l'entrepreneur et offrir des services technologiques de haut niveau.
+            {{ _('services_page.main_intro') }}
         </p>
     </div>
 </section>
@@ -56,27 +56,27 @@
             <div class="w-full md:w-1/2 space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-12 h-1 bg-[#076D6D]"></span>
-                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier A</span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">{{ _('services_page.pillar_a') }}</span>
                 </div>
-                <h2 class="text-3xl font-bold text-[#064060]">Accompagnement & Incubation</h2>
+                <h2 class="text-3xl font-bold text-[#064060]">{{ _('services_page.pillar_a_title') }}</h2>
                 <ul class="space-y-4 text-[#064060]/80 leading-relaxed">
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Sélection Rigoureuse :</strong> Identification de projets à fort potentiel de scalabilité.</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.selection_title') }}</strong> {{ _('services_page.selection_desc') }}</span>
                     </li>
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Ressources :</strong> Mise à disposition gracieuse des infrastructures (bureaux, internet HD, outils techniques).</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.resources_title') }}</strong> {{ _('services_page.resources_desc') }}</span>
                     </li>
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Mentorat Expert :</strong> Suivi personnalisé par des experts sectoriels (Juridique, Finance, Tech) issus du réseau Shabaka Invest Group.</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.mentoring_title') }}</strong> {{ _('services_page.mentoring_desc') }}</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- Pillar B: Développement Web & Mobile (Right Block, Left Text) -->
+        <!-- Pillar B: {{ _('services_page.pillar_b_title') }} (Right Block, Left Text) -->
         <div class="flex flex-col md:flex-row-reverse items-center gap-12 reveal">
             <!-- Animated SVG Block -->
             <div class="w-full md:w-1/2">
@@ -106,24 +106,24 @@
             <div class="w-full md:w-1/2 space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-12 h-1 bg-[#076D6D]"></span>
-                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier B</span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">{{ _('services_page.pillar_b') }}</span>
                 </div>
-                <h2 class="text-3xl font-bold text-[#064060]">Développement Web & Mobile <br><span class="text-xl font-normal text-[#30a192]">(Service Incubés & Externe)</span></h2>
+                <h2 class="text-3xl font-bold text-[#064060]">{{ _('services_page.pillar_b_title') }} <br><span class="text-xl font-normal text-[#30a192]">{{ _('services_page.pillar_b_subtitle') }}</span></h2>
                 <p class="text-[#064060]/80 italic">
-                    InnovLab dispose d'un pôle de développement complet agissant à la fois comme support technique pour les startups incubées et comme agence digitale pour les clients externes.
+                    {{ _('services_page.dev_pole_desc') }}
                 </p>
                 <ul class="space-y-4 text-[#064060]/80 leading-relaxed">
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Conception de Plateformes :</strong> Développement sur mesure d'applications web, mobiles et de sites vitrines ou e-commerce.</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.platform_title') }}</strong> {{ _('services_page.platform_desc') }}</span>
                     </li>
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Ingénierie Logicielle :</strong> Création d'architectures robustes et évolutives.</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.engineering_title') }}</strong> {{ _('services_page.engineering_desc') }}</span>
                     </li>
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Maintenance & Suivi :</strong> Gestion technique continue des produits déployés.</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.maintenance_title') }}</strong> {{ _('services_page.maintenance_desc') }}</span>
                     </li>
                 </ul>
             </div>
@@ -165,27 +165,27 @@
             <div class="w-full md:w-1/2 space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-12 h-1 bg-[#076D6D]"></span>
-                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier C</span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">{{ _('services_page.pillar_c') }}</span>
                 </div>
-                <h2 class="text-3xl font-bold text-[#064060]">Expertise Avancée : <br>IA, Cyber & Marketing</h2>
+                <h2 class="text-3xl font-bold text-[#064060]">{{ _('services_page.pillar_c_title') }} <br>{{ _('services_page.pillar_c_subtitle') }}</h2>
                 <ul class="space-y-4 text-[#064060]/80 leading-relaxed">
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Déploiement d'Outils IA & Automatisation :</strong> Intégration de solutions d'intelligence artificielle pour optimiser les processus métiers et configuration des automatisations pour réduire les tâches chronophages.</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.ai_deploy_title') }}</strong> {{ _('services_page.ai_deploy_desc') }}</span>
                     </li>
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Cybersécurité :</strong> Consulting, audit, protection des données et sécurisation des infrastructures numériques.</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.cybersecurity_title') }}</strong> {{ _('services_page.cybersecurity_desc') }}</span>
                     </li>
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Communication & Marketing :</strong> Stratégie de marque, branding, marketing digital et gestion de la visibilité pour accélérer la pénétration de marché.</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.marketing_title') }}</strong> {{ _('services_page.marketing_desc') }}</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- Pillar D: Accélération & Investissement (Right Block, Left Text) -->
+        <!-- Pillar D: {{ _('services_page.pillar_d_title') }} (Right Block, Left Text) -->
         <div class="flex flex-col md:flex-row-reverse items-center gap-12 reveal">
              <!-- Animated SVG Block -->
              <div class="w-full md:w-1/2">
@@ -216,27 +216,27 @@
             <div class="w-full md:w-1/2 space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-12 h-1 bg-[#076D6D]"></span>
-                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier D</span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">{{ _('services_page.pillar_d') }}</span>
                 </div>
-                <h2 class="text-3xl font-bold text-[#064060]">Accélération & Investissement</h2>
+                <h2 class="text-3xl font-bold text-[#064060]">{{ _('services_page.pillar_d_title') }}</h2>
                 <ul class="space-y-4 text-[#064060]/80 leading-relaxed">
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Programme Intensif :</strong> Cycles d'accélération de 3 à 6 mois pour booster le "Go-to-Market".</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.intensive_title') }}</strong> {{ _('services_page.intensive_desc') }}</span>
                     </li>
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Financement :</strong> Prise de participation directe dans les startups accompagnées.</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.financing_title') }}</strong> {{ _('services_page.financing_desc') }}</span>
                     </li>
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Levée de Fonds :</strong> Soutien actif dans la recherche de financements externes (Business Angels, VC).</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.fundraising_title') }}</strong> {{ _('services_page.fundraising_desc') }}</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <!-- Pillar E: Conseil & Formation (Left Block, Right Text) -->
+        <!-- Pillar E: {{ _('services_page.pillar_e_title') }} (Left Block, Right Text) -->
         <div class="flex flex-col md:flex-row items-center gap-12 reveal">
             <!-- Animated SVG Block -->
             <div class="w-full md:w-1/2">
@@ -267,17 +267,17 @@
             <div class="w-full md:w-1/2 space-y-6">
                 <div class="flex items-center gap-3">
                     <span class="w-12 h-1 bg-[#076D6D]"></span>
-                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">Pilier E</span>
+                    <span class="text-[#076D6D] font-bold tracking-wider uppercase text-sm">{{ _('services_page.pillar_e') }}</span>
                 </div>
-                <h2 class="text-3xl font-bold text-[#064060]">Conseil & Formation <br><span class="text-xl font-normal text-[#30a192]">(Shabaka Academy)</span></h2>
+                <h2 class="text-3xl font-bold text-[#064060]">{{ _('services_page.pillar_e_title') }} <br><span class="text-xl font-normal text-[#30a192]">{{ _('services_page.pillar_e_subtitle') }}</span></h2>
                 <ul class="space-y-4 text-[#064060]/80 leading-relaxed">
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Consulting :</strong> Appui en stratégie, gestion fiscale et droit des affaires (l'ADN de Shabaka Invest).</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.consulting_title') }}</strong> {{ _('services_page.consulting_desc') }}</span>
                     </li>
                     <li class="flex items-start gap-3 group/item">
                         <span class="material-symbols-outlined text-[#076D6D] mt-1 group-hover/item:scale-110 transition-transform">check_circle</span>
-                        <span><strong class="text-[#1d5865]">Ateliers Pratiques :</strong> Formations certifiantes en nouvelles technologies, Pitch Investisseur et Management.</span>
+                        <span><strong class="text-[#1d5865]">{{ _('services_page.workshops_title') }}</strong> {{ _('services_page.workshops_desc') }}</span>
                     </li>
                 </ul>
             </div>
@@ -288,7 +288,7 @@
     <!-- CTA Section -->
     <div class="container mx-auto px-6 mt-32 mb-10 text-center reveal flex justify-center">
         <a href="{{ url_for('main.contact') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit gap-2">
-            Démarrer un projet
+            {{ _('services_page.cta') }}
             <span class="material-symbols-outlined ml-3 text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
         </a>
     </div>

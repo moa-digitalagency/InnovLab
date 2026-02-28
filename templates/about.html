@@ -16,11 +16,10 @@
         </h1>
         <div class="w-24 h-1 bg-[#30a192] mx-auto mb-8"></div>
         <p class="text-xl md:text-2xl text-[#064060]/80 font-light italic max-w-4xl mx-auto leading-relaxed">
-            "Ce n'est pas le poids d'une idée qui détermine sa réussite, <br class="hidden md:block"/>
-            mais l'absence de résistance à son mouvement."
+            {{ _('about_page.quote_text') | safe }}
         </p>
         <p class="mt-8 text-lg font-medium text-[#1d5865] uppercase tracking-wide">
-            L'Incubateur d'Innovation Technologique de Shabaka Invest Group
+            {{ _('about_page.incubator_title') }}
         </p>
     </div>
 </section>
@@ -36,9 +35,9 @@
                     <span class="material-symbols-outlined text-4xl">gavel</span>
                 </div>
                 <h2 class="text-3xl font-bold text-[#1d5865] mb-4">Shabaka Invest Group</h2>
-                <h3 class="text-[#30a192] font-semibold text-lg mb-6 uppercase tracking-widest">Le Socle Administratif & Juridique</h3>
+                <h3 class="text-[#30a192] font-semibold text-lg mb-6 uppercase tracking-widest">{{ _('about_page.legal_admin_socle') }}</h3>
                 <p class="text-[#064060]/80 leading-relaxed">
-                    Shabaka Invest Group est le socle administratif et juridique qui structure l'ensemble de l'écosystème. Acteur majeur du conseil, de la domiciliation et de la stratégie d'entreprise à Marrakech, le groupe assure la solidité et la conformité des projets qu'il porte.
+                    {{ _('about_page.invest_group_desc') }}
                 </p>
             </div>
 
@@ -48,9 +47,9 @@
                     <span class="material-symbols-outlined text-4xl">rocket_launch</span>
                 </div>
                 <h2 class="text-3xl font-bold text-[#1d5865] mb-4">Shabaka InnovLab</h2>
-                <h3 class="text-[#30a192] font-semibold text-lg mb-6 uppercase tracking-widest">L'Entité Innovation</h3>
+                <h3 class="text-[#30a192] font-semibold text-lg mb-6 uppercase tracking-widest">{{ _('about_page.innovation_entity') }}</h3>
                 <p class="text-[#064060]/80 leading-relaxed">
-                    Shabaka InnovLab est la filiale dédiée à l'innovation technologique. Conçue pour positionner Marrakech comme un pôle régional d'excellence, elle agit comme un catalyseur de croissance pour les porteurs de projets au Maroc et en Afrique, transformant des concepts innovants en entreprises viables et performantes.
+                    {{ _('about_page.innovlab_desc') }}
                 </p>
             </div>
 
@@ -58,14 +57,14 @@
     </div>
 </section>
 
-<!-- Vision & Objectifs Stratégiques -->
+<!-- {{ _('about_page.vision_objectives') }} -->
 <section class="py-24 bg-gradient-to-br from-[#1d5865] to-[#064060] text-white relative overflow-hidden">
     <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
     <div class="container mx-auto px-6 relative z-10">
         <div class="text-center mb-16 reveal">
-            <h2 class="text-4xl font-bold mb-6">Vision & Objectifs Stratégiques</h2>
+            <h2 class="text-4xl font-bold mb-6">{{ _('about_page.vision_objectives') }}</h2>
             <p class="text-xl max-w-3xl mx-auto font-light text-gray-300">
-                Devenir un acteur clé de l'écosystème entrepreneurial africain en soutenant l'innovation technologique et la création de valeur partagée.
+                {{ _('about_page.vision_goal') }}
             </p>
         </div>
 
@@ -73,37 +72,37 @@
             <!-- Objectif 1 -->
             <div class="reveal delay-100 p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
                 <div class="text-[#30a192] mb-4 text-4xl font-bold">01</div>
-                <h3 class="text-xl font-bold mb-3">Hub Régional</h3>
-                <p class="text-blue-100/80 text-sm">Positionner Marrakech comme une destination incontournable pour l'innovation technologique.</p>
+                <h3 class="text-xl font-bold mb-3">{{ _('about_page.hub_title') }}</h3>
+                <p class="text-blue-100/80 text-sm">{{ _('about_page.hub_desc') }}</p>
             </div>
             <!-- Objectif 2 -->
             <div class="reveal delay-200 p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
                 <div class="text-[#30a192] mb-4 text-4xl font-bold">02</div>
-                <h3 class="text-xl font-bold mb-3">Écosystème Collaboratif</h3>
-                <p class="text-blue-100/80 text-sm">Créer un pont solide entre startups, investisseurs institutionnels et secteur privé.</p>
+                <h3 class="text-xl font-bold mb-3">{{ _('about_page.ecosystem_title') }}</h3>
+                <p class="text-blue-100/80 text-sm">{{ _('about_page.ecosystem_desc') }}</p>
             </div>
             <!-- Objectif 3 -->
             <div class="reveal delay-300 p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
                 <div class="text-[#30a192] mb-4 text-4xl font-bold">03</div>
-                <h3 class="text-xl font-bold mb-3">Création de Valeur</h3>
-                <p class="text-blue-100/80 text-sm">Générer un succès mutuel où la réussite des startups alimente la croissance de l'incubateur (Modèle Win-Win).</p>
+                <h3 class="text-xl font-bold mb-3">{{ _('about_page.value_title') }}</h3>
+                <p class="text-blue-100/80 text-sm">{{ _('about_page.value_desc') }}</p>
             </div>
             <!-- Objectif 4 -->
             <div class="reveal delay-400 p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300">
                 <div class="text-[#30a192] mb-4 text-4xl font-bold">04</div>
-                <h3 class="text-xl font-bold mb-3">Modernité & Image</h3>
-                <p class="text-blue-100/80 text-sm">Renforcer l'image de marque de Shabaka Invest Group en tant qu'acteur avant-gardiste.</p>
+                <h3 class="text-xl font-bold mb-3">{{ _('about_page.modernity_title') }}</h3>
+                <p class="text-blue-100/80 text-sm">{{ _('about_page.modernity_desc') }}</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Notre Infrastructure -->
+<!-- {{ _('about_page.infrastructure_title') }} -->
 <section class="py-24 bg-gray-50">
     <div class="container mx-auto px-6">
         <div class="text-center mb-16 reveal">
-            <h2 class="text-4xl font-bold text-[#1d5865] mb-4">Notre Infrastructure</h2>
-            <p class="text-[#064060]/80 max-w-2xl mx-auto">Un espace conçu pour l'excellence et la collaboration.</p>
+            <h2 class="text-4xl font-bold text-[#1d5865] mb-4">{{ _('about_page.infrastructure_title') }}</h2>
+            <p class="text-[#064060]/80 max-w-2xl mx-auto">{{ _('about_page.infrastructure_subtitle') }}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -113,34 +112,34 @@
                 <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#30a192] group-hover:text-white transition-colors duration-300">
                     <span class="material-symbols-outlined text-2xl">groups</span>
                 </div>
-                <h3 class="text-xl font-bold text-[#1d5865] mb-3">Espaces de Coworking</h3>
-                <p class="text-[#064060]/70 text-sm mb-4 font-semibold uppercase tracking-wider text-[#30a192]">Peer-to-peer learning</p>
+                <h3 class="text-xl font-bold text-[#1d5865] mb-3">{{ _('about_page.coworking_title') }}</h3>
+                <p class="text-[#064060]/70 text-sm mb-4 font-semibold uppercase tracking-wider text-[#30a192]">{{ _('about_page.coworking_tag') }}</p>
                 <p class="text-[#064060]/80 leading-relaxed">
-                    Des zones de travail ouvertes et modulables, conçues pour encourager les échanges, le partage de compétences et la collaboration spontanée entre les porteurs de projets.
+                    {{ _('about_page.coworking_desc') }}
                 </p>
             </div>
 
-            <!-- Bureaux Open-Space -->
+            <!-- {{ _('about_page.open_space_title') }} -->
             <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 reveal delay-200 group h-full">
                 <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#30a192] group-hover:text-white transition-colors duration-300">
                     <span class="material-symbols-outlined text-2xl">desk</span>
                 </div>
-                <h3 class="text-xl font-bold text-[#1d5865] mb-3">Bureaux Open-Space</h3>
-                <p class="text-[#064060]/70 text-sm mb-4 font-semibold uppercase tracking-wider text-[#30a192]">Immersion totale</p>
+                <h3 class="text-xl font-bold text-[#1d5865] mb-3">{{ _('about_page.open_space_title') }}</h3>
+                <p class="text-[#064060]/70 text-sm mb-4 font-semibold uppercase tracking-wider text-[#30a192]">{{ _('about_page.open_space_tag') }}</p>
                 <p class="text-[#064060]/80 leading-relaxed">
-                    Des plateaux de travail dédiés aux équipes projet en phase de développement. Ces espaces favorisent une communication fluide et une immersion totale dans la dynamique collective, sans les barrières des bureaux cloisonnés traditionnels.
+                    {{ _('about_page.open_space_desc') }}
                 </p>
             </div>
 
-            <!-- Salles de Brainstorming -->
+            <!-- {{ _('about_page.brainstorming_title') }} -->
             <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 reveal delay-300 group h-full">
                 <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-[#30a192] group-hover:text-white transition-colors duration-300">
                     <span class="material-symbols-outlined text-2xl">lightbulb</span>
                 </div>
-                <h3 class="text-xl font-bold text-[#1d5865] mb-3">Salles de Brainstorming</h3>
-                <p class="text-[#064060]/70 text-sm mb-4 font-semibold uppercase tracking-wider text-[#30a192]">Écrans interactifs</p>
+                <h3 class="text-xl font-bold text-[#1d5865] mb-3">{{ _('about_page.brainstorming_title') }}</h3>
+                <p class="text-[#064060]/70 text-sm mb-4 font-semibold uppercase tracking-wider text-[#30a192]">{{ _('about_page.brainstorming_tag') }}</p>
                 <p class="text-[#064060]/80 leading-relaxed">
-                    Des espaces équipés de technologies de présentation mis à disposition des incubés pour leurs sessions de travail stratégiques, leurs comités de pilotage et leurs rencontres avec investisseurs ou partenaires.
+                    {{ _('about_page.brainstorming_desc') }}
                 </p>
             </div>
 
@@ -148,7 +147,7 @@
     </div>
 </section>
 
-<!-- Section SIS (Shabaka Intelligence Systems) -->
+<!-- Section SIS ({{ _('about_page.sis_title') }}) -->
 <section class="py-24 bg-[#064060] text-white relative overflow-hidden">
     <!-- Background Elements -->
     <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
@@ -162,33 +161,33 @@
 
             <div class="reveal">
                 <div class="inline-block px-4 py-1 rounded-full border border-[#30a192] text-[#30a192] text-sm font-bold mb-6">
-                    Filiale Technologique
+                    {{ _('about_page.tech_branch_badge') }}
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">SIS <br/><span class="text-[#30a192]">Shabaka Intelligence Systems</span></h2>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">SIS <br/><span class="text-[#30a192]">{{ _('about_page.sis_title') }}</span></h2>
                 <p class="text-gray-300 text-lg leading-relaxed mb-8">
-                    Shabaka InnovLab détient et pilote sa propre structure technologique de pointe. Détenue majoritairement par l'incubateur, SIS est une Société par Actions Simplifiée (SAS) qui agit comme le moteur R&D du groupe.
+                    {{ _('about_page.sis_desc') }}
                 </p>
 
                 <ul class="space-y-4">
                     <li class="flex items-start gap-4">
                         <span class="material-symbols-outlined text-[#30a192] mt-1">shield</span>
                         <div>
-                            <span class="font-bold block text-white">Souveraineté Numérique</span>
-                            <span class="text-blue-100/80 text-sm">Création de solutions IA adaptées aux spécificités du marché marocain et africain.</span>
+                            <span class="font-bold block text-white">{{ _('about_page.sis_sovereignty_title') }}</span>
+                            <span class="text-blue-100/80 text-sm">{{ _('about_page.sis_sovereignty_desc') }}</span>
                         </div>
                     </li>
                     <li class="flex items-start gap-4">
                         <span class="material-symbols-outlined text-[#30a192] mt-1">memory</span>
                         <div>
-                            <span class="font-bold block text-white">Hardware & Software</span>
-                            <span class="text-blue-100/80 text-sm">Recherche et développement de matériel propriétaire (serveurs IA, capteurs) et de logiciels avancés.</span>
+                            <span class="font-bold block text-white">{{ _('about_page.sis_hardware_title') }}</span>
+                            <span class="text-blue-100/80 text-sm">{{ _('about_page.sis_hardware_desc') }}</span>
                         </div>
                     </li>
                     <li class="flex items-start gap-4">
                         <span class="material-symbols-outlined text-[#30a192] mt-1">settings_applications</span>
                         <div>
-                            <span class="font-bold block text-white">Intégration Métier</span>
-                            <span class="text-blue-100/80 text-sm">Déploiement de l'IA dans les secteurs clés (immobilier, énergie, santé, juridique).</span>
+                            <span class="font-bold block text-white">{{ _('about_page.sis_integration_title') }}</span>
+                            <span class="text-blue-100/80 text-sm">{{ _('about_page.sis_integration_desc') }}</span>
                         </div>
                     </li>
                 </ul>
@@ -206,11 +205,11 @@
                         <span class="text-xs text-blue-100/60 font-mono">SIS_KERNEL_V2.0</span>
                     </div>
                     <div class="font-mono text-sm text-[#30a192]">
-                        <p class="mb-2"><span class="text-purple-400">def</span> <span class="text-yellow-300">accelerate_growth</span>(startup):</p>
-                        <p class="pl-4 mb-2"><span class="text-blue-100/60"># Initializing core systems</span></p>
-                        <p class="pl-4 mb-2">security = <span class="text-blue-300">SecurityLayer</span>(mode="MAX")</p>
-                        <p class="pl-4 mb-2">ai_engine = <span class="text-blue-300">NeuralNet</span>(optimize=True)</p>
-                        <p class="pl-4 mb-2"><span class="text-purple-400">return</span> startup.scale(factor=100)</p>
+                        <p class="mb-2"><span class="text-purple-400">{{ _('about_page.code_snippet.def') }}</span> <span class="text-yellow-300">{{ _('about_page.code_snippet.accelerate') }}</span>{{ _('about_page.code_snippet.args') }}</p>
+                        <p class="pl-4 mb-2"><span class="text-blue-100/60">{{ _('about_page.code_snippet.comment') }}</span></p>
+                        <p class="pl-4 mb-2">{{ _('about_page.code_snippet.security') }}<span class="text-blue-300">{{ _('about_page.code_snippet.layer') }}</span>{{ _('about_page.code_snippet.mode') }}</p>
+                        <p class="pl-4 mb-2">{{ _('about_page.code_snippet.ai_engine') }}<span class="text-blue-300">{{ _('about_page.code_snippet.neural') }}</span>{{ _('about_page.code_snippet.optimize') }}</p>
+                        <p class="pl-4 mb-2"><span class="text-purple-400">{{ _('about_page.code_snippet.return') }}</span>{{ _('about_page.code_snippet.scale') }}</p>
                     </div>
                 </div>
             </div>
@@ -219,34 +218,34 @@
     </div>
 </section>
 
-<!-- Partenariats & Écosystème -->
+<!-- {{ _('about_page.partnerships_title') }} -->
 <section class="py-24 bg-white">
     <div class="container mx-auto px-6">
         <div class="text-center mb-16 reveal">
-            <h2 class="text-4xl font-bold text-[#1d5865] mb-4">Partenariats & Écosystème</h2>
-            <p class="text-[#064060]/80 max-w-2xl mx-auto">Shabaka InnovLab s'appuie sur un réseau dense pour offrir le meilleur aux incubés.</p>
+            <h2 class="text-4xl font-bold text-[#1d5865] mb-4">{{ _('about_page.partnerships_title') }}</h2>
+            <p class="text-[#064060]/80 max-w-2xl mx-auto">{{ _('about_page.partnerships_desc') }}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div class="reveal delay-100 p-6 bg-slate-50 rounded-2xl border border-slate-100 h-full">
                 <span class="material-symbols-outlined text-[#30a192] text-4xl mb-4">account_balance</span>
-                <h3 class="font-bold text-[#1d5865] text-lg mb-2">Institutions Publiques</h3>
-                <p class="text-sm text-[#064060]/80">Collaboration avec Maroc PME, les CRI et les universités pour le sourcing.</p>
+                <h3 class="font-bold text-[#1d5865] text-lg mb-2">{{ _('about_page.public_institutions') }}</h3>
+                <p class="text-sm text-[#064060]/80">{{ _('about_page.public_institutions_desc') }}</p>
             </div>
             <div class="reveal delay-200 p-6 bg-slate-50 rounded-2xl border border-slate-100 h-full">
                 <span class="material-symbols-outlined text-[#30a192] text-4xl mb-4">public</span>
-                <h3 class="font-bold text-[#1d5865] text-lg mb-2">Fonds Internationaux</h3>
-                <p class="text-sm text-[#064060]/80">Partenariats ciblés avec la BERD, la BEI, la Banque Mondiale et l'USAID.</p>
+                <h3 class="font-bold text-[#1d5865] text-lg mb-2">{{ _('about_page.international_funds') }}</h3>
+                <p class="text-sm text-[#064060]/80">{{ _('about_page.international_funds_desc') }}</p>
             </div>
             <div class="reveal delay-300 p-6 bg-slate-50 rounded-2xl border border-slate-100 h-full">
                 <span class="material-symbols-outlined text-[#30a192] text-4xl mb-4">business_center</span>
-                <h3 class="font-bold text-[#1d5865] text-lg mb-2">Secteur Privé</h3>
-                <p class="text-sm text-[#064060]/80">Sponsoring par des banques, opérateurs télécoms et multinationales.</p>
+                <h3 class="font-bold text-[#1d5865] text-lg mb-2">{{ _('about_page.private_sector') }}</h3>
+                <p class="text-sm text-[#064060]/80">{{ _('about_page.private_sector_desc') }}</p>
             </div>
             <div class="reveal delay-400 p-6 bg-slate-50 rounded-2xl border border-slate-100 h-full">
                 <span class="material-symbols-outlined text-[#30a192] text-4xl mb-4">flight_takeoff</span>
-                <h3 class="font-bold text-[#1d5865] text-lg mb-2">Dimension Internationale</h3>
-                <p class="text-sm text-[#064060]/80">Alliances avec des incubateurs européens et africains (Soft-landing).</p>
+                <h3 class="font-bold text-[#1d5865] text-lg mb-2">{{ _('about_page.international_dimension') }}</h3>
+                <p class="text-sm text-[#064060]/80">{{ _('about_page.international_dimension_desc') }}</p>
             </div>
         </div>
     </div>

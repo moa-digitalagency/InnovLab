@@ -53,6 +53,7 @@ def get_translation(key, **kwargs):
 
     # Fallback to fr
     if val is None and lang != 'fr':
+        current_app.logger.warning(f"Translation key '{key}' missing for lang '{lang}', falling back to 'fr'")
         val = _translations.get('fr')
         for k in keys:
             if isinstance(val, dict):
@@ -63,6 +64,7 @@ def get_translation(key, **kwargs):
 
     # Fallback to the key itself
     if val is None:
+        current_app.logger.warning(f"Translation key '{key}' completely missing, displaying raw key")
         return key
 
     # Interpolate values
