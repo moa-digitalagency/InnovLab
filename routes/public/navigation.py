@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, Response
+from flask import Blueprint, render_template, request, redirect, url_for, Response, session, current_app
 from models.settings import SeoSettings, SiteSettings
 from models.testimonial import Testimonial
 from services.portfolio_service import PortfolioService
@@ -96,3 +96,9 @@ def terms_conditions():
     settings = SiteSettings.query.first()
     content = settings.terms_conditions if settings and settings.terms_conditions else "Contenu non disponible."
     return render_template('legal.html', title="Conditions Générales", content=content)
+
+@main_bp.route('/set-language/<lang_code>', methods=['GET'])
+def set_language(lang_code):
+    if lang_code in current_app.config['LANGUAGES']:
+        session['lang'] = lang_code
+    return redirect(request.referrer or url_for('main.index'))
