@@ -133,7 +133,11 @@
         "tailored": "Tailored<br/>Tech",
         "tailored_desc": "Custom development of critical software building blocks for your businesses.",
         "expertise_label": "Expertise",
-        "btn_consultation": "Request a technical consultation"
+        "btn_consultation": "Request a technical consultation",
+        "expertise_1": "Custom LLM Deployment",
+        "expertise_2": "Digital Sovereignty",
+        "expertise_3": "Systemic Integration",
+        "expertise_4": "Sector Agility"
     },
     "external_services": {
         "badge": "Open to external companies",
@@ -191,5 +195,67 @@
         "placeholder_subject": "How can we help you?",
         "placeholder_message": "Detail your project or request here...",
         "btn_submit": "Send Message"
+    },
+    "candidature": {
+        "founder_badge": "Founders Program",
+        "founder_title": "Realize your Vision",
+        "founder_desc": "Join the ecosystem and transform your idea into a viable startup.",
+        "investor_badge": "Investors Program",
+        "investor_title": "Fund the Impact",
+        "investor_desc": "Access our qualified deal flow and participate in the rise of African innovation.",
+        "startup_badge": "Startups Program",
+        "startup_title": "Accelerate your Growth",
+        "startup_desc": "Benefit from our infrastructure and network to scale up.",
+        "form_labels": {
+            "first_name": "First Name",
+            "last_name": "Last Name",
+            "email": "Email Address",
+            "phone": "Phone",
+            "linkedin": "LinkedIn Profile",
+            "project_description": "Project Description",
+            "pitch_deck": "Pitch Deck (PDF)",
+            "investment_capacity": "Investment Capacity",
+            "investment_thesis": "Investment Thesis (optional)",
+            "startup_name": "Startup Name",
+            "website": "Website (optional)",
+            "sector": "Sector",
+            "traction": "Current Traction (MRR, users, etc.)",
+            "development_stage": "Development Stage",
+            "pitch_deck_req": "Pitch Deck (Required)"
+        },
+        "placeholders": {
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "john@example.com",
+            "phone": "+212 600 000 000",
+            "linkedin": "https://linkedin.com/in/...",
+            "project_description": "Describe your idea in a few sentences...",
+            "investment_thesis": "What sectors or stages do you prefer?",
+            "startup_name": "My Super Startup",
+            "website": "https://your-startup.com",
+            "traction": "E.g. 10k MRR, 5000 active users...",
+            "sector": "Ex: FinTech, AgriTech..."
+        },
+        "btn_submit": "Submit Application",
+        "options": {
+            "choose": "Choose...",
+            "idea": "Idea / Concept",
+            "prototype": "Prototype",
+            "mvp": "MVP",
+            "growth": "Growth",
+            "scaleup": "Scale-up",
+            "need_tech": "Tech",
+            "need_funding": "Funding",
+            "need_mentoring": "Mentoring",
+            "need_select": "What is your need?",
+            "stage_select": "Select a stage"
+        }
+    },
+    "portfolio_page": {
+        "title": "OUR PORTFOLIO",
+        "description": "Discover the innovative projects powered by Shabaka InnovLab in various strategic sectors.",
+        "filter_all": "All",
+        "view_project": "View project",
+        "no_results": "No projects found for this category."
     }
 }

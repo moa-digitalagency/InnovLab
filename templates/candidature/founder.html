@@ -53,10 +53,10 @@
                             <label for="project_stage" class="block text-sm font-semibold text-[#064060]/90">Stade du projet</label>
                             <select name="project_stage" id="project_stage" required
                                 class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all appearance-none cursor-pointer">
-                                <option value="" disabled selected>Sélectionnez une étape</option>
-                                <option value="Ideation">Idéation</option>
-                                <option value="Prototype">Prototype</option>
-                                <option value="MVP">MVP</option>
+                                <option value="" disabled selected>{{ _('candidature.options.stage_select') }}</option>
+                                <option value="Idée">{{ _('candidature.options.idea') }}</option>
+                                <option value="Prototype">{{ _('candidature.options.prototype') }}</option>
+                                <option value="MVP">{{ _('candidature.options.mvp') }}</option>
                             </select>
                         </div>
 
@@ -65,10 +65,10 @@
                             <label for="primary_need" class="block text-sm font-semibold text-[#064060]/90">Besoin principal</label>
                             <select name="primary_need" id="primary_need" required
                                 class="w-full bg-white/50 border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#076D6D] focus:border-transparent transition-all appearance-none cursor-pointer">
-                                <option value="" disabled selected>Quel est votre besoin ?</option>
-                                <option value="Tech">Tech</option>
-                                <option value="Financement">Financement</option>
-                                <option value="Mentoring">Mentoring</option>
+                                <option value="" disabled selected>{{ _('candidature.options.need_select') }}</option>
+                                <option value="Tech">{{ _('candidature.options.need_tech') }}</option>
+                                <option value="Financement">{{ _('candidature.options.need_funding') }}</option>
+                                <option value="Mentoring">{{ _('candidature.options.need_mentoring') }}</option>
                             </select>
                         </div>
                     </div>

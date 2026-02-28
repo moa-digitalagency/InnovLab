@@ -12,11 +12,11 @@
 
     <div class="container mx-auto px-6 relative z-10 text-center reveal">
         <h1 class="text-4xl md:text-6xl font-bold text-[#1d5865] mb-6 tracking-tight uppercase">
-            NOS RÉALISATIONS
+            {{ _('portfolio_page.title') }}
         </h1>
         <div class="w-24 h-1 bg-[#30a192] mx-auto mb-8"></div>
         <p class="text-xl md:text-2xl text-[#064060]/80 font-light max-w-4xl mx-auto leading-relaxed">
-            Découvrez les projets innovants propulsés par Shabaka InnovLab dans divers secteurs stratégiques.
+            {{ _('portfolio_page.description') }}
         </p>
     </div>
 </section>
@@ -27,7 +27,7 @@
         <!-- Filter Buttons -->
         <div class="flex flex-wrap justify-center gap-4 mb-16" id="filter-container">
             <button class="filter-btn active px-8 py-3 rounded-xl border-2 border-[#076D6D] bg-[#076D6D] text-white font-bold transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus:outline-none" data-filter="all">
-                Tous
+                {{ _('portfolio_page.filter_all') }}
             </button>
             <button class="filter-btn px-8 py-3 rounded-xl border-2 border-[#076D6D] text-[#076D6D] bg-transparent font-bold transition-all duration-300 hover:bg-[#076D6D] hover:text-white hover:shadow-lg hover:-translate-y-1 focus:outline-none" data-filter="PropTech & BTP">
                 PropTech & BTP
@@ -53,7 +53,7 @@
                 <!-- Card Header -->
                 {% if project.image_url %}
                 <div class="h-48 overflow-hidden relative border-b border-gray-100 flex-shrink-0">
-                    <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <img src="{{ url_for('static', filename=project.image_url) }}" alt="{{ project.get_translation('title', current_lang) }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 </div>
                 {% else %}
                 <div class="h-2 bg-gradient-to-r from-[#1d5865] via-[#30a192] to-[#076D6D] flex-shrink-0"></div>
@@ -68,23 +68,23 @@
                             {% elif project.category == 'HealthTech' %} bg-green-50 text-green-700 border border-green-200
                             {% elif project.category == 'Sécurité & Mobilité' %} bg-red-50 text-red-700 border border-red-200
                             {% else %} bg-orange-50 text-orange-700 border border-orange-200 {% endif %}">
-                            {{ project.category }}
+                            {{ project.get_translation('category', current_lang) }}
                         </span>
                     </div>
 
                     <!-- Content -->
                     <h3 class="text-2xl font-bold text-[#064060] mb-4 group-hover:text-[#30a192] transition-colors">
-                        {{ project.title }}
+                        {{ project.get_translation('title', current_lang) }}
                     </h3>
 
                     <p class="text-[#064060]/80 mb-8 leading-relaxed flex-grow">
-                        {{ project.description }}
+                        {{ project.get_translation('description', current_lang) }}
                     </p>
 
                     <!-- Action -->
                     <div class="pt-6 border-t border-gray-100 mt-auto flex justify-center">
                         <a href="{{ project.project_url }}" target="_blank" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-transparent border-2 border-[#076D6D] text-[#076D6D] font-bold text-sm hover:bg-[#076D6D] hover:text-white hover:-translate-y-1 transition-all duration-300 group w-fit gap-2">
-                            Voir le projet
+                            {{ _('portfolio_page.view_project') }}
                             <span class="material-symbols-outlined ml-2 text-lg group-hover:translate-x-1 transition-transform">arrow_forward</span>
                         </a>
                     </div>
@@ -98,7 +98,7 @@
             <div class="inline-block p-6 rounded-full bg-gray-50 mb-4">
                 <span class="material-symbols-outlined text-4xl text-[#064060]/50">search_off</span>
             </div>
-            <p class="text-[#064060]/70 text-xl font-medium">Aucun projet trouvé pour cette catégorie.</p>
+            <p class="text-[#064060]/70 text-xl font-medium">{{ _('portfolio_page.no_results') }}</p>
         </div>
     </div>
 </section>

@@ -133,7 +133,11 @@
         "tailored": "Tailored<br/>Tech",
         "tailored_desc": "Développement sur mesure de briques logicielles critiques pour vos métiers.",
         "expertise_label": "Expertise",
-        "btn_consultation": "Demander une consultation technique"
+        "btn_consultation": "Demander une consultation technique",
+        "expertise_1": "Custom LLM Deployment",
+        "expertise_2": "Souveraineté Numérique",
+        "expertise_3": "Intégration Systémique",
+        "expertise_4": "Agilité Sectorielle"
     },
     "external_services": {
         "badge": "Ouvert aux entreprises externes",
@@ -191,5 +195,67 @@
         "placeholder_subject": "Comment pouvons-nous vous aider ?",
         "placeholder_message": "Détaillez votre projet ou votre demande ici...",
         "btn_submit": "Envoyer le Message"
+    },
+    "candidature": {
+        "founder_badge": "Programme Fondateurs",
+        "founder_title": "Concrétisez votre Vision",
+        "founder_desc": "Rejoignez l'écosystème et transformez votre idée en startup viable.",
+        "investor_badge": "Programme Investisseurs",
+        "investor_title": "Financez l'Impact",
+        "investor_desc": "Accédez à notre deal flow qualifié et participez à l'essor de l'innovation africaine.",
+        "startup_badge": "Programme Startups",
+        "startup_title": "Accélérez votre Croissance",
+        "startup_desc": "Bénéficiez de notre infrastructure et réseau pour passer à l'échelle supérieure.",
+        "form_labels": {
+            "first_name": "Prénom",
+            "last_name": "Nom",
+            "email": "Adresse Email",
+            "phone": "Téléphone",
+            "linkedin": "Profil LinkedIn",
+            "project_description": "Description du projet",
+            "pitch_deck": "Pitch Deck (PDF)",
+            "investment_capacity": "Capacité d'investissement",
+            "investment_thesis": "Thèse d'investissement (optionnel)",
+            "startup_name": "Nom de la startup",
+            "website": "Site Web (optionnel)",
+            "sector": "Secteur d'activité",
+            "traction": "Traction actuelle (CA, utilisateurs, etc.)",
+            "development_stage": "Stade de développement",
+            "pitch_deck_req": "Pitch Deck (Obligatoire)"
+        },
+        "placeholders": {
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "john@example.com",
+            "phone": "+212 600 000 000",
+            "linkedin": "https://linkedin.com/in/...",
+            "project_description": "Décrivez votre idée en quelques phrases...",
+            "investment_thesis": "Quels secteurs ou stades privilégiez-vous ?",
+            "startup_name": "Ma Super Startup",
+            "website": "https://votre-startup.com",
+            "traction": "Ex: 10k MRR, 5000 utilisateurs actifs...",
+            "sector": "Ex: FinTech, AgriTech..."
+        },
+        "btn_submit": "Soumettre la candidature",
+        "options": {
+            "choose": "Choisir...",
+            "idea": "Idée / Concept",
+            "prototype": "Prototype",
+            "mvp": "MVP",
+            "growth": "Growth (Croissance)",
+            "scaleup": "Scale-up",
+            "need_tech": "Tech",
+            "need_funding": "Financement",
+            "need_mentoring": "Mentoring",
+            "need_select": "Quel est votre besoin ?",
+            "stage_select": "Sélectionnez une étape"
+        }
+    },
+    "portfolio_page": {
+        "title": "NOS RÉALISATIONS",
+        "description": "Découvrez les projets innovants propulsés par Shabaka InnovLab dans divers secteurs stratégiques.",
+        "filter_all": "Tous",
+        "view_project": "Voir le projet",
+        "no_results": "Aucun projet trouvé pour cette catégorie."
     }
 }
