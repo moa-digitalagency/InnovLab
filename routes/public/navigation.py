@@ -88,14 +88,16 @@ def robots_txt():
 @main_bp.route('/privacy-policy', methods=['GET'])
 def privacy_policy():
     settings = SiteSettings.query.first()
-    content = settings.privacy_policy if settings and settings.privacy_policy else "Contenu non disponible."
-    return render_template('legal.html', title="Politique de Confidentialité", content=content)
+    current_lang = session.get('lang', 'fr')
+    content = settings.get_legal_text('privacy_policy', current_lang) if settings else "Contenu non disponible."
+    return render_template('legal.html', title="footer.privacy_policy", content=content)
 
 @main_bp.route('/terms-conditions', methods=['GET'])
 def terms_conditions():
     settings = SiteSettings.query.first()
-    content = settings.terms_conditions if settings and settings.terms_conditions else "Contenu non disponible."
-    return render_template('legal.html', title="Conditions Générales", content=content)
+    current_lang = session.get('lang', 'fr')
+    content = settings.get_legal_text('terms_conditions', current_lang) if settings else "Contenu non disponible."
+    return render_template('legal.html', title="footer.terms_conditions", content=content)
 
 @main_bp.route('/set-language/<lang_code>', methods=['GET'])
 def set_language(lang_code):
