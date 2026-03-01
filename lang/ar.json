@@ -33,7 +33,7 @@
   },
   "hero": {
     "badge": "الابتكار من خلال التعاون",
-    "title": "بناء <br/> <span class=\"text-transparent bg-clip-text bg-gradient-to-r من-[#1d5865] عبر-[#30a192] إلى-[#1d5865] bg-[length:200%_auto] animate-[gradient_4s_linear_infinite]\">المستقبل التكنولوجي</span> <br/> في أفريقيا.",
+    "title": "بناء<span class=\"text-transparent bg-clip-text bg-gradient-to-r من-[#1d5865] عبر-[#30a192] إلى-[#1d5865] bg-[length:200%_auto] animate-[gradient_4s_linear_infinite]\">المستقبل التكنولوجي</span>في أفريقيا.",
     "description": "نشر الحلول المتطورة من خلال شراكة متكاملة. نحن ندمج خبرتنا في مجال البحث والتطوير مع طموحاتك لتحويل ميزتك التنافسية بشكل مستدام.",
     "founder_title": "أنا المؤسس",
     "founder_desc": "تسريع رؤيتك",
@@ -96,7 +96,7 @@
     "approach_desc": "مهمتنا بسيطة: نحن ندير التعقيد (الفني والقانوني والمالي) حتى تتمكن من التركيز حصريًا على رؤيتك.",
     "powered_by": "بدعم من<br/>مجموعة الشبكة الاستثمارية",
     "badge": "لماذا نحن؟",
-    "title": "مجتمع <br/> من البنائين",
+    "title": "مجتمعمن البنائين",
     "expertise": "الخبرة المشتركة",
     "expertise_desc": "استفد من الدروس التي تعلمها كبار مؤسسينا.",
     "speed": "سرعة التنفيذ",
