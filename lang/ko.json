@@ -33,7 +33,7 @@
   },
   "hero": {
     "badge": "협업을 통한 혁신",
-    "title": "<br/> 아프리카의 <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-[#1d5865] via-[#30a192] to-[#1d5865] bg-[length:200%_auto] animate-[gradient_4s_linear_infinite]\">기술적 미래</span> <br/>를 건설하세요.",
+    "title": "아프리카의 <span class=\"text-transparent bg-clip-text bg-gradient-to-r from-[#1d5865] via-[#30a192] to-[#1d5865] bg-[length:200%_auto] animate-[gradient_4s_linear_infinite]\">기술적 미래</span>를 건설하세요.",
     "description": "통합 파트너십을 통해 최첨단 솔루션을 배포하세요. 우리는 R&D 전문 지식과 귀하의 야망을 결합하여 귀하의 경쟁 우위를 지속 가능하게 변화시킵니다.",
     "founder_title": "나는 창립자입니다",
     "founder_desc": "비전을 가속화하세요",
