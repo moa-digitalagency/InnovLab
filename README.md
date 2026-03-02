@@ -18,7 +18,7 @@ Plateforme institutionnelle pour l'incubateur Shabaka InnovLab.
 ## Déploiement (Render/Heroku)
 - Variables d'env requises : `DATABASE_URL`, `SECRET_KEY`, `ADMIN_USERNAME`, `ADMIN_PASSWORD`.
 - Commande de build : `pip install -r requirements.txt`
-- Commande de start : `gunicorn app:app`
+- Commande de start : `gunicorn -w 4 -t 120 app:app`
 
 ## Structure
 - `/models` : Base de données
