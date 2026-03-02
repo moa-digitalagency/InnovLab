@@ -2,10 +2,12 @@ import json
 import os
 from flask import request, session, current_app
 
-_translations = {}
+translations_cache = {}
 
 def load_translations():
-    global _translations
+    global translations_cache
+    if translations_cache:
+        return
     lang_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'lang')
     if not os.path.exists(lang_dir):
         return
@@ -15,7 +17,7 @@ def load_translations():
             filepath = os.path.join(lang_dir, filename)
             try:
                 with open(filepath, 'r', encoding='utf-8') as f:
-                    _translations[lang_code] = json.load(f)
+                    translations_cache[lang_code] = json.load(f)
             except Exception as e:
                 print(f"Error loading translation file {filename}: {e}")
 
@@ -43,7 +45,7 @@ def get_translation(key, **kwargs):
 
     # Try the requested language
     keys = key.split('.')
-    val = _translations.get(lang)
+    val = translations_cache.get(lang)
     for k in keys:
         if isinstance(val, dict):
             val = val.get(k)
@@ -54,7 +56,7 @@ def get_translation(key, **kwargs):
     # Fallback to fr
     if val is None and lang != 'fr':
         current_app.logger.warning(f"Translation key '{key}' missing for lang '{lang}', falling back to 'fr'")
-        val = _translations.get('fr')
+        val = translations_cache.get('fr')
         for k in keys:
             if isinstance(val, dict):
                 val = val.get(k)
