@@ -206,6 +206,8 @@ def create_app():
         except Exception as e:
             app.logger.error(f"Tracking error: {e}")
             db.session.rollback()
+        finally:
+            db.session.remove()
 
     # Context Processor for injecting site and SEO settings into all templates
     @app.context_processor
