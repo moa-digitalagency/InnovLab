@@ -188,7 +188,18 @@ def create_app():
                 db.session.commit()
 
                 # Optionnel : Notification Telegram
-                notify_visit(ip, request.path, device_type)
+                import threading
+                from flask import current_app
+                app_obj = current_app._get_current_object()
+                def background_notify(app_instance, v_ip, v_path, v_device):
+                    with app_instance.app_context():
+                        notify_visit(v_ip, v_path, v_device)
+
+                threading.Thread(
+                    target=background_notify,
+                    args=(app_obj, ip, request.path, device_type),
+                    daemon=True
+                ).start()
 
         except OperationalError:
             db.session.rollback()
