@@ -20,11 +20,17 @@ class PortfolioProject(db.Model):
         try:
             # Si c'est déjà un dictionnaire
             if isinstance(val, dict):
-                return val.get(lang_code, val.get('fr', ''))
+                return str(val.get(lang_code, val.get('fr', '')))
             # Si c'est une chaîne de caractères ressemblant à du JSON
             elif isinstance(val, str) and val.startswith('{'):
-                data = json.loads(val)
-                return data.get(lang_code, data.get('fr', ''))
+                try:
+                    data = json.loads(val)
+                    if isinstance(data, dict):
+                        return str(data.get(lang_code, data.get('fr', '')))
+                    else:
+                        return str(val)
+                except json.JSONDecodeError:
+                    return str(val)
             # Si c'est du vieux texte standard (Fallback)
             else:
                 return str(val)
