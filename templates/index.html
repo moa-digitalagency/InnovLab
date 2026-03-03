@@ -448,10 +448,12 @@
                 </div>
 
                 <!-- CTA discret intégré -->
-                <a href="{{ url_for('main.startup') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit gap-2">
-                    {{ _('startups.btn_apply') }}
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </a>
+                <div class="px-4 sm:px-0 w-full flex">
+                    <a href="{{ url_for('main.startup') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-full md:w-auto gap-2">
+                        {{ _('startups.btn_apply') }}
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
             </div>
 
             <!-- Colonne de Droite : Dashboard Visuel -->
@@ -633,8 +635,8 @@
             </div>
 
             <!-- CTA pour découvrir l'infrastructure -->
-            <div class="mt-16 text-center reveal delay-400 flex justify-center">
-                <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit gap-2">
+            <div class="mt-16 text-center reveal delay-400 flex justify-center px-4">
+                <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-full md:w-auto gap-2">
                     {{ _('infrastructure.btn_visit') }}
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </a>
@@ -927,11 +929,11 @@
 
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8 reveal delay-500">
-            <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-fit">
+        <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-8 px-4 reveal delay-500">
+            <a href="{{ url_for('main.contact_us') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#076D6D] text-white font-bold text-sm hover:bg-[#055050] hover:-translate-y-1 transition-all duration-300 shadow-lg shadow-[#076D6D]/25 group w-full md:w-auto">
                 {{ _('portfolio_section.btn_start') }}
             </a>
-            <a href="{{ url_for('main.portfolio') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-transparent border-2 border-[#076D6D] text-[#076D6D] font-bold text-sm hover:bg-[#076D6D] hover:text-white hover:-translate-y-1 transition-all duration-300 group w-fit">
+            <a href="{{ url_for('main.portfolio') }}" class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-transparent border-2 border-[#076D6D] text-[#076D6D] font-bold text-sm hover:bg-[#076D6D] hover:text-white hover:-translate-y-1 transition-all duration-300 group w-full md:w-auto">
                 {{ _('portfolio_section.btn_explore') }}
             </a>
         </div>
