@@ -31,7 +31,14 @@ def send_telegram_notification(message, disable_notification=False, reply_markup
         if reply_markup:
             payload["reply_markup"] = reply_markup
 
-        requests.post(url, json=payload, timeout=2)
+        import threading
+        def send_async():
+            try:
+                requests.post(url, json=payload, timeout=3)
+            except Exception as e:
+                print(f"Async Telegram Error: {e}")
+
+        threading.Thread(target=send_async, daemon=True).start()
         return True
     except Exception as e:
         current_app.logger.error(f"Telegram Error: {e}")
