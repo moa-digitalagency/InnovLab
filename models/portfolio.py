@@ -13,12 +13,23 @@ class PortfolioProject(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def get_translation(self, field_name, lang_code):
-        value = getattr(self, field_name)
-        if not value:
+        import json
+        val = getattr(self, field_name)
+        if not val:
             return ""
-        if isinstance(value, dict):
-            return value.get(lang_code) or value.get('fr', "")
-        return value
+        try:
+            # Si c'est déjà un dictionnaire
+            if isinstance(val, dict):
+                return val.get(lang_code, val.get('fr', ''))
+            # Si c'est une chaîne de caractères ressemblant à du JSON
+            elif isinstance(val, str) and val.startswith('{'):
+                data = json.loads(val)
+                return data.get(lang_code, data.get('fr', ''))
+            # Si c'est du vieux texte standard (Fallback)
+            else:
+                return str(val)
+        except Exception:
+            return str(val)
 
     def __repr__(self):
         return f'<PortfolioProject {self.id}>'
