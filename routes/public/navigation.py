@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, Respon
 from models.settings import SeoSettings, SiteSettings
 from models.testimonial import Testimonial
 from services.portfolio_service import PortfolioService
+from services.i18n_service import get_locale
 
 main_bp = Blueprint('main', __name__, static_folder='../../statics', static_url_path='/static')
 
@@ -22,7 +23,7 @@ def services():
 @main_bp.route('/portfolio', methods=['GET'])
 def portfolio():
     projects = PortfolioService.get_all_projects(active_only=True)
-    return render_template('portfolio.html', projects=projects)
+    return render_template('portfolio.html', projects=projects, current_lang=get_locale())
 
 @main_bp.route('/contact', methods=['GET'])
 def contact():
