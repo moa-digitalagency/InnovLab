@@ -3,8 +3,11 @@ from models import db, PortfolioProject
 
 def init_portfolio():
     with app.app_context():
+        import json
+
         # Clear existing projects
-        db.session.query(PortfolioProject).delete()
+        PortfolioProject.query.delete()
+        db.session.commit()
 
         projects = [   {   'title': {   'fr': 'Shabaka Alu+ (PWA Devis)',
                      'en': 'Shabaka Alu+ (PWA Devis)',
@@ -2201,10 +2204,10 @@ def init_portfolio():
 
         for p_data in projects:
             project = PortfolioProject(
-                title=p_data['title'],
-                category=p_data['category'],
-                short_desc=p_data['short_desc'],
-                full_desc=p_data['full_desc'],
+                title=json.dumps(p_data['title']),
+                category=json.dumps(p_data['category']),
+                short_desc=json.dumps(p_data['short_desc']),
+                full_desc=json.dumps(p_data['full_desc']),
                 project_url=p_data['project_url'],
                 is_active=True
             )
