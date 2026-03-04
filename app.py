@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 import os
 from datetime import datetime
 from sqlalchemy.exc import OperationalError
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 load_dotenv()
 
@@ -74,6 +75,9 @@ class MockSeoSettings:
 def create_app():
     app = Flask(__name__, template_folder='templates', static_folder='statics')
     app.config.from_object(Config)
+
+    # Trust X-Forwarded-* headers from Nginx reverse proxy
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
     # Security Configuration
     csrf = CSRFProtect(app)
