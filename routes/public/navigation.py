@@ -20,10 +20,17 @@ def about():
 def services():
     return render_template('services.html')
 
-@main_bp.route('/portfolio', methods=['GET'])
+@main_bp.route('/portfolio')
 def portfolio():
-    projects = PortfolioService.get_all_projects(active_only=True)
-    return render_template('portfolio.html', projects=projects, current_lang=get_locale())
+    try:
+        from models.portfolio import PortfolioProject
+        projects = PortfolioProject.query.all()
+        return render_template('portfolio.html', projects=projects)
+    except Exception as e:
+        from flask import current_app, flash
+        current_app.logger.error(f"CRASH ROUTE PORTFOLIO : {e}")
+        flash("Une erreur est survenue lors de la récupération des projets.", "error")
+        return render_template('portfolio.html', projects=[])
 
 @main_bp.route('/contact', methods=['GET'])
 def contact():

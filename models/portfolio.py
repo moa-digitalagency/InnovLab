@@ -12,30 +12,33 @@ class PortfolioProject(db.Model):
     is_active = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def get_translation(self, field_name, lang_code):
+    def get_translation(self, field_name, lang_code='fr'):
         import json
-        val = getattr(self, field_name)
-        if not val:
-            return ""
+        import logging
         try:
+            val = getattr(self, field_name)
+            if not val:
+                return ""
+
             # Si c'est déjà un dictionnaire
             if isinstance(val, dict):
-                return str(val.get(lang_code, val.get('fr', '')))
-            # Si c'est une chaîne de caractères ressemblant à du JSON
-            elif isinstance(val, str) and val.startswith('{'):
-                try:
-                    data = json.loads(val)
-                    if isinstance(data, dict):
-                        return str(data.get(lang_code, data.get('fr', '')))
-                    else:
-                        return str(val)
-                except json.JSONDecodeError:
-                    return str(val)
-            # Si c'est du vieux texte standard (Fallback)
-            else:
-                return str(val)
-        except Exception:
+                return val.get(lang_code, val.get('fr', str(val)))
+
+            # Si c'est du texte, on tente de voir si c'est du JSON stringifié
+            if isinstance(val, str):
+                val = val.strip()
+                if val.startswith('{') and val.endswith('}'):
+                    try:
+                        data = json.loads(val)
+                        return data.get(lang_code, data.get('fr', str(data)))
+                    except json.JSONDecodeError:
+                        return val # Fallback si JSON invalide
+                return val # Fallback si vieux texte classique
+
             return str(val)
+        except Exception as e:
+            logging.error(f"Erreur get_translation sur {field_name}: {e}")
+            return ""
 
     def __repr__(self):
         return f'<PortfolioProject {self.id}>'
