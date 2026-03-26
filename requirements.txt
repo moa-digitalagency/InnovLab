@@ -11,3 +11,4 @@ Flask-WTF
 Flask-Limiter
 Flask-Talisman
 user-agents==2.2.0
+redis>=4.0.0
