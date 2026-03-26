@@ -4,49 +4,61 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
-    <title>{% block title %}{{ page_seo.title_tag if page_seo and page_seo.title_tag else seo_settings.meta_title_default }}{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}{{ page_seo.meta_desc if page_seo and page_seo.meta_desc else seo_settings.meta_description_default }}{% endblock %}">
-    <meta name="keywords" content="{{ page_seo.keywords if page_seo and page_seo.keywords else seo_settings.meta_keywords_default }}">
+    <!-- SEO: Title & Description (Page override OR Site default) -->
+    <title>{% block title %}{% if page_seo and page_seo.title_tag %}{{ page_seo.title_tag }}{% elif site_settings %}{{ site_settings.get_seo_title() }}{% else %}Shabaka InnovLab{% endif %}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{% if page_seo and page_seo.meta_desc %}{{ page_seo.meta_desc }}{% elif site_settings %}{{ site_settings.get_seo_description() }}{% else %}Le Catalyseur de la Souverainete Technologique{% endif %}{% endblock %}">
+    <meta name="keywords" content="{% if page_seo and page_seo.keywords %}{{ page_seo.keywords }}{% elif site_settings %}{{ site_settings.site_keywords }}{% else %}innovation, startup, investissement{% endif %}">
 
+    <!-- Open Graph (for Social Sharing) -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.url }}">
-    <meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}{{ self.meta_description() }}{% endblock %}">
-    <meta property="og:image" content="{% block og_image %}{{ request.url_root[:-1] }}{{ seo_settings.og_image_default }}{% endblock %}">
-    <meta property="og:site_name" content="{{ seo_settings.og_site_name }}">
+    <meta property="og:title" content="{% if page_seo and page_seo.title_tag %}{{ page_seo.title_tag }}{% elif site_settings %}{{ site_settings.get_seo_title() }}{% else %}Shabaka InnovLab{% endif %}">
+    <meta property="og:description" content="{% if page_seo and page_seo.meta_desc %}{{ page_seo.meta_desc }}{% elif site_settings %}{{ site_settings.get_seo_description() }}{% else %}Innovation africaine{% endif %}">
+    <meta property="og:image" content="{% if page_seo and page_seo.og_image %}{{ request.url_root.rstrip('/') }}{{ page_seo.og_image }}{% elif site_settings and site_settings.og_image %}{{ request.url_root.rstrip('/') }}{{ site_settings.og_image }}{% else %}{{ request.url_root.rstrip('/') }}/statics/uploads/og-default.jpg{% endif %}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="{% if site_settings %}{{ site_settings.og_site_name }}{% else %}Shabaka InnovLab{% endif %}">
 
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="{{ seo_settings.twitter_handle }}">
-    <meta name="twitter:title" content="{% block twitter_title %}{{ self.title() }}{% endblock %}">
-    <meta name="twitter:description" content="{% block twitter_description %}{{ self.meta_description() }}{% endblock %}">
-    <meta name="twitter:image" content="{% block twitter_image %}{{ self.og_image() }}{% endblock %}">
+    <meta name="twitter:site" content="{% if site_settings %}{{ site_settings.twitter_handle }}{% else %}@ShabakaInnov{% endif %}">
+    <meta name="twitter:title" content="{% if page_seo and page_seo.title_tag %}{{ page_seo.title_tag }}{% elif site_settings %}{{ site_settings.get_seo_title() }}{% else %}Shabaka InnovLab{% endif %}">
+    <meta name="twitter:description" content="{% if page_seo and page_seo.meta_desc %}{{ page_seo.meta_desc }}{% elif site_settings %}{{ site_settings.get_seo_description() }}{% else %}Innovation africaine{% endif %}">
+    <meta name="twitter:image" content="{% if page_seo and page_seo.og_image %}{{ request.url_root.rstrip('/') }}{{ page_seo.og_image }}{% elif site_settings and site_settings.og_image %}{{ request.url_root.rstrip('/') }}{{ site_settings.og_image }}{% else %}{{ request.url_root.rstrip('/') }}/statics/uploads/og-default.jpg{% endif %}">
 
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ url_for('static', filename=site_settings.favicon) if site_settings and site_settings.favicon else url_for('static', filename='img/favicon.ico') }}">
+
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-    <!-- Google Analytics -->
-    {% if seo_settings.google_analytics_id %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ seo_settings.google_analytics_id }}"></script>
+    <!-- Google Analytics (if configured) -->
+    {% if site_settings and site_settings.google_analytics_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site_settings.google_analytics_id }}"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', '{{ seo_settings.google_analytics_id }}');
+      gtag('config', '{{ site_settings.google_analytics_id }}');
     </script>
     {% endif %}
 
     {% block styles %}{% endblock %}
 
-    <!-- Custom Head Code -->
+    <!-- Custom Head Code (Tracking, etc.) -->
     {% if site_settings and site_settings.custom_head_code %}
     {{ site_settings.custom_head_code | safe }}
     {% endif %}
-</head>
+</head></head>
 <body class="font-sans antialiased bg-[#ffffff] scroll-smooth">
 
     <!-- ========================================== -->
