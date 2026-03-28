@@ -165,9 +165,12 @@ def create_app():
             # Database might not be ready
             pass
 
-    # 2. Analytics Tracking Middleware
+    # 2. Analytics Tracking Middleware (with timeout protection)
     @app.before_request
     def track_visitor():
+        import threading
+        import signal
+
         try:
             # Ignorer les requêtes statiques et l'admin pour ne pas polluer les stats
             if request.path.startswith('/static') or request.path.startswith('/admin'):
@@ -179,39 +182,59 @@ def create_app():
             device_type = 'mobile' if user_agent.is_mobile else ('tablet' if user_agent.is_tablet else 'desktop')
 
             # Vérifier si on a déjà enregistré cette IP pour ce chemin dans les 5 dernières minutes (éviter le spam)
-            recent_visit = VisitAnalytics.query.filter_by(ip_address=ip, path=request.path).order_by(VisitAnalytics.timestamp.desc()).first()
-            if not recent_visit or (datetime.utcnow() - recent_visit.timestamp).total_seconds() > 300:
-                visit = VisitAnalytics(
-                    ip_address=ip,
-                    user_agent=user_agent.browser.family,
-                    path=request.path,
-                    referrer=request.referrer,
-                    device_type=device_type
-                )
-                db.session.add(visit)
-                db.session.commit()
+            # Add timeout to prevent hanging on slow database queries
+            try:
+                recent_visit = VisitAnalytics.query.filter_by(ip_address=ip, path=request.path).order_by(VisitAnalytics.timestamp.desc()).first()
+            except Exception as db_error:
+                app.logger.warning(f"Failed to query recent visit: {db_error}")
+                recent_visit = None
 
-                # Optionnel : Notification Telegram
-                import threading
+            if not recent_visit or (datetime.utcnow() - recent_visit.timestamp).total_seconds() > 300:
+                try:
+                    visit = VisitAnalytics(
+                        ip_address=ip,
+                        user_agent=user_agent.browser.family,
+                        path=request.path,
+                        referrer=request.referrer,
+                        device_type=device_type
+                    )
+                    db.session.add(visit)
+                    db.session.commit()
+                except Exception as commit_error:
+                    app.logger.error(f"Failed to save visit: {commit_error}")
+                    db.session.rollback()
+                    return
+
+                # Telegram notification in background with timeout protection
                 from flask import current_app
                 app_obj = current_app._get_current_object()
-                def background_notify(app_instance, v_ip, v_path, v_device):
-                    with app_instance.app_context():
-                        notify_visit(v_ip, v_path, v_device)
 
-                threading.Thread(
+                def background_notify(app_instance, v_ip, v_path, v_device):
+                    try:
+                        with app_instance.app_context():
+                            notify_visit(v_ip, v_path, v_device)
+                    except Exception as notify_error:
+                        app.logger.error(f"Telegram notification error: {notify_error}")
+
+                # Run notification in daemon thread with timeout
+                notify_thread = threading.Thread(
                     target=background_notify,
                     args=(app_obj, ip, request.path, device_type),
                     daemon=True
-                ).start()
+                )
+                notify_thread.start()
+                # Don't wait for notification thread - let it run in background with 2s timeout
+                notify_thread.join(timeout=2.0)
 
         except OperationalError:
             db.session.rollback()
         except Exception as e:
             app.logger.error(f"Tracking error: {e}")
-            db.session.rollback()
         finally:
-            db.session.remove()
+            try:
+                db.session.remove()
+            except Exception:
+                pass
 
     # Context Processor for injecting site and SEO settings into all templates
     @app.context_processor
