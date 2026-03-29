@@ -3,13 +3,33 @@ from models.settings import SeoSettings, SiteSettings
 from models.testimonial import Testimonial
 from services.portfolio_service import PortfolioService
 from services.i18n_service import get_locale
+import time
 
 main_bp = Blueprint('main', __name__, static_folder='../../statics', static_url_path='/static')
 
+# In-memory caches for public routes (prevent DB queries on every request)
+_cache = {
+    'testimonials': {'data': None, 'last_update': 0},
+    'projects': {'data': None, 'last_update': 0}
+}
+CACHE_TTL = 300  # 5 minutes for public content
+
 @main_bp.route('/', methods=['GET'])
 def index():
-    featured_test = Testimonial.query.filter_by(is_featured=True).first()
-    standard_tests = Testimonial.query.filter_by(is_featured=False).order_by(Testimonial.created_at.desc()).limit(2).all()
+    current_time = time.time()
+
+    # Cache testimonials for 5 minutes
+    if current_time - _cache['testimonials']['last_update'] > CACHE_TTL:
+        try:
+            featured_test = Testimonial.query.filter_by(is_featured=True).first()
+            standard_tests = Testimonial.query.filter_by(is_featured=False).order_by(Testimonial.created_at.desc()).limit(2).all()
+            _cache['testimonials']['data'] = (featured_test, standard_tests)
+            _cache['testimonials']['last_update'] = current_time
+        except Exception as e:
+            current_app.logger.error(f"Error loading testimonials: {e}")
+            _cache['testimonials']['data'] = (None, [])
+
+    featured_test, standard_tests = _cache['testimonials']['data'] or (None, [])
     return render_template('index.html', featured_test=featured_test, standard_tests=standard_tests)
 
 @main_bp.route('/about', methods=['GET'])
@@ -22,15 +42,21 @@ def services():
 
 @main_bp.route('/portfolio')
 def portfolio():
-    try:
-        from models.portfolio import PortfolioProject
-        projects = PortfolioProject.query.all()
-        return render_template('portfolio.html', projects=projects)
-    except Exception as e:
-        from flask import current_app, flash
-        current_app.logger.error(f"CRASH ROUTE PORTFOLIO : {e}")
-        flash("Une erreur est survenue lors de la récupération des projets.", "error")
-        return render_template('portfolio.html', projects=[])
+    current_time = time.time()
+
+    # Cache portfolio projects for 5 minutes
+    if current_time - _cache['projects']['last_update'] > CACHE_TTL:
+        try:
+            from models.portfolio import PortfolioProject
+            projects = PortfolioProject.query.all()
+            _cache['projects']['data'] = projects
+            _cache['projects']['last_update'] = current_time
+        except Exception as e:
+            current_app.logger.error(f"Error loading portfolio projects: {e}")
+            _cache['projects']['data'] = []
+
+    projects = _cache['projects']['data'] or []
+    return render_template('portfolio.html', projects=projects)
 
 @main_bp.route('/contact', methods=['GET'])
 def contact():
@@ -84,27 +110,40 @@ def sitemap_xml():
 
 @main_bp.route('/robots.txt')
 def robots_txt():
-    seo_entry = SeoSettings.query.filter_by(page_name='index').first()
-    content = ""
-    if seo_entry and seo_entry.robots_txt_content:
-        content = seo_entry.robots_txt_content
-    else:
+    # Use cached SEO settings from app context to avoid DB query
+    try:
+        seo_entry = SeoSettings.query.filter_by(page_name='index').first()
+        content = ""
+        if seo_entry and seo_entry.robots_txt_content:
+            content = seo_entry.robots_txt_content
+        else:
+            content = f"User-agent: *\nDisallow: /admin/\nAllow: /\nSitemap: {request.url_root}sitemap.xml"
+    except Exception as e:
+        current_app.logger.error(f"Error generating robots.txt: {e}")
         content = f"User-agent: *\nDisallow: /admin/\nAllow: /\nSitemap: {request.url_root}sitemap.xml"
 
     return Response(content, mimetype='text/plain')
 
 @main_bp.route('/privacy-policy', methods=['GET'])
 def privacy_policy():
-    settings = SiteSettings.query.first()
-    current_lang = session.get('lang', 'fr')
-    content = settings.get_legal_text('privacy_policy', current_lang) if settings else "Contenu non disponible."
+    try:
+        settings = SiteSettings.query.first()
+        current_lang = session.get('lang', 'fr')
+        content = settings.get_legal_text('privacy_policy', current_lang) if settings else "Contenu non disponible."
+    except Exception as e:
+        current_app.logger.error(f"Error loading privacy policy: {e}")
+        content = "Contenu non disponible."
     return render_template('legal.html', title="footer.privacy_policy", content=content)
 
 @main_bp.route('/terms-conditions', methods=['GET'])
 def terms_conditions():
-    settings = SiteSettings.query.first()
-    current_lang = session.get('lang', 'fr')
-    content = settings.get_legal_text('terms_conditions', current_lang) if settings else "Contenu non disponible."
+    try:
+        settings = SiteSettings.query.first()
+        current_lang = session.get('lang', 'fr')
+        content = settings.get_legal_text('terms_conditions', current_lang) if settings else "Contenu non disponible."
+    except Exception as e:
+        current_app.logger.error(f"Error loading terms and conditions: {e}")
+        content = "Contenu non disponible."
     return render_template('legal.html', title="footer.terms_conditions", content=content)
 
 @main_bp.route('/set-language/<lang_code>', methods=['GET'])
