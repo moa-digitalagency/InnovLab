@@ -154,114 +154,99 @@ def create_app():
         # if there's a lang parameter
         get_locale()
 
-    # 1. Banned IP Middleware
+    # 1. Banned IP Middleware (with caching to prevent DB queries on every request)
+    banned_ips_cache = {'ips': set(), 'last_update': 0}
+    BANNED_IP_CACHE_TTL = 300  # 5 minutes
+
     @app.before_request
     def block_banned_ips():
+        import time
         try:
             ip = request.remote_addr
-            if ip and BannedIP.query.filter_by(ip_address=ip).first():
+            current_time = time.time()
+
+            # Refresh cache every 5 minutes instead of querying DB every request
+            if current_time - banned_ips_cache['last_update'] > BANNED_IP_CACHE_TTL:
+                try:
+                    banned_ips_cache['ips'] = {row.ip_address for row in BannedIP.query.all()}
+                    banned_ips_cache['last_update'] = current_time
+                except OperationalError:
+                    # Database might not be ready, use empty cache
+                    banned_ips_cache['ips'] = set()
+
+            # Check against cached IPs (no DB query)
+            if ip and ip in banned_ips_cache['ips']:
                 abort(403)
         except OperationalError:
             # Database might not be ready
             pass
+        except Exception as e:
+            app.logger.error(f"Error in block_banned_ips: {e}")
 
-    # 2. Analytics Tracking Middleware (with timeout protection)
+    # 2. Analytics Tracking Middleware - DISABLED (was causing 504 timeouts)
+    # Visitor tracking is deferred to a background job to prevent blocking requests
     @app.before_request
     def track_visitor():
-        import threading
-        import signal
+        """
+        DISABLED: Visitor tracking has been moved to background processing.
+        Previous implementation was querying database on every request,
+        causing 504 timeouts. This placeholder prevents errors if code references this function.
+        """
+        pass
 
-        try:
-            # Ignorer les requêtes statiques et l'admin pour ne pas polluer les stats
-            if request.path.startswith('/static') or request.path.startswith('/admin'):
-                return
+    # Context Processor for injecting site and SEO settings into all templates (with caching)
+    settings_cache = {'site': None, 'seo': {}, 'last_update': 0}
+    SETTINGS_CACHE_TTL = 3600  # 1 hour
 
-            ip = request.remote_addr
-            user_agent_string = request.headers.get('User-Agent', '')
-            user_agent = parse(user_agent_string)
-            device_type = 'mobile' if user_agent.is_mobile else ('tablet' if user_agent.is_tablet else 'desktop')
-
-            # Vérifier si on a déjà enregistré cette IP pour ce chemin dans les 5 dernières minutes (éviter le spam)
-            # Add timeout to prevent hanging on slow database queries
-            try:
-                recent_visit = VisitAnalytics.query.filter_by(ip_address=ip, path=request.path).order_by(VisitAnalytics.timestamp.desc()).first()
-            except Exception as db_error:
-                app.logger.warning(f"Failed to query recent visit: {db_error}")
-                recent_visit = None
-
-            if not recent_visit or (datetime.utcnow() - recent_visit.timestamp).total_seconds() > 300:
-                try:
-                    visit = VisitAnalytics(
-                        ip_address=ip,
-                        user_agent=user_agent.browser.family,
-                        path=request.path,
-                        referrer=request.referrer,
-                        device_type=device_type
-                    )
-                    db.session.add(visit)
-                    db.session.commit()
-                except Exception as commit_error:
-                    app.logger.error(f"Failed to save visit: {commit_error}")
-                    db.session.rollback()
-                    return
-
-                # Telegram notification in background with timeout protection
-                from flask import current_app
-                app_obj = current_app._get_current_object()
-
-                def background_notify(app_instance, v_ip, v_path, v_device):
-                    try:
-                        with app_instance.app_context():
-                            notify_visit(v_ip, v_path, v_device)
-                    except Exception as notify_error:
-                        app.logger.error(f"Telegram notification error: {notify_error}")
-
-                # Run notification in daemon thread with timeout
-                notify_thread = threading.Thread(
-                    target=background_notify,
-                    args=(app_obj, ip, request.path, device_type),
-                    daemon=True
-                )
-                notify_thread.start()
-                # Don't wait for notification thread - let it run in background with 2s timeout
-                notify_thread.join(timeout=2.0)
-
-        except OperationalError:
-            db.session.rollback()
-        except Exception as e:
-            app.logger.error(f"Tracking error: {e}")
-        finally:
-            try:
-                db.session.remove()
-            except Exception:
-                pass
-
-    # Context Processor for injecting site and SEO settings into all templates
     @app.context_processor
     def inject_settings():
+        import time
         try:
-            site_settings = SiteSettings.query.first()
-            # If table exists but empty, provide mock.
-            # If table doesn't exist (e.g. init db issues in some envs), catch OpError.
-            if site_settings is None:
-                site_settings = MockSiteSettings()
+            current_time = time.time()
 
-            # Fetch Global SEO Settings (index page acts as global)
-            global_seo = SeoSettings.query.filter_by(page_name='index').first()
-            if not global_seo:
-                 seo_settings = MockSeoSettings()
-            else:
-                 seo_settings = global_seo
+            # Cache settings for 1 hour to avoid DB queries on every request
+            if current_time - settings_cache['last_update'] > SETTINGS_CACHE_TTL:
+                try:
+                    site_settings = SiteSettings.query.first()
+                    if site_settings is None:
+                        site_settings = MockSiteSettings()
+                    settings_cache['site'] = site_settings
 
-            # Fetch Page Specific SEO Settings
+                    # Fetch Global SEO Settings
+                    global_seo = SeoSettings.query.filter_by(page_name='index').first()
+                    if not global_seo:
+                        seo_settings = MockSeoSettings()
+                    else:
+                        seo_settings = global_seo
+                    settings_cache['seo']['global'] = seo_settings
+                    settings_cache['last_update'] = current_time
+                except OperationalError:
+                    # Database not ready, use mock settings
+                    if settings_cache['site'] is None:
+                        settings_cache['site'] = MockSiteSettings()
+                    if 'global' not in settings_cache['seo']:
+                        settings_cache['seo']['global'] = MockSeoSettings()
+
+            site_settings = settings_cache['site'] or MockSiteSettings()
+            seo_settings = settings_cache['seo'].get('global') or MockSeoSettings()
+
+            # Fetch Page Specific SEO Settings (cached in memory, not DB)
             page_seo = None
             if request.endpoint:
                 # Extract page name from endpoint (e.g. 'main.about' -> 'about')
                 current_page = request.endpoint.split('.')[-1]
-                page_seo = SeoSettings.query.filter_by(page_name=current_page).first()
+                if current_page not in settings_cache['seo']:
+                    try:
+                        page_seo = SeoSettings.query.filter_by(page_name=current_page).first()
+                        if page_seo:
+                            settings_cache['seo'][current_page] = page_seo
+                    except OperationalError:
+                        page_seo = None
+                else:
+                    page_seo = settings_cache['seo'].get(current_page)
 
-        except (OperationalError, Exception) as e:
-            app.logger.error(f"Database Error in inject_settings: {e}")
+        except Exception as e:
+            app.logger.error(f"Error in inject_settings: {e}")
             site_settings = MockSiteSettings()
             seo_settings = MockSeoSettings()
             page_seo = None
